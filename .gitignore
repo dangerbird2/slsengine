@@ -7,8 +7,11 @@
 # Libraries
 *.lib
 *.a
+<<<<<<< HEAD
 *.la
 *.lo
+=======
+>>>>>>> 3eb63e404f8a5a258823ebffb21d231e1b7c5e99
 
 # Shared objects (inc. Windows DLLs)
 *.dll
