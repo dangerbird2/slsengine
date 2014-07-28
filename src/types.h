@@ -20,5 +20,6 @@ typedef uint32_t SLuint;
 typedef uint64_t SLuint64;
 
 typedef bool SLbool;
+typedef int32_t SLenum;
 
 #endif

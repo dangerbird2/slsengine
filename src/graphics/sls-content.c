@@ -1,4 +1,6 @@
 #include "sls-content.h"
+#include "sls-sprite.h"
+
 #include <glib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -11,10 +13,14 @@ slsContentManager *slsContentManager_create()
 
     self->textures = g_hash_table_new_full(
         g_str_hash, g_str_equal,
-        sls_hash_string_free,
+        free,
         sls_hash_texture_free
     );
-    self->sprites = NULL;
+    self->sprites = g_hash_table_new_full(
+        g_str_hash, g_str_equal,
+        free,
+        sls_hash_sprite_free
+    );
 
     return self;
 }
@@ -29,14 +35,14 @@ void slsContentManager_destroy(slsContentManager *self)
     if (self != NULL) {free(self);}
 }
 
-void sls_hash_string_free(gpointer data)
-{
-    free((char *) data);
-}
-
 void sls_hash_texture_free(gpointer data)
 {
     SDL_DestroyTexture((SDL_Texture *) data);
+}
+
+void sls_hash_sprite_free(gpointer data)
+{
+    slsSprite_destroy((slsSprite *) data);
 }
 
 SDL_Texture *slsContentManager_load_texture(
@@ -63,6 +69,26 @@ SDL_Texture *slsContentManager_load_texture(
     g_hash_table_insert(self->textures, texture_key_clone, texture);
 
     return texture;
+}
+
+slsSprite *slsContentManager_load_sprite(
+    slsContentManager *self,
+    char const *sprite_key,
+    char const *tgt_texture_key,
+    SDL_Rect const * dest_rect,
+    SDL_Rect const * src_rect)
+{
+    char *sprite_key_clone = g_strdup(sprite_key);
+    g_return_val_if_fail(self != NULL, NULL);
+    SDL_Texture *tex = g_hash_table_lookup(self->textures, tgt_texture_key);
+    g_return_val_if_fail(tex != NULL, NULL);
+
+    slsSprite *sprite = NULL;
+    sprite = slsSprite_create(tex, dest_rect, src_rect);
+    g_return_val_if_fail(sprite != NULL, NULL);
+
+    g_hash_table_insert(self->sprites, sprite_key_clone, sprite);
+    return sprite;
 }
 
 char *get_content_dir(char const *path)
