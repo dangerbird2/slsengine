@@ -6,8 +6,8 @@
 
 slsSprite *slsSprite_create(
     SDL_Texture *tex,
-    SDL_Rect const *dest_rect,
-    SDL_Rect const *src_rect)
+    int x, int y,
+    SDL_Rect const *texture_rect)
 {
     slsSprite *sprite = NULL;
 
@@ -15,21 +15,16 @@ slsSprite *slsSprite_create(
     g_return_val_if_fail(sprite != NULL, NULL);
     g_return_val_if_fail(tex != NULL, NULL);
 
-    if (dest_rect != NULL) {
-        memcpy(&sprite->dest_rect, dest_rect, sizeof(SDL_Rect));
-    } else {
-        // dest rect is size of texture
-        SDL_QueryTexture (tex, NULL, NULL,
-            &sprite->dest_rect.w, &sprite->dest_rect.h);
-    }
-
-    if (src_rect != NULL) {
-        memcpy(&sprite->src_rect, src_rect, sizeof(SDL_Rect));
+    sprite->src_rect = (SDL_Rect) {0, 0, 1, 1};
+    if (texture_rect != NULL) {
+        memcpy(&sprite->src_rect, texture_rect, sizeof(SDL_Rect));
     } else {
         // src rect is size of texture
         SDL_QueryTexture (tex, NULL, NULL,
             &sprite->src_rect.w, &sprite->src_rect.h);
     }
+
+    sprite->dest_rect = (SDL_Rect){x, y, sprite->src_rect.w, sprite->src_rect.h};
 
     return sprite;
 }

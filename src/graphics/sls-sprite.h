@@ -15,7 +15,7 @@ struct _slsSprite {
 
 slsSprite *slsSprite_create(
     SDL_Texture *tex,
-    SDL_Rect const *dest_rect,
+    int x, int y,
     SDL_Rect const *texture_rect
 );
 void slsSprite_destroy(slsSprite *self);
