@@ -37,16 +37,11 @@ void window_custom_render(slsWindow *self, void *data)
 {
     slsSprite *sprite = self->data;
 
-    SDL_Rect dest = {0, 0, sprite->src_rect.w, sprite->src_rect.h};
-    g_assert(sprite->texture != NULL);
-
     SDL_SetRenderDrawColor(
         self->renderer, self->clear_color.r, self->clear_color.g,
         self->clear_color.b, self->clear_color.a);
     SDL_RenderClear(self->renderer);
-
-    SDL_RenderCopy(self->renderer, sprite->texture, NULL, NULL);
-
+    slsSprite_draw(self->renderer, sprite);
     SDL_RenderPresent(self->renderer);
 };
 

@@ -41,7 +41,7 @@ SDL_Texture *slsContentManager_load_texture(
     SDL_Surface *tmp_surface = NULL;
     SDL_Texture *texture = NULL;
 
-    tmp_surface = IMG_Load(get_content_dir(image_path));
+    tmp_surface = IMG_Load(image_path);
     if (!tmp_surface) {
         g_critical("IMG_Load(): %s\n", IMG_GetError());
         g_return_val_if_reached(NULL);

@@ -1,5 +1,5 @@
 /*
- * sls-component-transform.h
+ * component-entity.h
  *
  * The MIT License (MIT)
  *
@@ -26,29 +26,10 @@
  *      Author: steven
  */
 
-#ifndef SLS_COMPONENT_TRANSFORM_H_
-#define SLS_COMPONENT_TRANSFORM_H_
+#ifndef COMPONENT_ENTITY_H_
+#define COMPONENT_ENTITY_H_
 
-#include "../types.h"
-#include "../linalg/vectypes.h"
+#include "sls-entity-table.h"
 
-struct slsComponentTransform {
-	vec2d position;
-	vec2d scale;
 
-	/*
-	 * rotation is in RADIANS!!!!
-	 */
-	float rotation;
-};
-
-static inline struct slsComponentTransform sls_default_transform()
-{
-	return (struct slsComponentTransform) {
-		.position = (vec2d) {0.0, 0.0},
-		.scale = (vec2d) {1.0, 1.0},
-		.rotation = 0.0
-	};
-}
-
-#endif /* SLS_COMPONENT_TRANSFORM_H_ */
+#endif /* COMPONENT_ENTITY_H_ */

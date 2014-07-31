@@ -26,6 +26,6 @@ SDL_Texture *slsContentManager_load_texture(
 
 // dummy function returns argument unchanged
 // todo: append path to proper game content path
-char *get_content_dir(char const *path);
+//char *get_content_dir(char const *path);
 
 #endif

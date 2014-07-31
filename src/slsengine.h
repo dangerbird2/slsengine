@@ -3,10 +3,10 @@
 
 #include "window/window.h"
 #include "graphics/graphics.h"
+#include "ComponentEntity/componententity.h"
 
 #include "types.h"
 #include "linalg/vectypes.h"
 #include "setup.h"
-#include "game/behavior.h"
 
 #endif

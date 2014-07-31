@@ -2,6 +2,7 @@
 #define __SLS_SPRITE_H__
 
 #include "../types.h"
+#include "../linalg/vectypes.h"
 
 #include <SDL2/SDL.h>
 
@@ -19,5 +20,8 @@ slsSprite *slsSprite_create(
     SDL_Rect const *texture_rect
 );
 void slsSprite_destroy(slsSprite *self);
+
+void slsSprite_draw(SDL_Renderer *renderer, slsSprite *sprite);
+void slsSprite_draw_transformed(SDL_Renderer *renderer, slsSprite *sprite);
 
 #endif

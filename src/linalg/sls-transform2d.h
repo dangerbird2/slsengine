@@ -1,5 +1,5 @@
 /*
- * world.c
+ * sls-component-transform.h
  *
  * The MIT License (MIT)
  *
@@ -26,47 +26,29 @@
  *      Author: steven
  */
 
-#ifndef WORLD_C_
-#define WORLD_C_
+#ifndef SLS_TRANSFORM_2D_H_
+#define SLS_TRANSFORM_2D_H_
 
-#define MAX_COMPONENTS 50
-
-#include <glib.h>
-#include "sls-component-transform.h"
 #include "../types.h"
+#include "vectypes.h"
 
-typedef enum {
-	COMPONENT_NONE = 0,
-	COMPONENT_TRANSFORM = 1 << 0
-} slsComponent;
+struct slsTransform2D {
+	vec2d position;
+	vec2d scale;
 
-typedef struct _slsWorld slsWorld;
-
-struct _slsWorld {
-	GArray *component_mask; // type slsComponent
-
-	/**
-	 * list component arrays here
+	/*
+	 * rotation is in RADIANS!!!!
 	 */
-
-	GArray *transform; //type struct slsComponentTransform
+	float rotation;
 };
 
-slsWorld *slsWorld_create();
-void slsWorld_free(slsWorld *world);
+static inline struct slsTransform2D sls_default_transform()
+{
+	return (struct slsTransform2D) {
+		.position = (vec2d) {0.0, 0.0},
+		.scale = (vec2d) {1.0, 1.0},
+		.rotation = 0.0
+	};
+}
 
-/**
- * appends to each component and the component-map arrays one index
- * returns etity ID index
- */
-SLuint slsWorld_addEntity(slsWorld *world);
-void slsWorld_removeEntity(slsWorld *world, SLuint entity_id);
-
-
-/**
- * ensures each component list in world is of equal length.
- */
-SLbool slsWorld_validate(slsWorld *world);
-
-
-#endif /* WORLD_C_ */
+#endif /* SLS_TRANSFORM_2D_H_ */

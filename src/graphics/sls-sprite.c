@@ -15,6 +15,8 @@ slsSprite *slsSprite_create(
     g_return_val_if_fail(sprite != NULL, NULL);
     g_return_val_if_fail(tex != NULL, NULL);
 
+    sprite->texture = tex;
+
     sprite->src_rect = (SDL_Rect) {0, 0, 1, 1};
     if (texture_rect != NULL) {
         memcpy(&sprite->src_rect, texture_rect, sizeof(SDL_Rect));
@@ -31,4 +33,9 @@ slsSprite *slsSprite_create(
 void slsSprite_destroy(slsSprite *self)
 {
     if (self) {free(self);}
+}
+
+void slsSprite_draw(SDL_Renderer *renderer, slsSprite *sprite)
+{
+    SDL_RenderCopy(renderer, sprite->texture, &sprite->src_rect, &sprite->dest_rect);
 }

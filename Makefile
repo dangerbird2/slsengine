@@ -5,13 +5,13 @@ all:tests
 CC=clang
 
 #packages linked via pkg-config
-PKGS= glib-2.0 csfml-all sfml-all
+PKGS= glib-2.0
 
 CFLAGS=-g -Wall -fblocks -std=gnu99 $(shell pkg-config --cflags $(PKGS)) -I$(CURDIR)/src
 LDLIBS=$(shell pkg-config --libs $(PKGS)) -lBlocksRuntime -lSDL2 -lSDL2_image -lSDL2_mixer
 
 #the main target build
-ENGINE_NAME=libsrproto.a
+ENGINE_NAME=libsls.a
 ENGINE_SRC=$(wildcard src/**/*.c src/*.c)
 ENGINE_HDR=$(wildcard src/**/*.h src/*.h)
 ENGINE_OBJ=$(patsubst %.c,%.o,$(ENGINE_SRC))
@@ -36,7 +36,7 @@ $(TEST_TGT):$(TEST_OBJ) $(ENGINE_TGT)
 
 .PHONY:tests testdbg testvalgrind
 tests: $(TEST_TGT)
-	gtester $(TEST_TGT)
+	gtester --verbose $(TEST_TGT)
 
 testdbg:$(TEST_TGT)
 	gdb $(TEST_TGT)
@@ -48,8 +48,6 @@ testvalgrind:$(TEST_TGT)
 build:
 	@mkdir -p lib
 	@mkdir -p bin
-
-
 
 
 .PHONY: clean

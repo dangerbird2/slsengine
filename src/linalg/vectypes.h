@@ -24,6 +24,10 @@ typedef double vec4d __ext_vector(4);
 typedef double vec3d __ext_vector(3);
 typedef double vec2d __ext_vector(2);
 
+typedef int vec4i __ext_vector(4);
+typedef int vec3i __ext_vector(3);
+typedef int vec2i __ext_vector(2);
+
 
 /**
  * utility macros for printing vectors in a consistent manner
@@ -57,7 +61,7 @@ static inline float vec3f_length(vec3f a)
 	return sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
 }
 
-static inline vec3f vec3f_normalize(vec3f a) 
+static inline vec3f vec3f_normalize(vec3f a)
 {
 	float l = vec3f_length(a);
 	return a / ((vec3f) {l, l, l});
@@ -78,7 +82,7 @@ static inline float vec4f_length(vec4f a)
 	return sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w*a.w));
 }
 
-static inline vec4f vec4f_normalize(vec4f a) 
+static inline vec4f vec4f_normalize(vec4f a)
 {
 	float l = vec4f_length(a);
 	return a / ((vec4f) {l, l, l, l});

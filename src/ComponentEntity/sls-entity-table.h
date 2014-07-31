@@ -1,5 +1,5 @@
 /*
- * component-entity.h
+ * world.c
  *
  * The MIT License (MIT)
  *
@@ -26,11 +26,53 @@
  *      Author: steven
  */
 
-#ifndef COMPONENT_ENTITY_H_
-#define COMPONENT_ENTITY_H_
+#ifndef WORLD_C_
+#define WORLD_C_
 
-#include "sls-world.h"
-#include "sls-component-transform.h"
+#define MAX_COMPONENTS 50
+
+#include <glib.h>
+#include "../linalg/sls-transform2d.h"
+#include "../types.h"
+
+typedef enum {
+	COMPONENT_NONE = 0,
+	COMPONENT_TRANSFORM = 1 << 0
+} slsComponent;
+
+typedef struct _slsEntityTable slsEntityTable;
+
+/*********************************************************************
+ *
+ * entity table type
+ *
+ **********************************************************************/
+
+struct _slsEntityTable {
+	GArray *component_mask; // type slsComponent
+
+	/**
+	 * list component arrays here
+	 */
+
+	GArray *transform; //type struct slsTransform2D
+};
+
+slsEntityTable *slsEntityTable_create();
+void slsEntityTable_free(slsEntityTable *world);
+
+/**
+ * appends to each component and the component-map arrays one index
+ * returns etity ID index
+ */
+SLuint slsEntityTable_addEntity(slsEntityTable *world);
+void slsEntityTable_removeEntity(slsEntityTable *world, SLuint entity_id);
 
 
-#endif /* COMPONENT_ENTITY_H_ */
+/**
+ * ensures each component list in world is of equal length.
+ */
+SLbool slsEntityTable_validate(slsEntityTable *world);
+
+
+#endif /* WORLD_C_ */
