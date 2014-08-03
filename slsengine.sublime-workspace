@@ -1,0 +1,462 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"GL",
+				"GL_ARRAY_BUFFER"
+			],
+			[
+				"C",
+				"CXX_SRC"
+			],
+			[
+				"st",
+				"stdhdr.h"
+			],
+			[
+				"uni",
+				"uniforms"
+			],
+			[
+				"att",
+				"attributes"
+			],
+			[
+				"SDL_I",
+				"SDL_INIT_EVERYTHING"
+			],
+			[
+				"vs",
+				"vspath"
+			],
+			[
+				"cre",
+				"create_program"
+			],
+			[
+				"log",
+				"log_len"
+			],
+			[
+				"pr",
+				"program"
+			],
+			[
+				"com",
+				"compile_program"
+			],
+			[
+				"crea",
+				"create_shader"
+			],
+			[
+				"sour",
+				"source_len"
+			],
+			[
+				"sha",
+				"shader_type"
+			],
+			[
+				"get",
+				"get_shader_source"
+			],
+			[
+				"shader",
+				"shader_source"
+			],
+			[
+				"sh",
+				"shader"
+			],
+			[
+				"s_",
+				"s_size"
+			],
+			[
+				"re",
+				"result"
+			],
+			[
+				"shad",
+				"shader_file"
+			],
+			[
+				"SDL_",
+				"SDL_Log"
+			],
+			[
+				"def",
+				"def_clear_color"
+			],
+			[
+				"SDL",
+				"SDL_Quit"
+			],
+			[
+				"CXX",
+				"CXXFLAGS"
+			],
+			[
+				"CX",
+				"CXX_OBJ"
+			],
+			[
+				"s",
+				"stdhdr.h"
+			],
+			[
+				"inc",
+				"include"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/home/steven/projects/ogl-test/Makefile",
+			"settings":
+			{
+				"buffer_size": 379,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/steven/projects/ogl-test/mesh.cpp",
+			"settings":
+			{
+				"buffer_size": 511,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/steven/projects/ogl-test/mesh.h",
+			"settings":
+			{
+				"buffer_size": 375,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"ctag",
+				"CTags: Rebuild Tags"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"tags",
+				"CTags: Show Symbols (all)"
+			],
+			[
+				"cta",
+				"CTags: Show Symbols (all)"
+			],
+			[
+				"syntax c+",
+				"Set Syntax: C++"
+			],
+			[
+				"packagei",
+				"Package Control: Install Package"
+			],
+			[
+				"clang",
+				"Clang Format: Format Selection"
+			],
+			[
+				"format",
+				"Clang Format: Format Selection"
+			],
+			[
+				"ctags",
+				"CTags: Rebuild Tags"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"packag",
+				"Package Control: Install Package"
+			],
+			[
+				"packi",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 502.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/steven/projects/slsengine/tests/window-test.c",
+		"/home/steven/Documents/public3dprintingcorps.md",
+		"/home/steven/Downloads/nuget",
+		"/home/steven/projects/slsengine/tests/main.c",
+		"/home/steven/Desktop/nightcode",
+		"/home/steven/projects/ogl-test/Makefile",
+		"/home/steven/projects/ogl-test/main.cpp",
+		"/home/steven/projects/ogl-test/demogame.cpp",
+		"/home/steven/projects/ogl-test/game.cpp",
+		"/home/steven/projects/ogl-test/game.h",
+		"/home/steven/projects/ogl-test/shader.h",
+		"/home/steven/projects/ogl-test/demogame.h",
+		"/home/steven/projects/ogl-test/shaders/base.vert",
+		"/home/steven/projects/ogl-test/shaders/base.frag",
+		"/home/steven/projects/ogl-test/shader.cpp",
+		"/home/steven/projects/ogl-test/stdhdr.h",
+		"/home/steven/projects/ogl-test/.tags_sorted_by_file",
+		"/home/steven/projects/ogl-test/.tags",
+		"/home/steven/projects/ogl-test/tags",
+		"/home/steven/.config/sublime-text-3/Packages/User/SublimeLinter.sublime-settings",
+		"/home/steven/.config/sublime-text-3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/home/steven/projects/slsengine/Makefile",
+		"/home/steven/projects/slsengine/tests/component-test.h",
+		"/home/steven/projects/slsengine/src/slsengine.h",
+		"/home/steven/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/steven/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/steven/Downloads/SFML-2.1/build/CMakeFiles/CMakeOutput.log"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"SYMBOL",
+			"std::string",
+			"SYMBOL",
+			", clear_color[1]",
+			"SYMBOL"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"__SLS_CLASS_MESH__H",
+			"__SLS_CLASS_DEMOGAME_H__",
+			"std::string const",
+			"__SLS_CLASS_SHADER_H__",
+			"__SLS_CLASS_GAME_H__",
+			"__SLS_PREC_HEADER_H__"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/steven/projects/ogl-test/Makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 379,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								89,
+								89
+							]
+						],
+						"settings":
+						{
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/steven/projects/ogl-test/mesh.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 511,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								310,
+								310
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/steven/projects/ogl-test/mesh.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								168,
+								168
+							]
+						],
+						"settings":
+						{
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "slsengine.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

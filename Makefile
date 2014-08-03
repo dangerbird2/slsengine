@@ -1,5 +1,6 @@
 all:build
 all:$(ENGINE_TGT)
+all:demobuild
 all:tests
 
 CC=clang
@@ -25,7 +26,7 @@ $(ENGINE_TGT): $(ENGINE_OBJ)
 
 #test build
 
-TEST_NAME=srprototest
+TEST_NAME=slsprototest
 TEST_SRC=$(wildcard tests/**/*.c tests/*.c)
 TEST_HDR=$(wildcard tests/**/*.h tests/*.h)
 TEST_OBJ=$(patsubst %.c,%.o,$(TEST_SRC))
@@ -38,13 +39,20 @@ $(TEST_TGT):$(TEST_OBJ) $(ENGINE_TGT)
 tests: $(TEST_TGT)
 	gtester --verbose $(TEST_TGT)
 
-testdbg:$(TEST_TGT)
-	gdb $(TEST_TGT)
+DEMO_NAME=demo
+DEMO_SRC=$(wildcard demosrc/*.c demosrc/**/*.c)
+DEMO_OBJ=$(patsubst %.c,%.o,$(DEMO_SRC))
+DEMO_TGT=bin/$(DEMO_NAME)
 
-testvalgrind:$(TEST_TGT)
-	valgrind $(TEST_TGT)
+$(DEMO_TGT):$(DEMO_OBJ) $(ENGINE_TGT)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-.PHONY: build
+.PHONY:demobuild
+demobuild: $(DEMO_TGT)
+	./$(DEMO_TGT)
+
+
+.PHONY: build 
 build:
 	@mkdir -p lib
 	@mkdir -p bin

@@ -5,7 +5,8 @@
 
 
 typedef struct {
-    slsComp *window;
+    slsWindow *window;
+    slsEntityTable *entities;
 
 } CompFix;
 

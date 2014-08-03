@@ -31,7 +31,8 @@
 
 #define MAX_COMPONENTS 50
 
-#include <glib.h>
+#include "../stdhdr.h"
+ 
 #include "../linalg/sls-transform2d.h"
 #include "../types.h"
 

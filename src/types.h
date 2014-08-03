@@ -1,7 +1,7 @@
 #ifndef __SLS_TYPES_H__
 #define __SLS_TYPES_H__
 
-#include <stdint.h>
+#include <inttypes.h>
 #include <stdbool.h>
 
 

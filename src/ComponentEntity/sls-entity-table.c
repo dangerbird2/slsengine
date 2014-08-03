@@ -26,13 +26,13 @@
  *      Author: steven
  */
 
-#include "../types.h"
-#include "../linalg/vectypes.h"
+
+
 #include "sls-entity-table.h"
+#include "../linalg/vectypes.h"
 #include "../linalg/sls-transform2d.h"
-#include <glib.h>
-#include <stdio.h>
-#include <stdlib.h>
+
+#include "../stdhdr.h"
 
 slsEntityTable *slsEntityTable_create()
 {

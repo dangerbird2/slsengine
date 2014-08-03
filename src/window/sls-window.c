@@ -1,14 +1,7 @@
+
+#include "../stdhdr.h"
 #include "sls-window.h"
 
-#include <SDL2/SDL.h>
-#include <glib.h>
-
-#include "../types.h"
-#include "../macros/dbg.h"
-#include "sls-window.h"
-
-#include <stdlib.h>
-#include <string.h>
 
 static int window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
 static int window_height = 480;
@@ -24,7 +17,6 @@ slsWindow *slsWindow_create(const char *caption, void *data)
 
 	// create window name
 	self->name = g_string_new(caption);
-	self->is_open = false;
 
 	// create window & renderer
 
@@ -39,25 +31,11 @@ slsWindow *slsWindow_create(const char *caption, void *data)
 	SDL_SetWindowTitle(self->window, self->name->str);
 	//set clear color
 
-	self->clear_color = (SDL_Color) {0x1F, 0x37, 0x68, 255};
-	self->data = data;
-	// clear callbacks
-	slsWindow_clear_callbacks(self);
+	
 
 	return self;
 }
 
-void slsWindow_clear_callbacks(slsWindow *self)
-{
-	// set callbacks to NULL
-	self->run = NULL;
-	self->poll_events = NULL;
-	self->load_content = NULL;
-	self->update = NULL;
-	self->fixed_update = NULL;
-	self->resize = NULL;
-	self->render = NULL;
-}
 
 void *slsWindow_destroy(slsWindow *self)
 {
