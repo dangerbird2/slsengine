@@ -7,9 +7,11 @@ SLbool demo(int *argc, char const **argv[])
 {
 	slsGlWindow *window = NULL;
 	window = slsGlWindow_create("demo", NULL);
-	g_return_val_if_fail(window, false);
+	g_return_val_if_fail(window != NULL, false);
 
-	window->run(window, NULL);
+	if (window->run != NULL){
+		window->run(window, NULL);
+	}
 
 	window->dtor(window);
 	return true;

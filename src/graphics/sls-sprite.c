@@ -13,7 +13,10 @@ slsSprite *slsSprite_create(
 
     sprite = malloc(sizeof(slsSprite));
     g_return_val_if_fail(sprite != NULL, NULL);
-    g_return_val_if_fail(tex != NULL, NULL);
+    if (!tex) {
+        free (sprite);
+        g_return_val_if_reached(NULL);
+    }
 
     sprite->texture = tex;
 

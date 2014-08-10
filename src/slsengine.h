@@ -5,6 +5,8 @@
 #include "graphics/graphics.h"
 #include "ComponentEntity/componententity.h"
 
+#include "gl/sls-gl.h"
+
 #include "types.h"
 #include "linalg/vectypes.h"
 #include "setup.h"

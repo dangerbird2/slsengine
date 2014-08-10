@@ -4,6 +4,62 @@
 		"selected_items":
 		[
 			[
+				"shad",
+				"shader_name"
+			],
+			[
+				"sls-",
+				"sls-shader.h"
+			],
+			[
+				"TES",
+				"TEST_OBJ"
+			],
+			[
+				"clear",
+				"clear_color"
+			],
+			[
+				"slsr",
+				"slsGlWndow_render"
+			],
+			[
+				"slsc",
+				"slsGlWndow_load_content"
+			],
+			[
+				"slsWin",
+				"slsWindow_destroy"
+			],
+			[
+				"sls",
+				"slsGlWindow_destroy"
+			],
+			[
+				"slsWindow_",
+				"slsGlWindow_create"
+			],
+			[
+				"dem",
+				"DEMO_TGT"
+			],
+			[
+				"demo",
+				"demobuild"
+			],
+			[
+				"EN",
+				"ENGINE_TGT"
+			],
+			[
+				"DEMO",
+				"DEMO_OBJ"
+			],
+			[
+				"DE",
+				"DEMO_TGT"
+			],
+			[
 				"GL",
 				"GL_ARRAY_BUFFER"
 			],
@@ -80,10 +136,6 @@
 				"result"
 			],
 			[
-				"shad",
-				"shader_file"
-			],
-			[
 				"SDL_",
 				"SDL_Log"
 			],
@@ -116,26 +168,10 @@
 	"buffers":
 	[
 		{
-			"file": "/home/steven/projects/ogl-test/Makefile",
+			"file": "/home/steven/Downloads/corefw/Makefile",
 			"settings":
 			{
-				"buffer_size": 379,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/steven/projects/ogl-test/mesh.cpp",
-			"settings":
-			{
-				"buffer_size": 511,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/steven/projects/ogl-test/mesh.h",
-			"settings":
-			{
-				"buffer_size": 375,
+				"buffer_size": 53,
 				"line_ending": "Unix"
 			}
 		}
@@ -147,12 +183,24 @@
 		"selected_items":
 		[
 			[
-				"ctag",
-				"CTags: Rebuild Tags"
+				"ci",
+				"Set Syntax: C Improved"
+			],
+			[
+				"set ci",
+				"Set Syntax: C Improved"
 			],
 			[
 				"pack",
 				"Package Control: Install Package"
+			],
+			[
+				"set c",
+				"Set Syntax: C"
+			],
+			[
+				"ctag",
+				"CTags: Rebuild Tags"
 			],
 			[
 				"tags",
@@ -195,7 +243,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 502.0
+		"width": 746.0
 	},
 	"console":
 	{
@@ -216,12 +264,39 @@
 	},
 	"file_history":
 	[
+		"/home/steven/projects/slsengine/src/gl/sls-gl.h",
+		"/home/steven/projects/slsengine/src/slsengine.h",
+		"/home/steven/projects/slsengine/src/gl/mesh.h",
+		"/home/steven/projects/slsengine/src/gl/mesh.c",
+		"/home/steven/projects/slsengine/src/gl/sls-shader.h",
+		"/home/steven/projects/slsengine/src/gl/sls-shader.c",
+		"/home/steven/projects/slsengine/src/gl/gl.h",
+		"/home/steven/projects/slsengine/Makefile",
+		"/home/steven/projects/slsengine/src/graphics/shaderutils.h",
+		"/home/steven/projects/slsengine/demosrc/main.c",
+		"/home/steven/projects/slsengine/src/window/window.h",
+		"/home/steven/projects/slsengine/src/window/sls-window.h",
+		"/home/steven/projects/slsengine/src/window/sls-glwindow.h",
+		"/home/steven/projects/slsengine/src/window/sls-glwindow.c",
+		"/home/steven/projects/slsengine/src/graphics/shaderutils.c",
+		"/home/steven/projects/slsengine/src/setup.h~",
+		"/home/steven/projects/slsengine/src/stdhdr.h",
+		"/home/steven/projects/slsengine/src/window/sls-window.c",
+		"/home/steven/projects/slsengine/src/window/sls-game-window.c",
+		"/home/steven/projects/slsengine/src/window/sls-game-window.h",
+		"/home/steven/projects/slsengine/src/ComponentEntity/sls-entity-table.c",
+		"/home/steven/projects/slsengine/src/ComponentEntity/sls-entity-table.h",
+		"/home/steven/projects/slsengine/src/linalg/component-entity.h",
+		"/home/steven/projects/slsengine/tests/main.c",
+		"/home/steven/projects/slsengine/src/types.h",
 		"/home/steven/projects/slsengine/tests/window-test.c",
+		"/home/steven/projects/slsengine/tests/window-test.h",
+		"/home/steven/projects/ogl-test/mesh.h",
+		"/home/steven/projects/ogl-test/mesh.cpp",
+		"/home/steven/projects/ogl-test/Makefile",
 		"/home/steven/Documents/public3dprintingcorps.md",
 		"/home/steven/Downloads/nuget",
-		"/home/steven/projects/slsengine/tests/main.c",
 		"/home/steven/Desktop/nightcode",
-		"/home/steven/projects/ogl-test/Makefile",
 		"/home/steven/projects/ogl-test/main.cpp",
 		"/home/steven/projects/ogl-test/demogame.cpp",
 		"/home/steven/projects/ogl-test/game.cpp",
@@ -237,9 +312,7 @@
 		"/home/steven/projects/ogl-test/tags",
 		"/home/steven/.config/sublime-text-3/Packages/User/SublimeLinter.sublime-settings",
 		"/home/steven/.config/sublime-text-3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
-		"/home/steven/projects/slsengine/Makefile",
 		"/home/steven/projects/slsengine/tests/component-test.h",
-		"/home/steven/projects/slsengine/src/slsengine.h",
 		"/home/steven/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
 		"/home/steven/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
 		"/home/steven/Downloads/SFML-2.1/build/CMakeFiles/CMakeOutput.log"
@@ -257,9 +330,13 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"SYMBOL",
+			"Wndow",
+			";",
+			"slsglWindow",
 			"SYMBOL",
 			"std::string",
 			"SYMBOL",
@@ -272,6 +349,13 @@
 		"regex": false,
 		"replace_history":
 		[
+			"__SLS_SHADER_H__",
+			"__SLS_MODULE_GL_H__",
+			"Window",
+			"{}",
+			"slsGlWindow",
+			"__SLS_GL_WINDOW_H__",
+			"__SLS_ENGINE_HEADERS_H__",
 			"__SLS_CLASS_MESH__H",
 			"__SLS_CLASS_DEMOGAME_H__",
 			"std::string const",
@@ -288,89 +372,30 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/steven/projects/ogl-test/Makefile",
+					"file": "/home/steven/Downloads/corefw/Makefile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 379,
+						"buffer_size": 53,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								89,
-								89
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"side_bar_folders_auto_load_folder": 1,
 							"syntax": "Packages/Makefile/Makefile.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/steven/projects/ogl-test/mesh.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 511,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								310,
-								310
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"side_bar_folders_auto_load_folder": 1,
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/steven/projects/ogl-test/mesh.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 375,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								168,
-								168
-							]
-						],
-						"settings":
-						{
-							"side_bar_folders_auto_load_folder": 1,
-							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -384,7 +409,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -453,7 +478,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 150.0,
 	"status_bar_visible": true,
 	"template_settings":

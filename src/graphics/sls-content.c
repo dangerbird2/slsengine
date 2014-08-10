@@ -1,9 +1,7 @@
 #include "sls-content.h"
 #include "sls-sprite.h"
 
-#include <glib.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include "../stdhdr.h"
 
 slsContentManager *slsContentManager_create()
 {
@@ -17,6 +15,12 @@ slsContentManager *slsContentManager_create()
         sls_hash_texture_free
     );
 
+    self->shaders = g_hash_table_new_full(
+        g_str_hash, g_str_equal,
+        free,
+        sls_hash_shader_free
+    );
+
     return self;
 }
 void slsContentManager_destroy(slsContentManager *self)
@@ -27,9 +31,16 @@ void slsContentManager_destroy(slsContentManager *self)
     if (self != NULL) {free(self);}
 }
 
-void sls_hash_texture_free(gpointer data)
+void sls_hash_texture_free(gpointer texture)
 {
-    SDL_DestroyTexture((SDL_Texture *) data);
+    SDL_DestroyTexture((SDL_Texture *) texture);
+}
+
+void sls_hash_shader_free(gpointer shader)
+{
+    slsShader *self = shader;
+    if (self->dtor != NULL)
+    self->dtor(self);
 }
 
 SDL_Texture *slsContentManager_load_texture(
@@ -52,8 +63,26 @@ SDL_Texture *slsContentManager_load_texture(
         g_return_val_if_reached(NULL);
     }
     // add texture to texture hash table
-    char *texture_key_clone = g_strdup(texture_key);
-    g_hash_table_insert(self->textures, texture_key_clone, texture);
+    char const *texture_key_clone = g_strdup(texture_key);
+    g_hash_table_insert(self->textures, (gpointer) texture_key_clone, texture);
 
     return texture;
+}
+
+
+slsShader *slsContentManager_load_shader(
+    slsContentManager *self,
+    char const *shader_name,
+    char const *vspath,
+    char const *fspath)
+{
+    slsShader *shader = NULL;
+    shader = slsShader_create(shader_name, vspath, fspath);
+    g_return_val_if_fail(shader != NULL, NULL);
+
+    char const *shader_key = g_strdup(shader_name);
+
+    g_hash_table_insert(self->shaders, (gpointer) shader_key, shader);
+
+    return shader;
 }

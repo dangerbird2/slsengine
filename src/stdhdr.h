@@ -41,6 +41,7 @@
  ****************************************/
 #include "types.h"
 #include "macros/dbg.h"
+#include "linalg/vectypes.h"
 #include "macros/constants.h"
 
 #endif

@@ -26,6 +26,7 @@ slsWindow *slsWindow_create(const char *caption, void *data)
 	);
 	if (window_created < 0) {
 		g_printerr("%s\n", SDL_GetError());
+		free(self);
 		g_return_val_if_reached(NULL);
 	}
 	SDL_SetWindowTitle(self->window, self->name->str);

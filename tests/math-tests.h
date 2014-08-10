@@ -1,7 +1,7 @@
 #ifndef __SLS_MATH_TESTS_H__
 #define __SLS_MATH_TESTS_H__
 
-#include <glib.h>
+#include <glib-2.0/glib.h>
 #include "../src/slsengine.h"
 
 typedef struct {

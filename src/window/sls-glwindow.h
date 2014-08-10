@@ -5,14 +5,41 @@
 
 typedef struct _slsGlWindow slsGlWindow;
 
+/**
+ * @brief window management structure
+ * @details structure managing SDL openGL contextm including main loop callbacks. "inherrits" slsWindow via a pointer to a window object.
+ * 
+ */
 struct _slsGlWindow {
 	GString *name; // note: a pointer to slsWindow's name
 	void *data;
 
 	slsWindow *super;
 	SLbool is_open;
+	SDL_GLContext context;
 
+	vec4f clear_color;
+
+	/**
+	 * @brief calls main loop
+	 * @details [long description]
+	 * 
+	 * @param n "self"--aka struct containing method
+	 * @param data user-defined data
+	 * 
+	 * @return void
+	 */
 	void (*run)				(slsGlWindow *self, void *data);
+
+	/**
+	 * @brief polls SDL events
+	 * @details [long description]
+	 * 
+	 * @param n "self"--aka struct containing method
+	 * @param data user-defined data
+	 * 
+	 * @return void
+	 */
 	void (*poll_events)		(slsGlWindow *self, void *data);
 	void (*load_content)	(slsGlWindow *self, void *data);
 	void (*update)			(slsGlWindow *self, double dt, void *data);
@@ -25,12 +52,14 @@ struct _slsGlWindow {
 slsGlWindow *slsGlWindow_create(const char *caption, void *data);
 void *slsGlWindow_destroy(slsGlWindow *self);
 
-void slsGlWndow_run	(slsGlWindow *self, void *data);
-void slsGlWndow_poll_events	(slsGlWindow *self, void *data);
-void slsGlWndow_load_content (slsGlWindow *self, void *data);
-void slsGlWndow_update (slsGlWindow *self, double dt, void *data);
+void slsGlWindow_run	(slsGlWindow *self, void *data);
+void slsGlWindow_poll_events	(slsGlWindow *self, void *data);
+void slsGlWindow_load_content (slsGlWindow *self, void *data);
+void slsGlWindow_update (slsGlWindow *self, double dt, void *data);
 
-void slsGlWndow_resize (slsGlWindow *self, int w, int h, void *data);
-void slsGlWndow_render (slsGlWindow *self, void *data);
+void slsGlWindow_resize (slsGlWindow *self, int w, int h, void *data);
+void slsGlWindow_render (slsGlWindow *self, void *data);
+
+void sls_gl_init(slsGlWindow *self);
 
 #endif

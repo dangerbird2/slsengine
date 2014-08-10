@@ -8,8 +8,23 @@ CC=clang
 #packages linked via pkg-config
 PKGS= glib-2.0
 
-CFLAGS=-g -Wall -fblocks -std=gnu99 $(shell pkg-config --cflags $(PKGS)) -I$(CURDIR)/src
-LDLIBS=$(shell pkg-config --libs $(PKGS)) -lBlocksRuntime -lSDL2 -lSDL2_image -lSDL2_mixer
+
+#clang analyzer conventions
+CHECK_CONVENTIONS=	\
+	-analyze 	\
+	-Xanalyze -analyzer-check-llvm-conventions	\
+	-Xanalyze  -analyzer-check-dead-stores		\
+
+CFLAGS=-g -Wall -std=gnu99 $(shell pkg-config --cflags $(PKGS)) -I$(CURDIR)/src 
+LDLIBS=-lm 	\
+	-lpthread	\
+	-lGL 		\
+	-lGLEW 		\
+	$(shell pkg-config --libs $(PKGS))	\
+	-lSDL2 		\
+	-lSDL2_image \
+	-lSDL2_mixer
+
 
 #the main target build
 ENGINE_NAME=libsls.a
@@ -52,7 +67,7 @@ demobuild: $(DEMO_TGT)
 	./$(DEMO_TGT)
 
 
-.PHONY: build 
+.PHONY: build
 build:
 	@mkdir -p lib
 	@mkdir -p bin
@@ -60,13 +75,17 @@ build:
 
 .PHONY: clean
 clean:
-	rm -rf build bin $(ENGINE_OBJ)
+	rm -rf build bin $(ENGINE_OBJ) $(DEMO_OBJ) $(TEST_OBJ)
 	find . -name "*.gc*" -exec rm {} \;
 	rm -rf `find . -name "*.dSYM" -print`
 
 #clang formatter command
 
-FORMAT_OPTIONS=-style=LLVM
+FORMAT_OPTIONS=-style=Google
 .PHONY: format
 format:
 	clang-format-3.3 -i $(FORMAT_OPTIONS) $(ENGINE_SRC) $(ENGINE_HDR)
+
+.PHONY: check
+
+		
