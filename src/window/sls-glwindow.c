@@ -88,7 +88,10 @@ void slsGlWindow_update (slsGlWindow *self, double dt, void *data)
 
 }
 
-void slsGlWindow_resize (slsGlWindow *self, int w, int h, void *data){}
+void slsGlWindow_resize (slsGlWindow *self, int w, int h, void *data)
+{
+	glViewport(0, 0, w, h);
+}
 
 void slsGlWindow_render (slsGlWindow *self, void *data)
 {
@@ -127,4 +130,5 @@ void sls_gl_init(slsGlWindow *self)
 	// enable gl features
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }

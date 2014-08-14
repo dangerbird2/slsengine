@@ -1,3 +1,9 @@
+#depreciated files
+*.dep
+
+#cscope databases
+*.out
+
 # Object files
 *.o
 *.ko

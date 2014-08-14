@@ -20,7 +20,7 @@ slsShader *slsShader_create(char const *shader_name, char const *vspath, char co
 	/*
 	 * create and compile GLSL program using shaderutils.h functions
 	 */
-	self->program = create_program(fspath, vspath);
+	self->program = create_program(vspath, fspath);
 
 	/*
 	 * get attribute locations, and store indices in slsShaderAttributes &
@@ -29,7 +29,7 @@ slsShader *slsShader_create(char const *shader_name, char const *vspath, char co
 	self->attributes = (slsShaderAttributes) {
 		.vertPosition = get_attrib(self->program, "vertPosition"),
 		.vertNormal = 	get_attrib(self->program, "vertNormal"),
-		.vertUv = 		get_attrib(self->program, "vertUV")
+		.vertUv = 		get_attrib(self->program, "vertUv")
 	};
 
 	self->uniforms = (slsShaderUnifs) {

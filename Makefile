@@ -75,7 +75,7 @@ build:
 
 .PHONY: clean
 clean:
-	rm -rf build bin $(ENGINE_OBJ) $(DEMO_OBJ) $(TEST_OBJ)
+	rm -rf lib build bin $(ENGINE_OBJ) $(DEMO_OBJ) $(TEST_OBJ)
 	find . -name "*.gc*" -exec rm {} \;
 	rm -rf `find . -name "*.dSYM" -print`
 
