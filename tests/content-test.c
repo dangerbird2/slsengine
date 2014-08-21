@@ -1,4 +1,3 @@
-#include "content-test.h"
 #include "../src/slsengine.h"
 #include <glib.h>
 
@@ -9,11 +8,21 @@ typedef struct {
 	slsGlWindow *window;
 } contentFix;
 
+/**
+ * forward declarations
+ */
+void content_teardown(contentFix *fix, gconstpointer data);
+void content_setup(contentFix *fix, gconstpointer data);
+
+
 void content_setup(contentFix *fix, gconstpointer data)
 {
 	fix->window = slsGlWindow_create("test", NULL);
 	fix->mgr = slsContentManager_create();
 }
+/**
+ * test implementation
+ */
 
 void content_teardown(contentFix *fix, gconstpointer data)
 {

@@ -15,7 +15,7 @@ CHECK_CONVENTIONS=	\
 	-Xanalyze -analyzer-check-llvm-conventions	\
 	-Xanalyze  -analyzer-check-dead-stores		\
 
-CFLAGS=-g -Wall -std=gnu99 $(shell pkg-config --cflags $(PKGS)) -I$(CURDIR)/src 
+CFLAGS=-g -Wall -std=gnu99 $(shell pkg-config --cflags $(PKGS)) -I$(CURDIR)/src -D __SLS_QUIET__
 LDLIBS=-lm 	\
 	-lpthread	\
 	-lGL 		\
@@ -41,7 +41,7 @@ $(ENGINE_TGT): $(ENGINE_OBJ)
 
 #test build
 
-TEST_NAME=slsprototest
+TEST_NAME=tests
 TEST_SRC=$(wildcard tests/**/*.c tests/*.c)
 TEST_HDR=$(wildcard tests/**/*.h tests/*.h)
 TEST_OBJ=$(patsubst %.c,%.o,$(TEST_SRC))

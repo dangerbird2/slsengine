@@ -115,6 +115,7 @@ void sls_gl_init(slsGlWindow *self)
 		g_return_if_reached();
 	}
 
+#ifndef __SLS_QUIET__
 	// log glew and GL version
 	int major, minor;
 	major = minor = 0;
@@ -122,6 +123,8 @@ void sls_gl_init(slsGlWindow *self)
 	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &minor);
 	SDL_Log("Using GLEW %s\nUsing GL version %i.%i",
 		glewGetString(GLEW_VERSION), major, minor);
+
+#endif
 
 	// set GL clear color
 	self->clear_color = (vec4f){1.f, 1.f, 1.f, 1.f};

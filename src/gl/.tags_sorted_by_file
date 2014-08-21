@@ -1,0 +1,40 @@
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+create_gs_program	shaderutils.c	/^GLuint create_gs_program(const char *vertexfile, const char *geometryfile, const char *fragmentfile, GLint input, GLint output, GLint vertices) {$/;"	f
+create_gs_program	shaderutils.c	/^GLuint create_gs_program(const char *vertexfile, const char *geometryfile,$/;"	f
+create_program	shaderutils.c	/^GLuint create_program(const char *vertexfile, const char *fragmentfile) {$/;"	f
+create_shader	shaderutils.c	/^GLuint create_shader(const char* filename, GLenum type)$/;"	f
+file_read	shaderutils.c	/^char* file_read(const char* filename)$/;"	f
+get_attrib	shaderutils.c	/^GLint get_attrib(GLuint program, const char *name) {$/;"	f
+get_uniform	shaderutils.c	/^GLint get_uniform(GLuint program, const char *name) {$/;"	f
+print_log	shaderutils.c	/^void print_log(GLuint object)$/;"	f
+_CREATE_SHADER_H	shaderutils.h	7;"	d
+__SLS_MODULE_GL_H__	sls-gl.h	2;"	d
+__SLS_MESH_H__	sls-mesh.h	2;"	d
+_slsMesh	sls-mesh.h	/^struct _slsMesh {$/;"	s
+slsMesh	sls-mesh.h	/^typedef struct _slsMesh slsMesh;$/;"	t	typeref:struct:_slsMesh
+slsShader_create	sls-shader.c	/^slsShader *slsShader_create(char const *shader_name, char const *vspath, char const *fspath)$/;"	f
+slsShader_destroy	sls-shader.c	/^void slsShader_destroy(slsShader *self)$/;"	f
+__SLS_SHADER_H__	sls-shader.h	2;"	d
+_slsShader	sls-shader.h	/^struct _slsShader {$/;"	s
+_slsShaderAttributes	sls-shader.h	/^struct _slsShaderAttributes{$/;"	s
+_slsShaderUnifs	sls-shader.h	/^struct _slsShaderUnifs{$/;"	s
+attributes	sls-shader.h	/^	slsShaderAttributes attributes;$/;"	m	struct:_slsShader
+dtor	sls-shader.h	/^	void (*dtor)	(slsShader *self);$/;"	m	struct:_slsShader
+model	sls-shader.h	/^	GLint model;$/;"	m	struct:_slsShaderUnifs
+name	sls-shader.h	/^	GString *name;$/;"	m	struct:_slsShader
+normal	sls-shader.h	/^	GLint normal;$/;"	m	struct:_slsShaderUnifs
+program	sls-shader.h	/^	GLuint program;$/;"	m	struct:_slsShader
+projection	sls-shader.h	/^	GLint projection;$/;"	m	struct:_slsShaderUnifs
+slsShader	sls-shader.h	/^typedef struct _slsShader slsShader;$/;"	t	typeref:struct:_slsShader
+slsShaderAttributes	sls-shader.h	/^typedef struct _slsShaderAttributes slsShaderAttributes;$/;"	t	typeref:struct:_slsShaderAttributes
+slsShaderUnifs	sls-shader.h	/^typedef struct _slsShaderUnifs slsShaderUnifs;$/;"	t	typeref:struct:_slsShaderUnifs
+uniforms	sls-shader.h	/^	slsShaderUnifs uniforms;$/;"	m	struct:_slsShader
+vertNormal	sls-shader.h	/^	GLint vertNormal;$/;"	m	struct:_slsShaderAttributes
+vertPosition	sls-shader.h	/^	GLint vertPosition;$/;"	m	struct:_slsShaderAttributes
+vertUv	sls-shader.h	/^	GLint vertUv;$/;"	m	struct:_slsShaderAttributes
+view	sls-shader.h	/^	GLint view;$/;"	m	struct:_slsShaderUnifs
