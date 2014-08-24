@@ -7,6 +7,8 @@
 
 #include <glib-2.0/glib.h>
 
+#include <CoreFoundation/CoreFoundation.h>
+
 /****************************************
  * macro for possible emscripten port
  ****************************************/
@@ -42,6 +44,6 @@
 #include "types.h"
 #include "macros/dbg.h"
 #include "linalg/vectypes.h"
-#include "macros/constants.h"
+#include "macros/macros.h"
 
 #endif

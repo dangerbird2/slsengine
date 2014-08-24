@@ -24,7 +24,7 @@ struct _slsGlWindow {
 	 * @brief calls main loop
 	 * @details [long description]
 	 * 
-	 * @param n "self"--aka struct containing method
+	 * @param n "self"
 	 * @param data user-defined data
 	 * 
 	 * @return void
@@ -35,7 +35,7 @@ struct _slsGlWindow {
 	 * @brief polls SDL events
 	 * @details [long description]
 	 * 
-	 * @param n "self"--aka struct containing method
+	 * @param n "self"
 	 * @param data user-defined data
 	 * 
 	 * @return void

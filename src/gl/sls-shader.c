@@ -40,6 +40,8 @@ slsShader *slsShader_create(char const *shader_name, char const *vspath, char co
 	};
 
 	self->dtor = slsShader_destroy;
+	self->enableAttrs = slsShader_enableAttrs;
+	self->disableAttrs = slsShader_disableAttrs;
 
 	return self;
 }
@@ -52,4 +54,32 @@ void slsShader_destroy(slsShader *self)
 	glDeleteProgram(self->program);
 
 	if (self) {free(self);}
+}
+
+void slsShader_enableAttrs(slsShader *self)
+{
+	SLint attributes[] = {
+		self->attributes.vertPosition,
+		self->attributes.vertNormal,
+		self->attributes.vertUv};
+
+	
+	glUseProgram(self->program);
+	for (int i=0; i<sizeof(attributes)/sizeof(SLint); i++) {
+		glEnableVertexAttribArray(attributes[i]);
+	}
+}
+
+void slsShader_disableAttrs(slsShader *self)
+{
+	SLint attributes[] = {
+		self->attributes.vertPosition,
+		self->attributes.vertNormal,
+		self->attributes.vertUv};
+
+	for (int i=0; i<sizeof(attributes)/sizeof(SLint); i++) {
+		glDisableVertexAttribArray(attributes[i]);
+	}
+
+	glUseProgram(0);
 }

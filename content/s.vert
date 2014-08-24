@@ -1,5 +1,5 @@
-attribute vec4 vertPosition;
-attribute vec4 vertNormal;
+attribute vec3 vertPosition;
+attribute vec3 vertNormal;
 attribute vec2 vertUv;
 
 uniform mat4 projection;
@@ -15,6 +15,8 @@ varying vec2 fragUv;
 void main()
 {
 	fragUv = vertUv;
-	fragPosition = vertPosition;
-	gl_Position = vec4(vertPosition);
+	fragPosition = vec4(vertPosition, 1.0);
+	fragNormal = vec4(vertNormal, 0.0);
+	
+	gl_Position = fragPosition;
 }

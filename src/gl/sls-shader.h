@@ -27,11 +27,15 @@ struct _slsShader {
 
 	slsShaderAttributes attributes;
 	slsShaderUnifs uniforms;
-
+	// methods
+	void (*enableAttrs)(slsShader*self);
+	void (*disableAttrs)(slsShader*self);
 	void (*dtor)	(slsShader *self);
 };
 
 slsShader *slsShader_create(char const *shader_name, char const *vspath, char const *fspath);
 void slsShader_destroy(slsShader *self);
+void slsShader_enableAttrs(slsShader *self);
+void slsShader_disableAttrs(slsShader *self);
 
 #endif

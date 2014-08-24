@@ -1,6 +1,7 @@
 #include "sls-content.h"
 #include "sls-sprite.h"
 
+#include "../gl/sls-gl.h"
 #include "../stdhdr.h"
 
 slsContentManager *slsContentManager_create()
@@ -12,23 +13,35 @@ slsContentManager *slsContentManager_create()
     self->textures = g_hash_table_new_full(
         g_str_hash, g_str_equal,
         free,
-        sls_hash_texture_free
-    );
+        sls_hash_texture_free);
 
     self->shaders = g_hash_table_new_full(
         g_str_hash, g_str_equal,
         free,
-        sls_hash_shader_free
-    );
+        sls_hash_shader_free);
+
+    self->meshes = g_hash_table_new_full(
+        g_str_hash, g_str_equal,
+        free,
+        sls_hash_mesh_free);
 
     return self;
 }
 void slsContentManager_destroy(slsContentManager *self)
 {
-    if (self->textures != NULL) {
+    if (self->textures) {
         g_hash_table_unref(self->textures);
     }
-    if (self != NULL) {free(self);}
+
+    if (self->shaders) {
+        g_hash_table_unref(self->shaders);
+    }
+
+    if (self->meshes) {
+        g_hash_table_unref(self->meshes);
+    }
+
+    if (self) {free(self);}
 }
 
 void sls_hash_texture_free(gpointer texture)
@@ -41,6 +54,12 @@ void sls_hash_shader_free(gpointer shader)
     slsShader *self = shader;
     if (self->dtor != NULL)
     self->dtor(self);
+}
+
+void sls_hash_mesh_free(gpointer mesh)
+{
+    slsMesh *meshobj = mesh;
+    slsMsg(meshobj, dtor);
 }
 
 SDL_Texture *slsContentManager_load_texture(
@@ -85,4 +104,15 @@ slsShader *slsContentManager_load_shader(
     g_hash_table_insert(self->shaders, (gpointer) shader_key, shader);
 
     return shader;
+}
+
+slsMesh *slsContentManager_loadExistingMesh(
+    slsContentManager *self,
+    char const *mesh_name,
+    slsMesh *mesh)
+{
+    char const *mesh_key = g_strdup(mesh_name);
+    g_hash_table_insert(self->meshes, (void*) mesh_key, (void*) mesh);
+
+    return mesh;
 }

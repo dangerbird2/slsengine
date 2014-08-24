@@ -1,8 +1,11 @@
 #ifndef __SLS_MESH_H__
 #define __SLS_MESH_H__
 
+#include <glib.h>
 #include <GL/glew.h>
+#include "../linalg/linmath.h"
 #include "../types.h"
+#include "sls-shader.h"
 
 typedef struct _slsMesh slsMesh;
 typedef struct _slsVertex slsVertex;
@@ -13,21 +16,31 @@ struct _slsVertex {
 	float uv[2];
 };
 
+char *slsVertex_toString(slsVertex const *vert);
+
 struct _slsMesh {
 	SLuint vbo;
 	SLuint ibo;
 
-	/* number of vert elements*/
-	SLuint n_verts;
-	/* number of allocated vert elements*/
-	SLuint n_alloced_verts;
-	slsVertex *vertices;
+	GArray *vertices;
+	GArray *indices;
 
-	/* number of index elements*/
-	SLuint n_elements;
-	/* number of allocated index elements*/
-	SLuint n_alloced_elements;
-	SLuint *indices;
+	mat4x4 transform;
+
+	/** methods */
+	slsMesh *(*init) (slsMesh *self);
+	void *(*dtor) (slsMesh *self);
+
+	void (*loadVerts)(slsMesh *self, slsVertex *verts,
+		SLuint n_verts,	SLenum buffer_usage);
+
+	void (*loadElements)(slsMesh *self, SLushort *elements,
+		SLuint n_elements, SLenum buffer_usage);
+
+	void (*bindVbo)(slsMesh *self, SLenum buffer_usage);
+	void (*bindIbo)(slsMesh *self, SLenum buffer_usage);
+
+	void (*draw)(slsMesh *self, slsShader *shader, SLenum draw_type);
 };
 
 /**
@@ -36,10 +49,18 @@ struct _slsMesh {
  * @return mesh
  */
 slsMesh *slsMesh_alloc();
+slsMesh *slsMesh_init(slsMesh *self);
 
-void slsMesh_free(slsMesh *mesh);
+slsMesh *slsMesh_newSquareMesh();
 
-void slsMesh_load_verts(slsMesh *mesh, slsVertex *verts, SLuint n_verts);
-void slsMesh_load_elements(slsMesh *mesh, slsVertex *elements, SLuint n_elements);
+void *slsMesh_free(slsMesh *mesh);
 
+void slsMesh_loadVerts(slsMesh *mesh, slsVertex *verts,
+	SLuint n_verts,	SLenum buffer_usage);
+void slsMesh_loadElements(slsMesh *mesh, SLushort *elements,
+	SLuint n_elements, SLenum buffer_usage);
+
+void slsMesh_bindVbo(slsMesh *mesh, SLenum buffer_usage);
+void slsMesh_bindIbo(slsMesh *mesh, SLenum buffer_usage);
+void slsMesh_draw(slsMesh *self, slsShader *shader, SLenum draw_type);
 #endif

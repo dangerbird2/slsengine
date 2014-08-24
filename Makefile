@@ -15,7 +15,14 @@ CHECK_CONVENTIONS=	\
 	-Xanalyze -analyzer-check-llvm-conventions	\
 	-Xanalyze  -analyzer-check-dead-stores		\
 
-CFLAGS=-g -Wall -std=gnu99 $(shell pkg-config --cflags $(PKGS)) -I$(CURDIR)/src -D __SLS_QUIET__
+CFLAGS= \
+	-g 	\
+	-Wall \
+	-std=gnu99 \
+	$(shell pkg-config --cflags $(PKGS)) \
+	-I$(CURDIR)/src \
+	-D __SLS_QUIET__ \
+	-D __GNU_SOURCE
 LDLIBS=-lm 	\
 	-lpthread	\
 	-lGL 		\

@@ -10,8 +10,9 @@ void init_rsc(slsGlWindow *window);
 void free_rsc();
 void Demo_render (slsGlWindow *self, void *data);
 
-static slsContentManager *sMgr;
-static slsShader *sShader;
+static slsContentManager *sMgr = NULL;
+static slsShader *sShader = NULL;
+static slsMesh *sMesh = NULL;
 
 
 void init_rsc(slsGlWindow *window)
@@ -24,6 +25,15 @@ void init_rsc(slsGlWindow *window)
 		"content/s.vert",
 		"content/s.frag"
 	);
+
+	sMesh = slsContentManager_loadExistingMesh(
+		sMgr,
+		"square",
+		slsMesh_newSquareMesh());
+
+	mat4x4 mat;
+	mat4x4_scale(mat, sMesh->transform, 0.5);
+	mat4x4_dup(sMesh->transform, mat);
 }
 
 void free_rsc()
@@ -33,48 +43,12 @@ void free_rsc()
 
 void Demo_render (slsGlWindow *self, void *data)
 {
+	
 	glClear(
 		GL_COLOR_BUFFER_BIT |
 		GL_DEPTH_BUFFER_BIT);
 
-	glUseProgram(sShader->program);
-	glEnableVertexAttribArray(sShader->attributes.vertPosition);
-	glEnableVertexAttribArray(sShader->attributes.vertUv);
-	GLfloat triangle_vertices[] = {
-		0.0,  0.8,
-	   -0.8, -0.8,
-		0.8, -0.8
-	};
-
-	GLfloat triangle_uv[] = {
-		0.0, 0.0,
-		0.5, 1.0,
-		1.0, 0.0
-	};
-
-	/* Describe our vertices array to OpenGL (it can't guess its format automatically) */
-	glVertexAttribPointer(
-		sShader->attributes.vertPosition, // attribute
-		2,                 // number of elements per vertex, here (x,y)
-		GL_FLOAT,          // the type of each element
-		GL_FALSE,          // take our values as-is
-		0, // no extra data between each position
-		triangle_vertices  // pointer to the C array
-	);
-
-	glVertexAttribPointer(
-		sShader->attributes.vertUv, // attribute
-		2,                 // number of elements per vertex, here (x,y)
-		GL_FLOAT,          // the type of each element
-		GL_FALSE,          // take our values as-is
-		0, // no extra data between each position
-		triangle_uv  // pointer to the C array
-	);
-
-	/* Push each element in buffer_vertices to the vertex shader */
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	glDisableVertexAttribArray(sShader->attributes.vertPosition);
-	glDisableVertexAttribArray(sShader->attributes.vertUv);
+	slsMsg(sMesh, draw, sShader, GL_TRIANGLES);
 
 	SDL_GL_SwapWindow(self->super->window);
 }
@@ -93,7 +67,7 @@ SLbool demo(int *argc, char const **argv[])
 		window->run(window, NULL);
 	}
 	free_rsc();
-	window->dtor(window);
+	slsMsg(window, dtor);
 	return true;
 }
 

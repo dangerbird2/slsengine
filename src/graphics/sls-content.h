@@ -5,12 +5,14 @@
 #include <SDL2/SDL.h>
 #include "sls-sprite.h"
 #include "../gl/sls-shader.h"
+#include "../gl/sls-mesh.h"
 
 typedef struct _slsContentManager slsContentManager;
 
 struct _slsContentManager {
     GHashTable *textures;
     GHashTable *shaders;
+    GHashTable *meshes;
 };
 
 slsContentManager *slsContentManager_create();
@@ -18,6 +20,7 @@ void slsContentManager_destroy(slsContentManager *self);
 
 void sls_hash_texture_free(gpointer texture);
 void sls_hash_shader_free(gpointer shader);
+void sls_hash_mesh_free(gpointer mesh);
 
 
 SDL_Texture *slsContentManager_load_texture(
@@ -33,8 +36,9 @@ slsShader *slsContentManager_load_shader(
 	char const *vspath,
 	char const *fspath);
 
-// dummy function returns argument unchanged
-// todo: append path to proper game content path
-//char *get_content_dir(char const *path);
+slsMesh *slsContentManager_loadExistingMesh(
+    slsContentManager *self,
+    char const *mesh_name,
+    slsMesh *mesh);
 
 #endif
