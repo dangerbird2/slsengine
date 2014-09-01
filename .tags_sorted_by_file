@@ -4,321 +4,27 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 CC	Makefile	/^CC=clang$/;"	m
-CFLAGS	Makefile	/^CFLAGS=-g -Wall -std=gnu99 $(shell pkg-config --cflags $(PKGS)) -I$(CURDIR)\/src $/;"	m
+CFLAGS	Makefile	/^CFLAGS= \\$/;"	m
 CHECK_CONVENTIONS	Makefile	/^CHECK_CONVENTIONS=	\\$/;"	m
-DEMO_NAME	Makefile	/^DEMO_NAME=demo$/;"	m
-DEMO_OBJ	Makefile	/^DEMO_OBJ=$(patsubst %.c,%.o,$(DEMO_SRC))$/;"	m
-DEMO_SRC	Makefile	/^DEMO_SRC=$(wildcard demosrc\/*.c demosrc\/**\/*.c)$/;"	m
-DEMO_TGT	Makefile	/^DEMO_TGT=bin\/$(DEMO_NAME)$/;"	m
-ENGINE_HDR	Makefile	/^ENGINE_HDR=$(wildcard src\/**\/*.h src\/*.h)$/;"	m
+DEPS	Makefile	/^DEPS= \\$/;"	m
+ENGINE_HDR	Makefile	/^ENGINE_HDR=$(wildcard src\/slsengine\/**\/*.h src\/slsengine\/*.h)$/;"	m
 ENGINE_NAME	Makefile	/^ENGINE_NAME=libsls.a$/;"	m
 ENGINE_OBJ	Makefile	/^ENGINE_OBJ=$(patsubst %.c,%.o,$(ENGINE_SRC))$/;"	m
-ENGINE_SRC	Makefile	/^ENGINE_SRC=$(wildcard src\/**\/*.c src\/*.c)$/;"	m
+ENGINE_SRC	Makefile	/^ENGINE_SRC=$(wildcard src\/slsengine\/**\/*.c src\/slsengine\/*.c)$/;"	m
 ENGINE_TGT	Makefile	/^ENGINE_TGT=lib\/$(ENGINE_NAME)$/;"	m
 FORMAT_OPTIONS	Makefile	/^FORMAT_OPTIONS=-style=Google$/;"	m
 LDLIBS	Makefile	/^LDLIBS=-lm 	\\$/;"	m
 PKGS	Makefile	/^PKGS= glib-2.0$/;"	m
+SLSDATA_NAME	Makefile	/^SLSDATA_NAME=libslsdata.a$/;"	m
+SLSDATA_OBJ	Makefile	/^SLSDATA_OBJ=$(patsubst %.c,%.o,$(SLSDATA_SRC))$/;"	m
+SLSDATA_SRC	Makefile	/^SLSDATA_SRC=$(wildcard src\/slsdata\/**\/*.c src\/slsdata\/*.c)$/;"	m
+SLSDATA_TGT	Makefile	/^SLSDATA_TGT=lib\/SLSDATA_NAME$/;"	m
 TEST_HDR	Makefile	/^TEST_HDR=$(wildcard tests\/**\/*.h tests\/*.h)$/;"	m
-TEST_NAME	Makefile	/^TEST_NAME=slsprototest$/;"	m
+TEST_NAME	Makefile	/^TEST_NAME=tests$/;"	m
 TEST_OBJ	Makefile	/^TEST_OBJ=$(patsubst %.c,%.o,$(TEST_SRC))$/;"	m
-TEST_SRC	Makefile	/^TEST_SRC=$(wildcard tests\/**\/*.c tests\/*.c)$/;"	m
+TEST_SRC	Makefile	/^TEST_SRC=$(wildcard src\/tests\/**\/*.c src\/tests\/*.c)$/;"	m
 TEST_TGT	Makefile	/^TEST_TGT=bin\/$(TEST_NAME)$/;"	m
-Demo_render	demosrc/main.c	/^void Demo_render (slsGlWindow *self, void *data)$/;"	f
-demo	demosrc/main.c	/^SLbool demo(int *argc, char const **argv[])$/;"	f
-free_rsc	demosrc/main.c	/^void free_rsc()$/;"	f
-init_rsc	demosrc/main.c	/^void init_rsc(slsGlWindow *window)$/;"	f
-main	demosrc/main.c	/^int main(int argc, char const *argv[])$/;"	f
-sMgr	demosrc/main.c	/^static slsContentManager *sMgr;$/;"	v	file:
-sShader	demosrc/main.c	/^static slsShader *sShader;$/;"	v	file:
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-APPLY_ALL_H	include/srengine/applyall.h	2;"	d
-Fn_apply	include/srengine/applyall.h	/^define Fn_apply(type, fn, ...) {$/;"	f
-SLS_CONSTANTS_MACRO_H	include/srengine/constants.h	2;"	d
-S_E	include/srengine/constants.h	4;"	d
-S_PI	include/srengine/constants.h	6;"	d
-__dbg_h__	include/srengine/dbg.h	2;"	d
-check	include/srengine/dbg.h	28;"	d
-check_debug	include/srengine/dbg.h	44;"	d
-check_mem	include/srengine/dbg.h	42;"	d
-clean_errno	include/srengine/dbg.h	15;"	d
-debug	include/srengine/dbg.h	11;"	d
-debug	include/srengine/dbg.h	9;"	d
-log_err	include/srengine/dbg.h	17;"	d
-log_info	include/srengine/dbg.h	25;"	d
-log_warn	include/srengine/dbg.h	21;"	d
-sentinel	include/srengine/dbg.h	35;"	d
-LINMATH_H	include/srengine/linmath.h	2;"	d
-mat4x4	include/srengine/linmath.h	/^typedef vec4 mat4x4[4];$/;"	t
-mat4x4_add	include/srengine/linmath.h	/^static inline void mat4x4_add(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
-mat4x4_col	include/srengine/linmath.h	/^static inline void mat4x4_col(vec4 r, mat4x4 M, int i) {$/;"	f
-mat4x4_dup	include/srengine/linmath.h	/^static inline void mat4x4_dup(mat4x4 M, mat4x4 N) {$/;"	f
-mat4x4_from_quat	include/srengine/linmath.h	/^static inline void mat4x4_from_quat(mat4x4 M, quat q) {$/;"	f
-mat4x4_from_vec3_mul_outer	include/srengine/linmath.h	/^static inline void mat4x4_from_vec3_mul_outer(mat4x4 M, vec3 a, vec3 b) {$/;"	f
-mat4x4_frustum	include/srengine/linmath.h	/^static inline void mat4x4_frustum(mat4x4 M, float l, float r, float b, float t,$/;"	f
-mat4x4_identity	include/srengine/linmath.h	/^static inline void mat4x4_identity(mat4x4 M) {$/;"	f
-mat4x4_invert	include/srengine/linmath.h	/^static inline void mat4x4_invert(mat4x4 T, mat4x4 M) {$/;"	f
-mat4x4_look_at	include/srengine/linmath.h	/^static inline void mat4x4_look_at(mat4x4 m, vec3 eye, vec3 center, vec3 up) {$/;"	f
-mat4x4_mul	include/srengine/linmath.h	/^static inline void mat4x4_mul(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
-mat4x4_mul_quat	include/srengine/linmath.h	/^static inline void mat4x4_mul_quat(mat4x4 R, mat4x4 M, quat q) {$/;"	f
-mat4x4_mul_vec4	include/srengine/linmath.h	/^static inline void mat4x4_mul_vec4(vec4 r, mat4x4 M, vec4 v) {$/;"	f
-mat4x4_ortho	include/srengine/linmath.h	/^static inline void mat4x4_ortho(mat4x4 M, float l, float r, float b, float t,$/;"	f
-mat4x4_perspective	include/srengine/linmath.h	/^static inline void mat4x4_perspective(mat4x4 m, float y_fov, float aspect,$/;"	f
-mat4x4_rotate	include/srengine/linmath.h	/^static inline void mat4x4_rotate(mat4x4 R, mat4x4 M, float x, float y, float z,$/;"	f
-mat4x4_rotate_X	include/srengine/linmath.h	/^static inline void mat4x4_rotate_X(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
-mat4x4_rotate_Y	include/srengine/linmath.h	/^static inline void mat4x4_rotate_Y(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
-mat4x4_rotate_Z	include/srengine/linmath.h	/^static inline void mat4x4_rotate_Z(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
-mat4x4_row	include/srengine/linmath.h	/^static inline void mat4x4_row(vec4 r, mat4x4 M, int i) {$/;"	f
-mat4x4_scale	include/srengine/linmath.h	/^static inline void mat4x4_scale(mat4x4 M, mat4x4 a, float k) {$/;"	f
-mat4x4_scale_aniso	include/srengine/linmath.h	/^static inline void mat4x4_scale_aniso(mat4x4 M, mat4x4 a, float x, float y,$/;"	f
-mat4x4_sub	include/srengine/linmath.h	/^static inline void mat4x4_sub(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
-mat4x4_translate	include/srengine/linmath.h	/^static inline void mat4x4_translate(mat4x4 T, float x, float y, float z) {$/;"	f
-mat4x4_translate_in_place	include/srengine/linmath.h	/^static inline void mat4x4_translate_in_place(mat4x4 M, float x, float y,$/;"	f
-mat4x4_transpose	include/srengine/linmath.h	/^static inline void mat4x4_transpose(mat4x4 M, mat4x4 N) {$/;"	f
-quat	include/srengine/linmath.h	/^typedef float quat[4];$/;"	t
-quat_add	include/srengine/linmath.h	/^static inline void quat_add(quat r, quat a, quat b) {$/;"	f
-quat_conj	include/srengine/linmath.h	/^static inline void quat_conj(quat r, quat q) {$/;"	f
-quat_from_mat4x4	include/srengine/linmath.h	/^static inline void quat_from_mat4x4(quat q, mat4x4 M) {$/;"	f
-quat_identity	include/srengine/linmath.h	/^static inline void quat_identity(quat q) {$/;"	f
-quat_inner_product	include/srengine/linmath.h	/^static inline float quat_inner_product(quat a, quat b) {$/;"	f
-quat_mul	include/srengine/linmath.h	/^static inline void quat_mul(quat r, quat p, quat q) {$/;"	f
-quat_mul_vec3	include/srengine/linmath.h	/^static inline void quat_mul_vec3(vec3 r, quat q, vec3 v) {$/;"	f
-quat_norm	include/srengine/linmath.h	407;"	d
-quat_scale	include/srengine/linmath.h	/^static inline void quat_scale(quat r, quat v, float s) {$/;"	f
-quat_sub	include/srengine/linmath.h	/^static inline void quat_sub(quat r, quat a, quat b) {$/;"	f
-vec3	include/srengine/linmath.h	/^typedef float vec3[3];$/;"	t
-vec3_add	include/srengine/linmath.h	/^static inline void vec3_add(vec3 r, vec3 a, vec3 b) {$/;"	f
-vec3_len	include/srengine/linmath.h	/^static inline float vec3_len(vec3 v) { return sqrtf(vec3_mul_inner(v, v)); }$/;"	f
-vec3_mul_cross	include/srengine/linmath.h	/^static inline void vec3_mul_cross(vec3 r, vec3 a, vec3 b) {$/;"	f
-vec3_mul_inner	include/srengine/linmath.h	/^static inline float vec3_mul_inner(vec3 a, vec3 b) {$/;"	f
-vec3_norm	include/srengine/linmath.h	/^static inline void vec3_norm(vec3 r, vec3 v) {$/;"	f
-vec3_reflect	include/srengine/linmath.h	/^static inline void vec3_reflect(vec3 r, vec3 v, vec3 n) {$/;"	f
-vec3_scale	include/srengine/linmath.h	/^static inline void vec3_scale(vec3 r, vec3 v, float s) {$/;"	f
-vec3_sub	include/srengine/linmath.h	/^static inline void vec3_sub(vec3 r, vec3 a, vec3 b) {$/;"	f
-vec4	include/srengine/linmath.h	/^typedef float vec4[4];$/;"	t
-vec4_add	include/srengine/linmath.h	/^static inline void vec4_add(vec4 r, vec4 a, vec4 b) {$/;"	f
-vec4_len	include/srengine/linmath.h	/^static inline float vec4_len(vec4 v) { return sqrtf(vec4_mul_inner(v, v)); }$/;"	f
-vec4_mul_cross	include/srengine/linmath.h	/^static inline void vec4_mul_cross(vec4 r, vec4 a, vec4 b) {$/;"	f
-vec4_mul_inner	include/srengine/linmath.h	/^static inline float vec4_mul_inner(vec4 a, vec4 b) {$/;"	f
-vec4_norm	include/srengine/linmath.h	/^static inline void vec4_norm(vec4 r, vec4 v) {$/;"	f
-vec4_reflect	include/srengine/linmath.h	/^static inline void vec4_reflect(vec4 r, vec4 v, vec4 n) {$/;"	f
-vec4_scale	include/srengine/linmath.h	/^static inline void vec4_scale(vec4 r, vec4 v, float s) {$/;"	f
-vec4_sub	include/srengine/linmath.h	/^static inline void vec4_sub(vec4 r, vec4 a, vec4 b) {$/;"	f
-__SLS_LOAD_CONTENT_H__	include/srengine/loadcontent.h	7;"	d
-_slsMediaCache	include/srengine/loadcontent.h	/^struct _slsMediaCache {$/;"	s
-etc	include/srengine/loadcontent.h	/^	GHashTable *etc;$/;"	m	struct:_slsMediaCache
-sdl_surfaces	include/srengine/loadcontent.h	/^	GHashTable *sdl_surfaces;$/;"	m	struct:_slsMediaCache
-sdl_textures	include/srengine/loadcontent.h	/^	GHashTable *sdl_textures;$/;"	m	struct:_slsMediaCache
-slsMediaCache	include/srengine/loadcontent.h	/^typedef struct _slsMediaCache slsMediaCache;$/;"	t	typeref:struct:_slsMediaCache
-__SLS_RENDER_WINDOW_H__	include/srengine/renderwindow.h	8;"	d
-slsRenderWindow	include/srengine/renderwindow.h	/^typedef slsWindow slsRenderWindow;$/;"	t
-__SLS_SCENE_H__	include/srengine/scene.h	2;"	d
-_slsSceneProto	include/srengine/scene.h	/^struct _slsSceneProto {$/;"	s
-draw	include/srengine/scene.h	/^    drawCallback draw;$/;"	m	struct:_slsSceneProto
-event	include/srengine/scene.h	/^    eventCallback event;$/;"	m	struct:_slsSceneProto
-fixed_update	include/srengine/scene.h	/^    updateCallback fixed_update;$/;"	m	struct:_slsSceneProto
-resize	include/srengine/scene.h	/^    resizeCallback resize;$/;"	m	struct:_slsSceneProto
-run	include/srengine/scene.h	/^    runCallback run;$/;"	m	struct:_slsSceneProto
-update	include/srengine/scene.h	/^    updateCallback update;$/;"	m	struct:_slsSceneProto
-__SCENE_MGR_H__	include/srengine/scenemgr.h	2;"	d
-__SLS_SETUP_H__	include/srengine/setup.h	2;"	d
-__SLS_ENGINE_MAIN_H__	include/srengine/slengine.h	2;"	d
-__SLS_SPRITE_H__	include/srengine/sprite.h	7;"	d
-_slsSprite	include/srengine/sprite.h	/^struct _slsSprite {$/;"	s
-cols	include/srengine/sprite.h	/^	SLint cols;$/;"	m	struct:_slsSprite
-i	include/srengine/sprite.h	/^	SLint i;$/;"	m	struct:_slsSprite
-j	include/srengine/sprite.h	/^	SLint j; \/\/ actively drawn column$/;"	m	struct:_slsSprite
-name	include/srengine/sprite.h	/^	GString *name;$/;"	m	struct:_slsSprite
-position	include/srengine/sprite.h	/^	SLint position[2];$/;"	m	struct:_slsSprite
-render_rect	include/srengine/sprite.h	/^	SDL_Rect render_rect;$/;"	m	struct:_slsSprite
-rows	include/srengine/sprite.h	/^	SLint rows; \/\/ #columns in spritesheet$/;"	m	struct:_slsSprite
-slsSprite	include/srengine/sprite.h	/^typedef struct _slsSprite slsSprite;$/;"	t	typeref:struct:_slsSprite
-subsprite_rect	include/srengine/sprite.h	/^	SDL_Rect subsprite_rect;$/;"	m	struct:_slsSprite
-texture	include/srengine/sprite.h	/^	SDL_Texture *texture;$/;"	m	struct:_slsSprite
-SAFE_STRING_LEN	include/srengine/types.h	10;"	d
-SLbool	include/srengine/types.h	/^typedef bool SLbool;$/;"	t
-SLbyte	include/srengine/types.h	/^typedef int8_t SLbyte;$/;"	t
-SLint	include/srengine/types.h	/^typedef int32_t SLint;$/;"	t
-SLint64	include/srengine/types.h	/^typedef int64_t SLint64;$/;"	t
-SLshort	include/srengine/types.h	/^typedef int16_t SLshort;$/;"	t
-SLubyte	include/srengine/types.h	/^typedef uint8_t SLubyte;$/;"	t
-SLuint	include/srengine/types.h	/^typedef uint32_t SLuint;$/;"	t
-SLuint64	include/srengine/types.h	/^typedef uint64_t SLuint64;$/;"	t
-SLushort	include/srengine/types.h	/^typedef uint16_t SLushort;$/;"	t
-__SLS_TYPES_H__	include/srengine/types.h	2;"	d
-__SLS_WINDOW_H__	include/srengine/window.h	15;"	d
-_slsWindow	include/srengine/window.h	/^struct _slsWindow {$/;"	s
-delta_time	include/srengine/window.h	/^	float delta_time;$/;"	m	struct:_slsWindow
-drawCallback	include/srengine/window.h	/^typedef    void (*drawCallback)(struct _slsWindow *self, void *data);$/;"	t
-elapsed_time	include/srengine/window.h	/^	float elapsed_time;$/;"	m	struct:_slsWindow
-eventCallback	include/srengine/window.h	/^typedef    void (*eventCallback)(struct _slsWindow *self, void *data);$/;"	t
-fixed_update_timer	include/srengine/window.h	/^	float fixed_update_timer;$/;"	m	struct:_slsWindow
-gl_context	include/srengine/window.h	/^	SDL_GLContext gl_context;$/;"	m	struct:_slsWindow
-is_open	include/srengine/window.h	/^	SLbool is_open;$/;"	m	struct:_slsWindow
-keyboard_state	include/srengine/window.h	/^	SLbyte *keyboard_state;$/;"	m	struct:_slsWindow
-loadCallback	include/srengine/window.h	/^typedef    void (*loadCallback)(struct _slsWindow *self, void *data);$/;"	t
-on_draw	include/srengine/window.h	/^    void (*on_draw)(struct _slsWindow *self, void *data);$/;"	m	struct:_slsWindow
-on_fixed_update	include/srengine/window.h	/^    void (*on_fixed_update)(struct _slsWindow *self, float dt, void *data);$/;"	m	struct:_slsWindow
-on_load	include/srengine/window.h	/^    void (*on_load)(struct _slsWindow *self, void *data);$/;"	m	struct:_slsWindow
-on_resize	include/srengine/window.h	/^    void (*on_resize)(struct _slsWindow *self, int w, int h, void *data);$/;"	m	struct:_slsWindow
-on_update	include/srengine/window.h	/^    void (*on_update)(struct _slsWindow *self, float dt, void *data);$/;"	m	struct:_slsWindow
-poll_events	include/srengine/window.h	/^    void (*poll_events)(struct _slsWindow *self, void *data);$/;"	m	struct:_slsWindow
-renderer	include/srengine/window.h	/^	SDL_Renderer *renderer;$/;"	m	struct:_slsWindow
-resizeCallback	include/srengine/window.h	/^typedef    void (*resizeCallback)(struct _slsWindow *self, int w, int h, void *data);$/;"	t
-run	include/srengine/window.h	/^    void (*run)(struct _slsWindow *self, void *data);$/;"	m	struct:_slsWindow
-runCallback	include/srengine/window.h	/^typedef    void (*runCallback)(struct _slsWindow *self, void *data);$/;"	t
-slsWindow	include/srengine/window.h	/^typedef struct _slsWindow slsWindow;$/;"	t	typeref:struct:_slsWindow
-total_time	include/srengine/window.h	/^	float total_time;$/;"	m	struct:_slsWindow
-updateCallback	include/srengine/window.h	/^typedef    void (*updateCallback)(struct _slsWindow *self, float dt, void *data);$/;"	t
-use_gl	include/srengine/window.h	/^	SLbool use_gl;$/;"	m	struct:_slsWindow
-user_data	include/srengine/window.h	/^	void *user_data;$/;"	m	struct:_slsWindow
-window	include/srengine/window.h	/^	SDL_Window *window;$/;"	m	struct:_slsWindow
-__SLS_COMPONENT_ENTITY_H__	src/ComponentEntity/componententity.h	2;"	d
-slsEntityTable_addEntity	src/ComponentEntity/sls-entity-table.c	/^SLuint slsEntityTable_addEntity(slsEntityTable *world)$/;"	f
-slsEntityTable_create	src/ComponentEntity/sls-entity-table.c	/^slsEntityTable *slsEntityTable_create()$/;"	f
-slsEntityTable_free	src/ComponentEntity/sls-entity-table.c	/^void slsEntityTable_free(slsEntityTable *world)$/;"	f
-slsEntityTable_removeEntity	src/ComponentEntity/sls-entity-table.c	/^void slsEntityTable_removeEntity(slsEntityTable *world, SLuint entity_id)$/;"	f
-slsEntityTable_validate	src/ComponentEntity/sls-entity-table.c	/^SLbool slsEntityTable_validate(slsEntityTable *world)$/;"	f
-COMPONENT_NONE	src/ComponentEntity/sls-entity-table.h	/^	COMPONENT_NONE = 0,$/;"	e	enum:__anon4
-COMPONENT_TRANSFORM	src/ComponentEntity/sls-entity-table.h	/^	COMPONENT_TRANSFORM = 1 << 0$/;"	e	enum:__anon4
-MAX_COMPONENTS	src/ComponentEntity/sls-entity-table.h	32;"	d
-WORLD_C_	src/ComponentEntity/sls-entity-table.h	30;"	d
-_slsEntityTable	src/ComponentEntity/sls-entity-table.h	/^struct _slsEntityTable {$/;"	s
-component_mask	src/ComponentEntity/sls-entity-table.h	/^	GArray *component_mask; \/\/ type slsComponent$/;"	m	struct:_slsEntityTable
-slsComponent	src/ComponentEntity/sls-entity-table.h	/^} slsComponent;$/;"	t	typeref:enum:__anon4
-slsEntityTable	src/ComponentEntity/sls-entity-table.h	/^typedef struct _slsEntityTable slsEntityTable;$/;"	t	typeref:struct:_slsEntityTable
-transform	src/ComponentEntity/sls-entity-table.h	/^	GArray *transform; \/\/type struct slsTransform2D$/;"	m	struct:_slsEntityTable
-create_gs_program	src/gl/shaderutils.c	/^GLuint create_gs_program(const char *vertexfile, const char *geometryfile, const char *fragmentfile, GLint input, GLint output, GLint vertices) {$/;"	f
-create_gs_program	src/gl/shaderutils.c	/^GLuint create_gs_program(const char *vertexfile, const char *geometryfile,$/;"	f
-create_program	src/gl/shaderutils.c	/^GLuint create_program(const char *vertexfile, const char *fragmentfile) {$/;"	f
-create_shader	src/gl/shaderutils.c	/^GLuint create_shader(const char* filename, GLenum type)$/;"	f
-file_read	src/gl/shaderutils.c	/^char* file_read(const char* filename)$/;"	f
-get_attrib	src/gl/shaderutils.c	/^GLint get_attrib(GLuint program, const char *name) {$/;"	f
-get_uniform	src/gl/shaderutils.c	/^GLint get_uniform(GLuint program, const char *name) {$/;"	f
-print_log	src/gl/shaderutils.c	/^void print_log(GLuint object)$/;"	f
-_CREATE_SHADER_H	src/gl/shaderutils.h	7;"	d
-__SLS_MODULE_GL_H__	src/gl/sls-gl.h	2;"	d
-__SLS_MESH_H__	src/gl/sls-mesh.h	2;"	d
-_slsMesh	src/gl/sls-mesh.h	/^struct _slsMesh {$/;"	s
-slsMesh	src/gl/sls-mesh.h	/^typedef struct _slsMesh slsMesh;$/;"	t	typeref:struct:_slsMesh
-slsShader_create	src/gl/sls-shader.c	/^slsShader *slsShader_create(char const *shader_name, char const *vspath, char const *fspath)$/;"	f
-slsShader_destroy	src/gl/sls-shader.c	/^void slsShader_destroy(slsShader *self)$/;"	f
-__SLS_SHADER_H__	src/gl/sls-shader.h	2;"	d
-_slsShader	src/gl/sls-shader.h	/^struct _slsShader {$/;"	s
-_slsShaderAttributes	src/gl/sls-shader.h	/^struct _slsShaderAttributes{$/;"	s
-_slsShaderUnifs	src/gl/sls-shader.h	/^struct _slsShaderUnifs{$/;"	s
-attributes	src/gl/sls-shader.h	/^	slsShaderAttributes attributes;$/;"	m	struct:_slsShader
-dtor	src/gl/sls-shader.h	/^	void (*dtor)	(slsShader *self);$/;"	m	struct:_slsShader
-model	src/gl/sls-shader.h	/^	GLint model;$/;"	m	struct:_slsShaderUnifs
-name	src/gl/sls-shader.h	/^	GString *name;$/;"	m	struct:_slsShader
-normal	src/gl/sls-shader.h	/^	GLint normal;$/;"	m	struct:_slsShaderUnifs
-program	src/gl/sls-shader.h	/^	GLuint program;$/;"	m	struct:_slsShader
-projection	src/gl/sls-shader.h	/^	GLint projection;$/;"	m	struct:_slsShaderUnifs
-slsShader	src/gl/sls-shader.h	/^typedef struct _slsShader slsShader;$/;"	t	typeref:struct:_slsShader
-slsShaderAttributes	src/gl/sls-shader.h	/^typedef struct _slsShaderAttributes slsShaderAttributes;$/;"	t	typeref:struct:_slsShaderAttributes
-slsShaderUnifs	src/gl/sls-shader.h	/^typedef struct _slsShaderUnifs slsShaderUnifs;$/;"	t	typeref:struct:_slsShaderUnifs
-uniforms	src/gl/sls-shader.h	/^	slsShaderUnifs uniforms;$/;"	m	struct:_slsShader
-vertNormal	src/gl/sls-shader.h	/^	GLint vertNormal;$/;"	m	struct:_slsShaderAttributes
-vertPosition	src/gl/sls-shader.h	/^	GLint vertPosition;$/;"	m	struct:_slsShaderAttributes
-vertUv	src/gl/sls-shader.h	/^	GLint vertUv;$/;"	m	struct:_slsShaderAttributes
-view	src/gl/sls-shader.h	/^	GLint view;$/;"	m	struct:_slsShaderUnifs
-__SLS_MODULE_GRAPHICS_H__	src/graphics/graphics.h	2;"	d
-slsContentManager_create	src/graphics/sls-content.c	/^slsContentManager *slsContentManager_create()$/;"	f
-slsContentManager_destroy	src/graphics/sls-content.c	/^void slsContentManager_destroy(slsContentManager *self)$/;"	f
-slsContentManager_load_shader	src/graphics/sls-content.c	/^slsShader *slsContentManager_load_shader($/;"	f
-slsContentManager_load_texture	src/graphics/sls-content.c	/^SDL_Texture *slsContentManager_load_texture($/;"	f
-sls_hash_shader_free	src/graphics/sls-content.c	/^void sls_hash_shader_free(gpointer shader)$/;"	f
-sls_hash_texture_free	src/graphics/sls-content.c	/^void sls_hash_texture_free(gpointer texture)$/;"	f
-__SLS_CONTENT_H__	src/graphics/sls-content.h	2;"	d
-_slsContentManager	src/graphics/sls-content.h	/^struct _slsContentManager {$/;"	s
-shaders	src/graphics/sls-content.h	/^    GHashTable *shaders;$/;"	m	struct:_slsContentManager
-slsContentManager	src/graphics/sls-content.h	/^typedef struct _slsContentManager slsContentManager;$/;"	t	typeref:struct:_slsContentManager
-textures	src/graphics/sls-content.h	/^    GHashTable *textures;$/;"	m	struct:_slsContentManager
-slsSprite_create	src/graphics/sls-sprite.c	/^slsSprite *slsSprite_create($/;"	f
-slsSprite_destroy	src/graphics/sls-sprite.c	/^void slsSprite_destroy(slsSprite *self)$/;"	f
-slsSprite_draw	src/graphics/sls-sprite.c	/^void slsSprite_draw(SDL_Renderer *renderer, slsSprite *sprite)$/;"	f
-__SLS_SPRITE_H__	src/graphics/sls-sprite.h	2;"	d
-_slsSprite	src/graphics/sls-sprite.h	/^struct _slsSprite {$/;"	s
-dest_rect	src/graphics/sls-sprite.h	/^    SDL_Rect dest_rect;$/;"	m	struct:_slsSprite
-slsSprite	src/graphics/sls-sprite.h	/^typedef struct _slsSprite slsSprite;$/;"	t	typeref:struct:_slsSprite
-src_rect	src/graphics/sls-sprite.h	/^    SDL_Rect src_rect;$/;"	m	struct:_slsSprite
-texture	src/graphics/sls-sprite.h	/^    SDL_Texture *texture;$/;"	m	struct:_slsSprite
-LINMATH_H	src/linalg/linmath.h	2;"	d
-mat4x4	src/linalg/linmath.h	/^typedef vec4 mat4x4[4];$/;"	t
-mat4x4_add	src/linalg/linmath.h	/^static inline void mat4x4_add(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
-mat4x4_col	src/linalg/linmath.h	/^static inline void mat4x4_col(vec4 r, mat4x4 M, int i) {$/;"	f
-mat4x4_dup	src/linalg/linmath.h	/^static inline void mat4x4_dup(mat4x4 M, mat4x4 N) {$/;"	f
-mat4x4_from_quat	src/linalg/linmath.h	/^static inline void mat4x4_from_quat(mat4x4 M, quat q) {$/;"	f
-mat4x4_from_vec3_mul_outer	src/linalg/linmath.h	/^static inline void mat4x4_from_vec3_mul_outer(mat4x4 M, vec3 a, vec3 b) {$/;"	f
-mat4x4_frustum	src/linalg/linmath.h	/^static inline void mat4x4_frustum(mat4x4 M, float l, float r, float b, float t,$/;"	f
-mat4x4_identity	src/linalg/linmath.h	/^static inline void mat4x4_identity(mat4x4 M) {$/;"	f
-mat4x4_invert	src/linalg/linmath.h	/^static inline void mat4x4_invert(mat4x4 T, mat4x4 M) {$/;"	f
-mat4x4_look_at	src/linalg/linmath.h	/^static inline void mat4x4_look_at(mat4x4 m, vec3 eye, vec3 center, vec3 up) {$/;"	f
-mat4x4_mul	src/linalg/linmath.h	/^static inline void mat4x4_mul(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
-mat4x4_mul_quat	src/linalg/linmath.h	/^static inline void mat4x4_mul_quat(mat4x4 R, mat4x4 M, quat q) {$/;"	f
-mat4x4_mul_vec4	src/linalg/linmath.h	/^static inline void mat4x4_mul_vec4(vec4 r, mat4x4 M, vec4 v) {$/;"	f
-mat4x4_ortho	src/linalg/linmath.h	/^static inline void mat4x4_ortho(mat4x4 M, float l, float r, float b, float t,$/;"	f
-mat4x4_perspective	src/linalg/linmath.h	/^static inline void mat4x4_perspective(mat4x4 m, float y_fov, float aspect,$/;"	f
-mat4x4_rotate	src/linalg/linmath.h	/^static inline void mat4x4_rotate(mat4x4 R, mat4x4 M, float x, float y, float z,$/;"	f
-mat4x4_rotate_X	src/linalg/linmath.h	/^static inline void mat4x4_rotate_X(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
-mat4x4_rotate_Y	src/linalg/linmath.h	/^static inline void mat4x4_rotate_Y(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
-mat4x4_rotate_Z	src/linalg/linmath.h	/^static inline void mat4x4_rotate_Z(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
-mat4x4_row	src/linalg/linmath.h	/^static inline void mat4x4_row(vec4 r, mat4x4 M, int i) {$/;"	f
-mat4x4_scale	src/linalg/linmath.h	/^static inline void mat4x4_scale(mat4x4 M, mat4x4 a, float k) {$/;"	f
-mat4x4_scale_aniso	src/linalg/linmath.h	/^static inline void mat4x4_scale_aniso(mat4x4 M, mat4x4 a, float x, float y,$/;"	f
-mat4x4_sub	src/linalg/linmath.h	/^static inline void mat4x4_sub(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
-mat4x4_translate	src/linalg/linmath.h	/^static inline void mat4x4_translate(mat4x4 T, float x, float y, float z) {$/;"	f
-mat4x4_translate_in_place	src/linalg/linmath.h	/^static inline void mat4x4_translate_in_place(mat4x4 M, float x, float y,$/;"	f
-mat4x4_transpose	src/linalg/linmath.h	/^static inline void mat4x4_transpose(mat4x4 M, mat4x4 N) {$/;"	f
-quat	src/linalg/linmath.h	/^typedef float quat[4];$/;"	t
-quat_add	src/linalg/linmath.h	/^static inline void quat_add(quat r, quat a, quat b) {$/;"	f
-quat_conj	src/linalg/linmath.h	/^static inline void quat_conj(quat r, quat q) {$/;"	f
-quat_from_mat4x4	src/linalg/linmath.h	/^static inline void quat_from_mat4x4(quat q, mat4x4 M) {$/;"	f
-quat_identity	src/linalg/linmath.h	/^static inline void quat_identity(quat q) {$/;"	f
-quat_inner_product	src/linalg/linmath.h	/^static inline float quat_inner_product(quat a, quat b) {$/;"	f
-quat_mul	src/linalg/linmath.h	/^static inline void quat_mul(quat r, quat p, quat q) {$/;"	f
-quat_mul_vec3	src/linalg/linmath.h	/^static inline void quat_mul_vec3(vec3 r, quat q, vec3 v) {$/;"	f
-quat_norm	src/linalg/linmath.h	407;"	d
-quat_scale	src/linalg/linmath.h	/^static inline void quat_scale(quat r, quat v, float s) {$/;"	f
-quat_sub	src/linalg/linmath.h	/^static inline void quat_sub(quat r, quat a, quat b) {$/;"	f
-vec3	src/linalg/linmath.h	/^typedef float vec3[3];$/;"	t
-vec3_add	src/linalg/linmath.h	/^static inline void vec3_add(vec3 r, vec3 a, vec3 b) {$/;"	f
-vec3_len	src/linalg/linmath.h	/^static inline float vec3_len(vec3 v) { return sqrtf(vec3_mul_inner(v, v)); }$/;"	f
-vec3_mul_cross	src/linalg/linmath.h	/^static inline void vec3_mul_cross(vec3 r, vec3 a, vec3 b) {$/;"	f
-vec3_mul_inner	src/linalg/linmath.h	/^static inline float vec3_mul_inner(vec3 a, vec3 b) {$/;"	f
-vec3_norm	src/linalg/linmath.h	/^static inline void vec3_norm(vec3 r, vec3 v) {$/;"	f
-vec3_reflect	src/linalg/linmath.h	/^static inline void vec3_reflect(vec3 r, vec3 v, vec3 n) {$/;"	f
-vec3_scale	src/linalg/linmath.h	/^static inline void vec3_scale(vec3 r, vec3 v, float s) {$/;"	f
-vec3_sub	src/linalg/linmath.h	/^static inline void vec3_sub(vec3 r, vec3 a, vec3 b) {$/;"	f
-vec4	src/linalg/linmath.h	/^typedef float vec4[4];$/;"	t
-vec4_add	src/linalg/linmath.h	/^static inline void vec4_add(vec4 r, vec4 a, vec4 b) {$/;"	f
-vec4_len	src/linalg/linmath.h	/^static inline float vec4_len(vec4 v) { return sqrtf(vec4_mul_inner(v, v)); }$/;"	f
-vec4_mul_cross	src/linalg/linmath.h	/^static inline void vec4_mul_cross(vec4 r, vec4 a, vec4 b) {$/;"	f
-vec4_mul_inner	src/linalg/linmath.h	/^static inline float vec4_mul_inner(vec4 a, vec4 b) {$/;"	f
-vec4_norm	src/linalg/linmath.h	/^static inline void vec4_norm(vec4 r, vec4 v) {$/;"	f
-vec4_reflect	src/linalg/linmath.h	/^static inline void vec4_reflect(vec4 r, vec4 v, vec4 n) {$/;"	f
-vec4_scale	src/linalg/linmath.h	/^static inline void vec4_scale(vec4 r, vec4 v, float s) {$/;"	f
-vec4_sub	src/linalg/linmath.h	/^static inline void vec4_sub(vec4 r, vec4 a, vec4 b) {$/;"	f
-SLS_TRANSFORM_2D_H_	src/linalg/sls-transform2d.h	30;"	d
-position	src/linalg/sls-transform2d.h	/^	vec2d position;$/;"	m	struct:slsTransform2D
-rotation	src/linalg/sls-transform2d.h	/^	float rotation;$/;"	m	struct:slsTransform2D
-scale	src/linalg/sls-transform2d.h	/^	vec2d scale;$/;"	m	struct:slsTransform2D
-slsTransform2D	src/linalg/sls-transform2d.h	/^struct slsTransform2D {$/;"	s
-sls_default_transform	src/linalg/sls-transform2d.h	/^static inline struct slsTransform2D sls_default_transform()$/;"	f
-__SLS_VEC_TYPES_H__	src/linalg/vectypes.h	2;"	d
-__ext_vector	src/linalg/vectypes.h	17;"	d
-print_vec2	src/linalg/vectypes.h	42;"	d
-print_vec3	src/linalg/vectypes.h	41;"	d
-print_vec4	src/linalg/vectypes.h	35;"	d
-print_vec4_short	src/linalg/vectypes.h	38;"	d
-vec3f_dot	src/linalg/vectypes.h	/^static inline float vec3f_dot(vec3f a, vec3f b)$/;"	f
-vec3f_length	src/linalg/vectypes.h	/^static inline float vec3f_length(vec3f a)$/;"	f
-vec3f_normalize	src/linalg/vectypes.h	/^static inline vec3f vec3f_normalize(vec3f a)$/;"	f
-vec4f_dot	src/linalg/vectypes.h	/^static inline float vec4f_dot(vec4f a, vec4f b)$/;"	f
-vec4f_length	src/linalg/vectypes.h	/^static inline float vec4f_length(vec4f a)$/;"	f
-vec4f_normalize	src/linalg/vectypes.h	/^static inline vec4f vec4f_normalize(vec4f a)$/;"	f
-vector	src/linalg/vectypes.h	11;"	d
-APPLY_ALL_H	src/macros/applyall.h	2;"	d
-Fn_apply	src/macros/applyall.h	/^define Fn_apply(type, fn, ...) {$/;"	f
 SLS_CONSTANTS_MACRO_H	src/macros/constants.h	2;"	d
 S_E	src/macros/constants.h	4;"	d
 S_PI	src/macros/constants.h	6;"	d
@@ -333,88 +39,701 @@ log_err	src/macros/dbg.h	17;"	d
 log_info	src/macros/dbg.h	25;"	d
 log_warn	src/macros/dbg.h	21;"	d
 sentinel	src/macros/dbg.h	35;"	d
-Sls_is_active	src/setup.c	/^SLbool Sls_is_active()$/;"	f
-init_Sls	src/setup.c	/^SLbool init_Sls()$/;"	f
-is_active	src/setup.c	/^static SLbool is_active = false;$/;"	v	file:
-quit_Sls	src/setup.c	/^void quit_Sls()$/;"	f
-__SLS_SETUP_H__	src/setup.h	2;"	d
-__SLS_SFML_ENGINE_MAIN_H__	src/slsengine.h	2;"	d
-__SLS_ENGINE_HEADERS_H__	src/stdhdr.h	2;"	d
-SAFE_STRING_LEN	src/types.h	10;"	d
-SLbool	src/types.h	/^typedef bool SLbool;$/;"	t
-SLbyte	src/types.h	/^typedef int8_t SLbyte;$/;"	t
-SLenum	src/types.h	/^typedef int32_t SLenum;$/;"	t
-SLint	src/types.h	/^typedef int32_t SLint;$/;"	t
-SLint64	src/types.h	/^typedef int64_t SLint64;$/;"	t
-SLshort	src/types.h	/^typedef int16_t SLshort;$/;"	t
-SLubyte	src/types.h	/^typedef uint8_t SLubyte;$/;"	t
-SLuint	src/types.h	/^typedef uint32_t SLuint;$/;"	t
-SLuint64	src/types.h	/^typedef uint64_t SLuint64;$/;"	t
-SLushort	src/types.h	/^typedef uint16_t SLushort;$/;"	t
-__SLS_TYPES_H__	src/types.h	2;"	d
-slsGlWindow_create	src/window/sls-glwindow.c	/^slsGlWindow *slsGlWindow_create(const char *caption, void *data)$/;"	f
-slsGlWindow_destroy	src/window/sls-glwindow.c	/^void *slsGlWindow_destroy(slsGlWindow *self)$/;"	f
-slsGlWindow_load_content	src/window/sls-glwindow.c	/^void slsGlWindow_load_content (slsGlWindow *self, void *data)$/;"	f
-slsGlWindow_poll_events	src/window/sls-glwindow.c	/^void slsGlWindow_poll_events	(slsGlWindow *self, void *data)$/;"	f
-slsGlWindow_render	src/window/sls-glwindow.c	/^void slsGlWindow_render (slsGlWindow *self, void *data)$/;"	f
-slsGlWindow_resize	src/window/sls-glwindow.c	/^void slsGlWindow_resize (slsGlWindow *self, int w, int h, void *data)$/;"	f
-slsGlWindow_run	src/window/sls-glwindow.c	/^void slsGlWindow_run (slsGlWindow *self, void *data)$/;"	f
-slsGlWindow_update	src/window/sls-glwindow.c	/^void slsGlWindow_update (slsGlWindow *self, double dt, void *data)$/;"	f
-sls_gl_init	src/window/sls-glwindow.c	/^void sls_gl_init(slsGlWindow *self)$/;"	f
-__SLS_GL_WINDOW_H__	src/window/sls-glwindow.h	2;"	d
-_slsGlWindow	src/window/sls-glwindow.h	/^struct _slsGlWindow {$/;"	s
-clear_color	src/window/sls-glwindow.h	/^	vec4f clear_color;$/;"	m	struct:_slsGlWindow
-context	src/window/sls-glwindow.h	/^	SDL_GLContext context;$/;"	m	struct:_slsGlWindow
-data	src/window/sls-glwindow.h	/^	void *data;$/;"	m	struct:_slsGlWindow
-dtor	src/window/sls-glwindow.h	/^	void *(*dtor)			(slsGlWindow *self);$/;"	m	struct:_slsGlWindow
-is_open	src/window/sls-glwindow.h	/^	SLbool is_open;$/;"	m	struct:_slsGlWindow
-load_content	src/window/sls-glwindow.h	/^	void (*load_content)	(slsGlWindow *self, void *data);$/;"	m	struct:_slsGlWindow
-name	src/window/sls-glwindow.h	/^	GString *name; \/\/ note: a pointer to slsWindow's name$/;"	m	struct:_slsGlWindow
-poll_events	src/window/sls-glwindow.h	/^	void (*poll_events)		(slsGlWindow *self, void *data);$/;"	m	struct:_slsGlWindow
-render	src/window/sls-glwindow.h	/^	void (*render)			(slsGlWindow *self, void *data);$/;"	m	struct:_slsGlWindow
-resize	src/window/sls-glwindow.h	/^	void (*resize)			(slsGlWindow *self, int w, int h, void *data);$/;"	m	struct:_slsGlWindow
-run	src/window/sls-glwindow.h	/^	void (*run)				(slsGlWindow *self, void *data);$/;"	m	struct:_slsGlWindow
-slsGlWindow	src/window/sls-glwindow.h	/^typedef struct _slsGlWindow slsGlWindow;$/;"	t	typeref:struct:_slsGlWindow
-super	src/window/sls-glwindow.h	/^	slsWindow *super;$/;"	m	struct:_slsGlWindow
-update	src/window/sls-glwindow.h	/^	void (*update)			(slsGlWindow *self, double dt, void *data);$/;"	m	struct:_slsGlWindow
-slsWindow_create	src/window/sls-window.c	/^slsWindow *slsWindow_create(const char *caption, void *data)$/;"	f
-slsWindow_destroy	src/window/sls-window.c	/^void *slsWindow_destroy(slsWindow *self)$/;"	f
-window_flags	src/window/sls-window.c	/^static int window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;$/;"	v	file:
-window_height	src/window/sls-window.c	/^static int window_height = 480;$/;"	v	file:
-window_width	src/window/sls-window.c	/^static int window_width = 640;$/;"	v	file:
-__SLS_SFML_RENDER_WINDOW_H__	src/window/sls-window.h	8;"	d
-_slsWindow	src/window/sls-window.h	/^struct _slsWindow {$/;"	s
-data	src/window/sls-window.h	/^	void *data;$/;"	m	struct:_slsWindow
-name	src/window/sls-window.h	/^	GString *name;$/;"	m	struct:_slsWindow
-renderer	src/window/sls-window.h	/^	SDL_Renderer *renderer;$/;"	m	struct:_slsWindow
-slsWindow	src/window/sls-window.h	/^typedef struct _slsWindow slsWindow;$/;"	t	typeref:struct:_slsWindow
-window	src/window/sls-window.h	/^	SDL_Window *window;$/;"	m	struct:_slsWindow
-__SLS_SFML_WINDOW_MODULE_H__	src/window/window.h	7;"	d
-component_fix_setup	tests/component-test.c	/^void component_fix_setup(CompFix *fix, gconstpointer data){ }$/;"	f
-component_fix_teardown	tests/component-test.c	/^void component_fix_teardown(CompFix *fix, gconstpointer data){ }$/;"	f
-component_test_a	tests/component-test.c	/^void component_test_a(CompFix *fix, gconstpointer data){ }$/;"	f
-run_component_tests	tests/component-test.c	/^void run_component_tests()$/;"	f
-CompFix	tests/component-test.h	/^} CompFix;$/;"	t	typeref:struct:__anon3
-__SLS_COMPONENT_TEST_H__	tests/component-test.h	2;"	d
-entities	tests/component-test.h	/^    slsEntityTable *entities;$/;"	m	struct:__anon3
-window	tests/component-test.h	/^    slsWindow *window;$/;"	m	struct:__anon3
-contentFix	tests/content-test.c	/^} contentFix;$/;"	t	typeref:struct:__anon2	file:
-content_setup	tests/content-test.c	/^void content_setup(contentFix *fix, gconstpointer data)$/;"	f
-content_shader_test	tests/content-test.c	/^void content_shader_test(contentFix *fix, gconstpointer data)$/;"	f
-content_teardown	tests/content-test.c	/^void content_teardown(contentFix *fix, gconstpointer data)$/;"	f
-content_test	tests/content-test.c	/^void content_test(contentFix *fix, gconstpointer data)$/;"	f
-content_texture_test	tests/content-test.c	/^void content_texture_test(contentFix *fix, gconstpointer data)$/;"	f
-mgr	tests/content-test.c	/^	slsContentManager *mgr;$/;"	m	struct:__anon2	file:
-run_content_tests	tests/content-test.c	/^void run_content_tests()$/;"	f
-window	tests/content-test.c	/^	slsGlWindow *window;$/;"	m	struct:__anon2	file:
-__SLS_CONSTENT_TEST_H__	tests/content-test.h	2;"	d
-main	tests/main.c	/^int main(int argc, char *argv[]) {$/;"	f
-run_math_tests	tests/math-tests.c	/^void run_math_tests()$/;"	f
-vec2i_setup	tests/math-tests.c	/^void vec2i_setup(vec2iFix *fix, gconstpointer data)$/;"	f
-vec2i_teardown	tests/math-tests.c	/^void vec2i_teardown(vec2iFix *fix, gconstpointer data)$/;"	f
-vec2i_test_add	tests/math-tests.c	/^void vec2i_test_add(vec2iFix *fix, gconstpointer data)$/;"	f
-vec2i_test_overflow	tests/math-tests.c	/^void vec2i_test_overflow()$/;"	f
-__SLS_MATH_TESTS_H__	tests/math-tests.h	2;"	d
-a	tests/math-tests.h	/^    vec2i a;$/;"	m	struct:__anon1
-b	tests/math-tests.h	/^    vec2i b;$/;"	m	struct:__anon1
-vec2iFix	tests/math-tests.h	/^} vec2iFix;$/;"	t	typeref:struct:__anon1
+__SLS_MACROS_H__	src/macros/macros.h	2;"	d
+slsAF	src/macros/macros.h	17;"	d
+slsMsg	src/macros/macros.h	7;"	d
+SAFE_STRING_LEN	src/macros/types.h	12;"	d
+SLbool	src/macros/types.h	/^typedef bool SLbool;$/;"	t
+SLbyte	src/macros/types.h	/^typedef int8_t SLbyte;$/;"	t
+SLenum	src/macros/types.h	/^typedef int32_t SLenum;$/;"	t
+SLint	src/macros/types.h	/^typedef int32_t SLint;$/;"	t
+SLint64	src/macros/types.h	/^typedef int64_t SLint64;$/;"	t
+SLshort	src/macros/types.h	/^typedef int16_t SLshort;$/;"	t
+SLubyte	src/macros/types.h	/^typedef uint8_t SLubyte;$/;"	t
+SLuint	src/macros/types.h	/^typedef uint32_t SLuint;$/;"	t
+SLuint64	src/macros/types.h	/^typedef uint64_t SLuint64;$/;"	t
+SLushort	src/macros/types.h	/^typedef uint16_t SLushort;$/;"	t
+__SLS_TYPES_H__	src/macros/types.h	2;"	d
+SLS_ARRAY_ALLOCATION_BUFFER	src/slsdata/sls-array.c	8;"	d	file:
+slsArray_free	src/slsdata/sls-array.c	/^void slsArray_free(slsArray *self)$/;"	f
+slsArray_getIndexPtr	src/slsdata/sls-array.c	/^char *slsArray_getIndexPtr(slsArray *self, size_t i)$/;"	f
+slsArray_insert	src/slsdata/sls-array.c	/^void slsArray_insert(slsArray *self, size_t n_elements, char *data)$/;"	f
+slsArray_new	src/slsdata/sls-array.c	/^slsArray *slsArray_new(size_t element_size, slsFreeFunc free_func)$/;"	f
+__SLS_DYNAMIC_ARRAY_H__	src/slsdata/sls-array.h	2;"	d
+allocation_buffer	src/slsdata/sls-array.h	/^	size_t allocation_buffer;$/;"	m	struct:slsArray
+data	src/slsdata/sls-array.h	/^	char *data;$/;"	m	struct:slsArray
+element_size	src/slsdata/sls-array.h	/^	size_t element_size;$/;"	m	struct:slsArray
+free_func	src/slsdata/sls-array.h	/^	slsFreeFunc free_func;$/;"	m	struct:slsArray
+len	src/slsdata/sls-array.h	/^	size_t len;$/;"	m	struct:slsArray
+memory	src/slsdata/sls-array.h	/^	size_t memory;$/;"	m	struct:slsArray
+slsArray	src/slsdata/sls-array.h	/^struct slsArray {$/;"	s
+slsArray	src/slsdata/sls-array.h	/^typedef struct slsArray slsArray;$/;"	t	typeref:struct:slsArray
+slsArray_index	src/slsdata/sls-array.h	35;"	d
+slsFreeFunc	src/slsdata/sls-array.h	/^typedef void (*slsFreeFunc)(void *data);$/;"	t
+__SLS_DATA_STDHDR_H__	src/slsdata/slsdata-hdr.h	2;"	d
+sls_abort	src/slsdata/slsdata-hdr.h	13;"	d
+__SLS_COMPONENT_ENTITY_H__	src/slsengine/ComponentEntity/componententity.h	2;"	d
+slsEntityTable_addEntity	src/slsengine/ComponentEntity/sls-entity-table.c	/^SLuint slsEntityTable_addEntity(slsEntityTable *world)$/;"	f
+slsEntityTable_create	src/slsengine/ComponentEntity/sls-entity-table.c	/^slsEntityTable *slsEntityTable_create()$/;"	f
+slsEntityTable_free	src/slsengine/ComponentEntity/sls-entity-table.c	/^void slsEntityTable_free(slsEntityTable *world)$/;"	f
+slsEntityTable_removeEntity	src/slsengine/ComponentEntity/sls-entity-table.c	/^void slsEntityTable_removeEntity(slsEntityTable *world, SLuint entity_id)$/;"	f
+slsEntityTable_validate	src/slsengine/ComponentEntity/sls-entity-table.c	/^SLbool slsEntityTable_validate(slsEntityTable *world)$/;"	f
+COMPONENT_NONE	src/slsengine/ComponentEntity/sls-entity-table.h	/^	COMPONENT_NONE = 0,$/;"	e	enum:__anon8
+COMPONENT_TRANSFORM	src/slsengine/ComponentEntity/sls-entity-table.h	/^	COMPONENT_TRANSFORM = 1 << 0$/;"	e	enum:__anon8
+MAX_COMPONENTS	src/slsengine/ComponentEntity/sls-entity-table.h	32;"	d
+WORLD_C_	src/slsengine/ComponentEntity/sls-entity-table.h	30;"	d
+_slsEntityTable	src/slsengine/ComponentEntity/sls-entity-table.h	/^struct _slsEntityTable {$/;"	s
+component_mask	src/slsengine/ComponentEntity/sls-entity-table.h	/^	GArray *component_mask; \/\/ type slsComponent$/;"	m	struct:_slsEntityTable
+slsComponent	src/slsengine/ComponentEntity/sls-entity-table.h	/^} slsComponent;$/;"	t	typeref:enum:__anon8
+slsEntityTable	src/slsengine/ComponentEntity/sls-entity-table.h	/^typedef struct _slsEntityTable slsEntityTable;$/;"	t	typeref:struct:_slsEntityTable
+transform	src/slsengine/ComponentEntity/sls-entity-table.h	/^	GArray *transform; \/\/type struct slsTransform2D$/;"	m	struct:_slsEntityTable
+create_gs_program	src/slsengine/gl/shaderutils.c	/^GLuint create_gs_program(const char *vertexfile, const char *geometryfile, const char *fragmentfile, GLint input, GLint output, GLint vertices) {$/;"	f
+create_gs_program	src/slsengine/gl/shaderutils.c	/^GLuint create_gs_program(const char *vertexfile, const char *geometryfile,$/;"	f
+create_program	src/slsengine/gl/shaderutils.c	/^GLuint create_program(const char *vertexfile, const char *fragmentfile) {$/;"	f
+create_shader	src/slsengine/gl/shaderutils.c	/^GLuint create_shader(const char* filename, GLenum type)$/;"	f
+file_read	src/slsengine/gl/shaderutils.c	/^char* file_read(const char* filename)$/;"	f
+get_attrib	src/slsengine/gl/shaderutils.c	/^GLint get_attrib(GLuint program, const char *name) {$/;"	f
+get_uniform	src/slsengine/gl/shaderutils.c	/^GLint get_uniform(GLuint program, const char *name) {$/;"	f
+print_log	src/slsengine/gl/shaderutils.c	/^void print_log(GLuint object)$/;"	f
+_CREATE_SHADER_H	src/slsengine/gl/shaderutils.h	7;"	d
+__SLS_MODULE_GL_H__	src/slsengine/gl/sls-gl.h	2;"	d
+SLS_MESH_ALLOC_BUFFER	src/slsengine/gl/sls-mesh.c	8;"	d	file:
+SLS_MESH_INITIAL_N_ALLOC	src/slsengine/gl/sls-mesh.c	5;"	d	file:
+slsMesh_alloc	src/slsengine/gl/sls-mesh.c	/^slsMesh *slsMesh_alloc()$/;"	f
+slsMesh_bindIbo	src/slsengine/gl/sls-mesh.c	/^void slsMesh_bindIbo(slsMesh *mesh, SLenum buffer_usage)$/;"	f
+slsMesh_bindTransform	src/slsengine/gl/sls-mesh.c	/^void slsMesh_bindTransform(slsMesh *self, SLint model)$/;"	f
+slsMesh_bindVbo	src/slsengine/gl/sls-mesh.c	/^void slsMesh_bindVbo(slsMesh *mesh, SLenum buffer_usage)$/;"	f
+slsMesh_draw	src/slsengine/gl/sls-mesh.c	/^void slsMesh_draw(slsMesh *self, slsShader *shader, SLenum draw_type)$/;"	f
+slsMesh_free	src/slsengine/gl/sls-mesh.c	/^void *slsMesh_free(slsMesh *mesh)$/;"	f
+slsMesh_init	src/slsengine/gl/sls-mesh.c	/^slsMesh *slsMesh_init(slsMesh *self)$/;"	f
+slsMesh_loadElements	src/slsengine/gl/sls-mesh.c	/^void slsMesh_loadElements(slsMesh *mesh, SLushort *elements,$/;"	f
+slsMesh_loadVerts	src/slsengine/gl/sls-mesh.c	/^void slsMesh_loadVerts(slsMesh *mesh, slsVertex *verts,$/;"	f
+slsMesh_newSquareMesh	src/slsengine/gl/sls-mesh.c	/^slsMesh *slsMesh_newSquareMesh()$/;"	f
+slsVertex_toString	src/slsengine/gl/sls-mesh.c	/^char *slsVertex_toString(slsVertex const *vert)$/;"	f
+__SLS_MESH_H__	src/slsengine/gl/sls-mesh.h	2;"	d
+_slsMesh	src/slsengine/gl/sls-mesh.h	/^struct _slsMesh {$/;"	s
+_slsVertex	src/slsengine/gl/sls-mesh.h	/^struct _slsVertex {$/;"	s
+bindIbo	src/slsengine/gl/sls-mesh.h	/^	void (*bindIbo)(slsMesh *self, SLenum buffer_usage);$/;"	m	struct:_slsMesh
+bindTransform	src/slsengine/gl/sls-mesh.h	/^	void (*bindTransform)(slsMesh *self, SLint model);$/;"	m	struct:_slsMesh
+bindVbo	src/slsengine/gl/sls-mesh.h	/^	void (*bindVbo)(slsMesh *self, SLenum buffer_usage);$/;"	m	struct:_slsMesh
+draw	src/slsengine/gl/sls-mesh.h	/^	void (*draw)(slsMesh *self, slsShader *shader, SLenum draw_type);$/;"	m	struct:_slsMesh
+dtor	src/slsengine/gl/sls-mesh.h	/^	void *(*dtor) (slsMesh *self);$/;"	m	struct:_slsMesh
+ibo	src/slsengine/gl/sls-mesh.h	/^	SLuint ibo;$/;"	m	struct:_slsMesh
+indices	src/slsengine/gl/sls-mesh.h	/^	GArray *indices;$/;"	m	struct:_slsMesh
+init	src/slsengine/gl/sls-mesh.h	/^	slsMesh *(*init) (slsMesh *self);$/;"	m	struct:_slsMesh
+loadElements	src/slsengine/gl/sls-mesh.h	/^	void (*loadElements)(slsMesh *self, SLushort *elements,$/;"	m	struct:_slsMesh
+loadVerts	src/slsengine/gl/sls-mesh.h	/^	void (*loadVerts)(slsMesh *self, slsVertex *verts,$/;"	m	struct:_slsMesh
+normal	src/slsengine/gl/sls-mesh.h	/^	float normal[3];$/;"	m	struct:_slsVertex
+position	src/slsengine/gl/sls-mesh.h	/^	float position[3];$/;"	m	struct:_slsVertex
+slsMesh	src/slsengine/gl/sls-mesh.h	/^typedef struct _slsMesh slsMesh;$/;"	t	typeref:struct:_slsMesh
+slsVertex	src/slsengine/gl/sls-mesh.h	/^typedef struct _slsVertex slsVertex;$/;"	t	typeref:struct:_slsVertex
+transform	src/slsengine/gl/sls-mesh.h	/^	slsMat4f transform;$/;"	m	struct:_slsMesh
+uv	src/slsengine/gl/sls-mesh.h	/^	float uv[2];$/;"	m	struct:_slsVertex
+vbo	src/slsengine/gl/sls-mesh.h	/^	SLuint vbo;$/;"	m	struct:_slsMesh
+vertices	src/slsengine/gl/sls-mesh.h	/^	GArray *vertices;$/;"	m	struct:_slsMesh
+slsShader_create	src/slsengine/gl/sls-shader.c	/^slsShader *slsShader_create(char const *shader_name, char const *vspath, char const *fspath)$/;"	f
+slsShader_destroy	src/slsengine/gl/sls-shader.c	/^void slsShader_destroy(slsShader *self)$/;"	f
+slsShader_disableAttrs	src/slsengine/gl/sls-shader.c	/^void slsShader_disableAttrs(slsShader *self)$/;"	f
+slsShader_enableAttrs	src/slsengine/gl/sls-shader.c	/^void slsShader_enableAttrs(slsShader *self)$/;"	f
+sls_push_matrix_unif	src/slsengine/gl/sls-shader.c	/^void sls_push_matrix_unif(slsMat4f const *M, SLint uniform)$/;"	f
+__SLS_SHADER_H__	src/slsengine/gl/sls-shader.h	2;"	d
+_slsShader	src/slsengine/gl/sls-shader.h	/^struct _slsShader {$/;"	s
+_slsShaderAttributes	src/slsengine/gl/sls-shader.h	/^struct _slsShaderAttributes{$/;"	s
+_slsShaderUnifs	src/slsengine/gl/sls-shader.h	/^struct _slsShaderUnifs{$/;"	s
+attributes	src/slsengine/gl/sls-shader.h	/^	slsShaderAttributes attributes;$/;"	m	struct:_slsShader
+disableAttrs	src/slsengine/gl/sls-shader.h	/^	void (*disableAttrs)(slsShader*self);$/;"	m	struct:_slsShader
+dtor	src/slsengine/gl/sls-shader.h	/^	void (*dtor)	(slsShader *self);$/;"	m	struct:_slsShader
+enableAttrs	src/slsengine/gl/sls-shader.h	/^	void (*enableAttrs)(slsShader*self);$/;"	m	struct:_slsShader
+model	src/slsengine/gl/sls-shader.h	/^	GLint model;$/;"	m	struct:_slsShaderUnifs
+name	src/slsengine/gl/sls-shader.h	/^	GString *name;$/;"	m	struct:_slsShader
+normal	src/slsengine/gl/sls-shader.h	/^	GLint normal;$/;"	m	struct:_slsShaderUnifs
+program	src/slsengine/gl/sls-shader.h	/^	GLuint program;$/;"	m	struct:_slsShader
+projection	src/slsengine/gl/sls-shader.h	/^	GLint projection;$/;"	m	struct:_slsShaderUnifs
+slsShader	src/slsengine/gl/sls-shader.h	/^typedef struct _slsShader slsShader;$/;"	t	typeref:struct:_slsShader
+slsShaderAttributes	src/slsengine/gl/sls-shader.h	/^typedef struct _slsShaderAttributes slsShaderAttributes;$/;"	t	typeref:struct:_slsShaderAttributes
+slsShaderUnifs	src/slsengine/gl/sls-shader.h	/^typedef struct _slsShaderUnifs slsShaderUnifs;$/;"	t	typeref:struct:_slsShaderUnifs
+uniforms	src/slsengine/gl/sls-shader.h	/^	slsShaderUnifs uniforms;$/;"	m	struct:_slsShader
+vertNormal	src/slsengine/gl/sls-shader.h	/^	GLint vertNormal;$/;"	m	struct:_slsShaderAttributes
+vertPosition	src/slsengine/gl/sls-shader.h	/^	GLint vertPosition;$/;"	m	struct:_slsShaderAttributes
+vertUv	src/slsengine/gl/sls-shader.h	/^	GLint vertUv;$/;"	m	struct:_slsShaderAttributes
+view	src/slsengine/gl/sls-shader.h	/^	GLint view;$/;"	m	struct:_slsShaderUnifs
+__SLS_MODULE_GRAPHICS_H__	src/slsengine/graphics/graphics.h	2;"	d
+slsContentContainer_dtor	src/slsengine/graphics/sls-cont-container.c	/^void slsContentContainer_dtor(slsContentContainer *self)$/;"	f
+slsContentContainer_new	src/slsengine/graphics/sls-cont-container.c	/^slsContentContainer *slsContentContainer_new($/;"	f
+slsContentContainer_retain	src/slsengine/graphics/sls-cont-container.c	/^const void *slsContentContainer_retain(CFAllocatorRef allocator, const void *value)$/;"	f
+slsContentContainer_setData	src/slsengine/graphics/sls-cont-container.c	/^void slsContentContainer_setData(slsContentContainer *self,$/;"	f
+SLS_CONTENT_AUDIO	src/slsengine/graphics/sls-cont-container.h	/^	SLS_CONTENT_AUDIO$/;"	e	enum:__anon6
+SLS_CONTENT_MESH	src/slsengine/graphics/sls-cont-container.h	/^	SLS_CONTENT_MESH,$/;"	e	enum:__anon6
+SLS_CONTENT_SHADER	src/slsengine/graphics/sls-cont-container.h	/^	SLS_CONTENT_SHADER,$/;"	e	enum:__anon6
+SLS_CONTENT_SPRITE	src/slsengine/graphics/sls-cont-container.h	/^	SLS_CONTENT_SPRITE,$/;"	e	enum:__anon6
+SLS_CONTENT_TEXTURE	src/slsengine/graphics/sls-cont-container.h	/^	SLS_CONTENT_TEXTURE,$/;"	e	enum:__anon6
+SLS_CONTENT_VOID	src/slsengine/graphics/sls-cont-container.h	/^	SLS_CONTENT_VOID = 0,$/;"	e	enum:__anon6
+__SLS_CONTENT_CONTAINER__	src/slsengine/graphics/sls-cont-container.h	2;"	d
+callbacks	src/slsengine/graphics/sls-cont-container.h	/^	CFDictionaryValueCallBacks callbacks;$/;"	m	struct:slsContentContainer
+custom_data_dtor	src/slsengine/graphics/sls-cont-container.h	/^	void (*custom_data_dtor)(void *data);$/;"	m	struct:slsContentContainer
+dtor	src/slsengine/graphics/sls-cont-container.h	/^	void (*dtor)(slsContentContainer *self);$/;"	m	struct:slsContentContainer
+m	src/slsengine/graphics/sls-cont-container.h	/^		slsMesh *m;$/;"	m	union:slsContentContainer::__anon7
+ref	src/slsengine/graphics/sls-cont-container.h	/^	unsigned ref;$/;"	m	struct:slsContentContainer
+setData	src/slsengine/graphics/sls-cont-container.h	/^	void (*setData)(slsContentContainer *self,$/;"	m	struct:slsContentContainer
+sh	src/slsengine/graphics/sls-cont-container.h	/^		slsShader *sh;$/;"	m	union:slsContentContainer::__anon7
+slsContentContainer	src/slsengine/graphics/sls-cont-container.h	/^struct slsContentContainer{$/;"	s
+slsContentContainer	src/slsengine/graphics/sls-cont-container.h	/^typedef struct slsContentContainer slsContentContainer;$/;"	t	typeref:struct:slsContentContainer
+slsContentContainer_callbackProto	src/slsengine/graphics/sls-cont-container.h	/^slsContentContainer_callbackProto = {$/;"	v
+slsContentType	src/slsengine/graphics/sls-cont-container.h	/^} slsContentType;$/;"	t	typeref:enum:__anon6
+sp	src/slsengine/graphics/sls-cont-container.h	/^		slsSprite *sp;$/;"	m	union:slsContentContainer::__anon7
+t	src/slsengine/graphics/sls-cont-container.h	/^		SDL_Texture *t;$/;"	m	union:slsContentContainer::__anon7
+type	src/slsengine/graphics/sls-cont-container.h	/^	slsContentType type;$/;"	m	struct:slsContentContainer
+v	src/slsengine/graphics/sls-cont-container.h	/^		void *v;$/;"	m	union:slsContentContainer::__anon7
+slsContentManager_create	src/slsengine/graphics/sls-content.c	/^slsContentManager *slsContentManager_create()$/;"	f
+slsContentManager_destroy	src/slsengine/graphics/sls-content.c	/^void slsContentManager_destroy(slsContentManager *self)$/;"	f
+slsContentManager_loadExistingMesh	src/slsengine/graphics/sls-content.c	/^slsMesh *slsContentManager_loadExistingMesh($/;"	f
+slsContentManager_load_shader	src/slsengine/graphics/sls-content.c	/^slsShader *slsContentManager_load_shader($/;"	f
+slsContentManager_load_texture	src/slsengine/graphics/sls-content.c	/^SDL_Texture *slsContentManager_load_texture($/;"	f
+sls_hash_mesh_free	src/slsengine/graphics/sls-content.c	/^void sls_hash_mesh_free(gpointer mesh)$/;"	f
+sls_hash_shader_free	src/slsengine/graphics/sls-content.c	/^void sls_hash_shader_free(gpointer shader)$/;"	f
+sls_hash_texture_free	src/slsengine/graphics/sls-content.c	/^void sls_hash_texture_free(gpointer texture)$/;"	f
+__SLS_CONTENT_H__	src/slsengine/graphics/sls-content.h	2;"	d
+_slsContentManager	src/slsengine/graphics/sls-content.h	/^struct _slsContentManager {$/;"	s
+content	src/slsengine/graphics/sls-content.h	/^    CFMutableDictionaryRef content;$/;"	m	struct:_slsContentManager
+meshes	src/slsengine/graphics/sls-content.h	/^    GHashTable *meshes;$/;"	m	struct:_slsContentManager
+shaders	src/slsengine/graphics/sls-content.h	/^    GHashTable *shaders;$/;"	m	struct:_slsContentManager
+slsContentManager	src/slsengine/graphics/sls-content.h	/^typedef struct _slsContentManager slsContentManager;$/;"	t	typeref:struct:_slsContentManager
+textures	src/slsengine/graphics/sls-content.h	/^    GHashTable *textures;$/;"	m	struct:_slsContentManager
+slsSprite_create	src/slsengine/graphics/sls-sprite.c	/^slsSprite *slsSprite_create($/;"	f
+slsSprite_destroy	src/slsengine/graphics/sls-sprite.c	/^void slsSprite_destroy(slsSprite *self)$/;"	f
+slsSprite_draw	src/slsengine/graphics/sls-sprite.c	/^void slsSprite_draw(SDL_Renderer *renderer, slsSprite *sprite)$/;"	f
+__SLS_SPRITE_H__	src/slsengine/graphics/sls-sprite.h	2;"	d
+_slsSprite	src/slsengine/graphics/sls-sprite.h	/^struct _slsSprite {$/;"	s
+dest_rect	src/slsengine/graphics/sls-sprite.h	/^    SDL_Rect dest_rect;$/;"	m	struct:_slsSprite
+slsSprite	src/slsengine/graphics/sls-sprite.h	/^typedef struct _slsSprite slsSprite;$/;"	t	typeref:struct:_slsSprite
+src_rect	src/slsengine/graphics/sls-sprite.h	/^    SDL_Rect src_rect;$/;"	m	struct:_slsSprite
+texture	src/slsengine/graphics/sls-sprite.h	/^    SDL_Texture *texture;$/;"	m	struct:_slsSprite
+LINMATH_H	src/slsengine/linalg/linmath.h	2;"	d
+mat4x4	src/slsengine/linalg/linmath.h	/^typedef vec4 mat4x4[4];$/;"	t
+mat4x4_add	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_add(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
+mat4x4_col	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_col(vec4 r, mat4x4 M, int i) {$/;"	f
+mat4x4_dup	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_dup(mat4x4 M, mat4x4 N) {$/;"	f
+mat4x4_from_quat	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_from_quat(mat4x4 M, quat q) {$/;"	f
+mat4x4_from_vec3_mul_outer	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_from_vec3_mul_outer(mat4x4 M, vec3 a, vec3 b) {$/;"	f
+mat4x4_frustum	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_frustum(mat4x4 M, float l, float r, float b, float t,$/;"	f
+mat4x4_identity	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_identity(mat4x4 M) {$/;"	f
+mat4x4_invert	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_invert(mat4x4 T, mat4x4 M) {$/;"	f
+mat4x4_look_at	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_look_at(mat4x4 m, vec3 eye, vec3 center, vec3 up) {$/;"	f
+mat4x4_mul	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_mul(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
+mat4x4_mul_quat	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_mul_quat(mat4x4 R, mat4x4 M, quat q) {$/;"	f
+mat4x4_mul_vec4	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_mul_vec4(vec4 r, mat4x4 M, vec4 v) {$/;"	f
+mat4x4_ortho	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_ortho(mat4x4 M, float l, float r, float b, float t,$/;"	f
+mat4x4_perspective	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_perspective(mat4x4 m, float y_fov, float aspect,$/;"	f
+mat4x4_rotate	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_rotate(mat4x4 R, mat4x4 M, float x, float y, float z,$/;"	f
+mat4x4_rotate_X	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_rotate_X(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
+mat4x4_rotate_Y	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_rotate_Y(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
+mat4x4_rotate_Z	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_rotate_Z(mat4x4 Q, mat4x4 M, float angle) {$/;"	f
+mat4x4_row	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_row(vec4 r, mat4x4 M, int i) {$/;"	f
+mat4x4_scale	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_scale(mat4x4 M, mat4x4 a, float k) {$/;"	f
+mat4x4_scale_aniso	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_scale_aniso(mat4x4 M, mat4x4 a, float x, float y,$/;"	f
+mat4x4_sub	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_sub(mat4x4 M, mat4x4 a, mat4x4 b) {$/;"	f
+mat4x4_translate	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_translate(mat4x4 T, float x, float y, float z) {$/;"	f
+mat4x4_translate_in_place	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_translate_in_place(mat4x4 M, float x, float y,$/;"	f
+mat4x4_transpose	src/slsengine/linalg/linmath.h	/^static inline void mat4x4_transpose(mat4x4 M, mat4x4 N) {$/;"	f
+quat	src/slsengine/linalg/linmath.h	/^typedef float quat[4];$/;"	t
+quat_add	src/slsengine/linalg/linmath.h	/^static inline void quat_add(quat r, quat a, quat b) {$/;"	f
+quat_conj	src/slsengine/linalg/linmath.h	/^static inline void quat_conj(quat r, quat q) {$/;"	f
+quat_from_mat4x4	src/slsengine/linalg/linmath.h	/^static inline void quat_from_mat4x4(quat q, mat4x4 M) {$/;"	f
+quat_identity	src/slsengine/linalg/linmath.h	/^static inline void quat_identity(quat q) {$/;"	f
+quat_inner_product	src/slsengine/linalg/linmath.h	/^static inline float quat_inner_product(quat a, quat b) {$/;"	f
+quat_mul	src/slsengine/linalg/linmath.h	/^static inline void quat_mul(quat r, quat p, quat q) {$/;"	f
+quat_mul_vec3	src/slsengine/linalg/linmath.h	/^static inline void quat_mul_vec3(vec3 r, quat q, vec3 v) {$/;"	f
+quat_norm	src/slsengine/linalg/linmath.h	407;"	d
+quat_scale	src/slsengine/linalg/linmath.h	/^static inline void quat_scale(quat r, quat v, float s) {$/;"	f
+quat_sub	src/slsengine/linalg/linmath.h	/^static inline void quat_sub(quat r, quat a, quat b) {$/;"	f
+vec3	src/slsengine/linalg/linmath.h	/^typedef float vec3[3];$/;"	t
+vec3_add	src/slsengine/linalg/linmath.h	/^static inline void vec3_add(vec3 r, vec3 a, vec3 b) {$/;"	f
+vec3_len	src/slsengine/linalg/linmath.h	/^static inline float vec3_len(vec3 v) { return sqrtf(vec3_mul_inner(v, v)); }$/;"	f
+vec3_mul_cross	src/slsengine/linalg/linmath.h	/^static inline void vec3_mul_cross(vec3 r, vec3 a, vec3 b) {$/;"	f
+vec3_mul_inner	src/slsengine/linalg/linmath.h	/^static inline float vec3_mul_inner(vec3 a, vec3 b) {$/;"	f
+vec3_norm	src/slsengine/linalg/linmath.h	/^static inline void vec3_norm(vec3 r, vec3 v) {$/;"	f
+vec3_reflect	src/slsengine/linalg/linmath.h	/^static inline void vec3_reflect(vec3 r, vec3 v, vec3 n) {$/;"	f
+vec3_scale	src/slsengine/linalg/linmath.h	/^static inline void vec3_scale(vec3 r, vec3 v, float s) {$/;"	f
+vec3_sub	src/slsengine/linalg/linmath.h	/^static inline void vec3_sub(vec3 r, vec3 a, vec3 b) {$/;"	f
+vec4	src/slsengine/linalg/linmath.h	/^typedef float vec4[4];$/;"	t
+vec4_add	src/slsengine/linalg/linmath.h	/^static inline void vec4_add(vec4 r, vec4 a, vec4 b) {$/;"	f
+vec4_len	src/slsengine/linalg/linmath.h	/^static inline float vec4_len(vec4 v) { return sqrtf(vec4_mul_inner(v, v)); }$/;"	f
+vec4_mul_cross	src/slsengine/linalg/linmath.h	/^static inline void vec4_mul_cross(vec4 r, vec4 a, vec4 b) {$/;"	f
+vec4_mul_inner	src/slsengine/linalg/linmath.h	/^static inline float vec4_mul_inner(vec4 a, vec4 b) {$/;"	f
+vec4_norm	src/slsengine/linalg/linmath.h	/^static inline void vec4_norm(vec4 r, vec4 v) {$/;"	f
+vec4_reflect	src/slsengine/linalg/linmath.h	/^static inline void vec4_reflect(vec4 r, vec4 v, vec4 n) {$/;"	f
+vec4_scale	src/slsengine/linalg/linmath.h	/^static inline void vec4_scale(vec4 r, vec4 v, float s) {$/;"	f
+vec4_sub	src/slsengine/linalg/linmath.h	/^static inline void vec4_sub(vec4 r, vec4 a, vec4 b) {$/;"	f
+slsMat4f_eq	src/slsengine/linalg/sls-mat4.c	/^bool slsMat4f_eq(slsMat4f const *A, slsMat4f const *B)$/;"	f
+slsMat4f_getCol	src/slsengine/linalg/sls-mat4.c	/^vec4f slsMat4f_getCol(slsMat4f const*A, int i)$/;"	f
+slsMat4f_identity	src/slsengine/linalg/sls-mat4.c	/^slsMat4f slsMat4f_identity()$/;"	f
+slsMat4f_mul	src/slsengine/linalg/sls-mat4.c	/^slsMat4f slsMat4f_mul(slsMat4f const *A, slsMat4f const *B)$/;"	f
+slsMat4f_mul_scalar	src/slsengine/linalg/sls-mat4.c	/^slsMat4f slsMat4f_mul_scalar(slsMat4f const *A, float const n)$/;"	f
+slsMat4f_mul_vec4f	src/slsengine/linalg/sls-mat4.c	/^vec4f slsMat4f_mul_vec4f(slsMat4f const *M, vec4f v)$/;"	f
+slsMat4f_scale	src/slsengine/linalg/sls-mat4.c	/^slsMat4f slsMat4f_scale(vec3f d)$/;"	f
+slsMat4f_translation	src/slsengine/linalg/sls-mat4.c	/^slsMat4f slsMat4f_translation(vec3f d)$/;"	f
+__SLS_MAT4_H__	src/slsengine/linalg/sls-mat4.h	2;"	d
+_slsMat4f	src/slsengine/linalg/sls-mat4.h	/^struct _slsMat4f {$/;"	s
+mat	src/slsengine/linalg/sls-mat4.h	/^	vec4f mat[4];$/;"	m	struct:_slsMat4f
+slsMat4f	src/slsengine/linalg/sls-mat4.h	/^typedef struct _slsMat4f slsMat4f;$/;"	t	typeref:struct:_slsMat4f
+slsMat4f_print	src/slsengine/linalg/sls-mat4.h	/^static inline void slsMat4f_print(slsMat4f const *A)$/;"	f
+slsMat4f_toArray	src/slsengine/linalg/sls-mat4.h	/^static inline void slsMat4f_toArray(float arr[16], slsMat4f const*M)$/;"	f
+SLS_TRANSFORM_2D_H_	src/slsengine/linalg/sls-transform2d.h	30;"	d
+position	src/slsengine/linalg/sls-transform2d.h	/^	vec2d position;$/;"	m	struct:slsTransform2D
+rotation	src/slsengine/linalg/sls-transform2d.h	/^	float rotation;$/;"	m	struct:slsTransform2D
+scale	src/slsengine/linalg/sls-transform2d.h	/^	vec2d scale;$/;"	m	struct:slsTransform2D
+slsTransform2D	src/slsengine/linalg/sls-transform2d.h	/^struct slsTransform2D {$/;"	s
+sls_default_transform	src/slsengine/linalg/sls-transform2d.h	/^static inline struct slsTransform2D sls_default_transform()$/;"	f
+__SLS_VEC_TYPES_H__	src/slsengine/linalg/vectypes.h	2;"	d
+__ext_vector	src/slsengine/linalg/vectypes.h	18;"	d
+print_vec2	src/slsengine/linalg/vectypes.h	43;"	d
+print_vec3	src/slsengine/linalg/vectypes.h	42;"	d
+print_vec4	src/slsengine/linalg/vectypes.h	36;"	d
+print_vec4_short	src/slsengine/linalg/vectypes.h	39;"	d
+vec3f_add_scalar	src/slsengine/linalg/vectypes.h	/^static inline vec3f vec3f_add_scalar(vec3f a, float n)$/;"	f
+vec3f_div_scalar	src/slsengine/linalg/vectypes.h	/^static inline vec3f vec3f_div_scalar(vec3f a, float n)$/;"	f
+vec3f_dot	src/slsengine/linalg/vectypes.h	/^static inline float vec3f_dot(vec3f a, vec3f b)$/;"	f
+vec3f_eq	src/slsengine/linalg/vectypes.h	/^static inline bool vec3f_eq(vec3f a, vec3f b)$/;"	f
+vec3f_length	src/slsengine/linalg/vectypes.h	/^static inline float vec3f_length(vec3f a)$/;"	f
+vec3f_mul_scalar	src/slsengine/linalg/vectypes.h	/^static inline vec3f vec3f_mul_scalar(vec3f a, float n)$/;"	f
+vec3f_normalize	src/slsengine/linalg/vectypes.h	/^static inline vec3f vec3f_normalize(vec3f a)$/;"	f
+vec3f_sub_scalar	src/slsengine/linalg/vectypes.h	/^static inline vec3f vec3f_sub_scalar(vec3f a, float n)$/;"	f
+vec4f_add_scalar	src/slsengine/linalg/vectypes.h	/^static inline vec4f vec4f_add_scalar(vec4f a, float n)$/;"	f
+vec4f_div_scalar	src/slsengine/linalg/vectypes.h	/^static inline vec4f vec4f_div_scalar(vec4f a, float n)$/;"	f
+vec4f_dot	src/slsengine/linalg/vectypes.h	/^static inline float vec4f_dot(vec4f a, vec4f b)$/;"	f
+vec4f_eq	src/slsengine/linalg/vectypes.h	/^static inline bool vec4f_eq(vec4f a, vec4f b) {$/;"	f
+vec4f_length	src/slsengine/linalg/vectypes.h	/^static inline float vec4f_length(vec4f a)$/;"	f
+vec4f_mul_scalar	src/slsengine/linalg/vectypes.h	/^static inline vec4f vec4f_mul_scalar(vec4f a, float n)$/;"	f
+vec4f_normalize	src/slsengine/linalg/vectypes.h	/^static inline vec4f vec4f_normalize(vec4f a)$/;"	f
+vec4f_sub_scalar	src/slsengine/linalg/vectypes.h	/^static inline vec4f vec4f_sub_scalar(vec4f a, float n)$/;"	f
+vec4f_toArray	src/slsengine/linalg/vectypes.h	/^static inline void vec4f_toArray(float arr[4], vec4f v)$/;"	f
+vector	src/slsengine/linalg/vectypes.h	12;"	d
+SLS_CONSTANTS_MACRO_H	src/slsengine/macros/constants.h	2;"	d
+S_E	src/slsengine/macros/constants.h	4;"	d
+S_PI	src/slsengine/macros/constants.h	6;"	d
+__dbg_h__	src/slsengine/macros/dbg.h	2;"	d
+check	src/slsengine/macros/dbg.h	28;"	d
+check_debug	src/slsengine/macros/dbg.h	44;"	d
+check_mem	src/slsengine/macros/dbg.h	42;"	d
+clean_errno	src/slsengine/macros/dbg.h	15;"	d
+debug	src/slsengine/macros/dbg.h	11;"	d
+debug	src/slsengine/macros/dbg.h	9;"	d
+log_err	src/slsengine/macros/dbg.h	17;"	d
+log_info	src/slsengine/macros/dbg.h	25;"	d
+log_warn	src/slsengine/macros/dbg.h	21;"	d
+sentinel	src/slsengine/macros/dbg.h	35;"	d
+__SLS_MACROS_H__	src/slsengine/macros/macros.h	2;"	d
+slsAF	src/slsengine/macros/macros.h	17;"	d
+slsMsg	src/slsengine/macros/macros.h	7;"	d
+Sls_is_active	src/slsengine/setup.c	/^SLbool Sls_is_active()$/;"	f
+init_Sls	src/slsengine/setup.c	/^SLbool init_Sls()$/;"	f
+is_active	src/slsengine/setup.c	/^static SLbool is_active = false;$/;"	v	file:
+quit_Sls	src/slsengine/setup.c	/^void quit_Sls()$/;"	f
+__SLS_SETUP_H__	src/slsengine/setup.h	2;"	d
+__SLS_SFML_ENGINE_MAIN_H__	src/slsengine/slsengine.h	2;"	d
+__SLS_ENGINE_HEADERS_H__	src/slsengine/stdhdr.h	2;"	d
+SAFE_STRING_LEN	src/slsengine/types.h	10;"	d
+SLbool	src/slsengine/types.h	/^typedef bool SLbool;$/;"	t
+SLbyte	src/slsengine/types.h	/^typedef int8_t SLbyte;$/;"	t
+SLenum	src/slsengine/types.h	/^typedef int32_t SLenum;$/;"	t
+SLint	src/slsengine/types.h	/^typedef int32_t SLint;$/;"	t
+SLint64	src/slsengine/types.h	/^typedef int64_t SLint64;$/;"	t
+SLshort	src/slsengine/types.h	/^typedef int16_t SLshort;$/;"	t
+SLubyte	src/slsengine/types.h	/^typedef uint8_t SLubyte;$/;"	t
+SLuint	src/slsengine/types.h	/^typedef uint32_t SLuint;$/;"	t
+SLuint64	src/slsengine/types.h	/^typedef uint64_t SLuint64;$/;"	t
+SLushort	src/slsengine/types.h	/^typedef uint16_t SLushort;$/;"	t
+__SLS_TYPES_H__	src/slsengine/types.h	2;"	d
+slsGlWindow_create	src/slsengine/window/sls-glwindow.c	/^slsGlWindow *slsGlWindow_create(const char *caption, void *data)$/;"	f
+slsGlWindow_destroy	src/slsengine/window/sls-glwindow.c	/^void *slsGlWindow_destroy(slsGlWindow *self)$/;"	f
+slsGlWindow_load_content	src/slsengine/window/sls-glwindow.c	/^void slsGlWindow_load_content (slsGlWindow *self, void *data)$/;"	f
+slsGlWindow_poll_events	src/slsengine/window/sls-glwindow.c	/^void slsGlWindow_poll_events	(slsGlWindow *self, void *data)$/;"	f
+slsGlWindow_render	src/slsengine/window/sls-glwindow.c	/^void slsGlWindow_render (slsGlWindow *self, void *data)$/;"	f
+slsGlWindow_resize	src/slsengine/window/sls-glwindow.c	/^void slsGlWindow_resize (slsGlWindow *self, int w, int h, void *data)$/;"	f
+slsGlWindow_run	src/slsengine/window/sls-glwindow.c	/^void slsGlWindow_run (slsGlWindow *self, void *data)$/;"	f
+slsGlWindow_update	src/slsengine/window/sls-glwindow.c	/^void slsGlWindow_update (slsGlWindow *self, double dt, void *data)$/;"	f
+sls_gl_init	src/slsengine/window/sls-glwindow.c	/^void sls_gl_init(slsGlWindow *self)$/;"	f
+SLS_WINDOW_GLES_RENDER	src/slsengine/window/sls-glwindow.h	/^	SLS_WINDOW_GLES_RENDER$/;"	e	enum:slsWindowRenderMode
+SLS_WINDOW_OGL_RENDER	src/slsengine/window/sls-glwindow.h	/^	SLS_WINDOW_OGL_RENDER,$/;"	e	enum:slsWindowRenderMode
+SLS_WINDOW_SDL_RENDER	src/slsengine/window/sls-glwindow.h	/^	SLS_WINDOW_SDL_RENDER,$/;"	e	enum:slsWindowRenderMode
+__SLS_GL_WINDOW_H__	src/slsengine/window/sls-glwindow.h	2;"	d
+_slsGlWindow	src/slsengine/window/sls-glwindow.h	/^struct _slsGlWindow {$/;"	s
+clear_color	src/slsengine/window/sls-glwindow.h	/^	vec4f clear_color;$/;"	m	struct:_slsGlWindow
+context	src/slsengine/window/sls-glwindow.h	/^	SDL_GLContext context;$/;"	m	struct:_slsGlWindow
+data	src/slsengine/window/sls-glwindow.h	/^	void *data;$/;"	m	struct:_slsGlWindow
+dtor	src/slsengine/window/sls-glwindow.h	/^	void *(*dtor)			(slsGlWindow *self);$/;"	m	struct:_slsGlWindow
+is_open	src/slsengine/window/sls-glwindow.h	/^	SLbool is_open;$/;"	m	struct:_slsGlWindow
+load_content	src/slsengine/window/sls-glwindow.h	/^	void (*load_content)	(slsGlWindow *self, void *data);$/;"	m	struct:_slsGlWindow
+name	src/slsengine/window/sls-glwindow.h	/^	GString *name; \/\/ note: a pointer to slsWindow's name$/;"	m	struct:_slsGlWindow
+poll_events	src/slsengine/window/sls-glwindow.h	/^	void (*poll_events)		(slsGlWindow *self, void *data);$/;"	m	struct:_slsGlWindow
+render	src/slsengine/window/sls-glwindow.h	/^	void (*render)			(slsGlWindow *self, void *data);$/;"	m	struct:_slsGlWindow
+renderer	src/slsengine/window/sls-glwindow.h	/^	SDL_Renderer *renderer;$/;"	m	struct:_slsGlWindow
+resize	src/slsengine/window/sls-glwindow.h	/^	void (*resize)			(slsGlWindow *self, int w, int h, void *data);$/;"	m	struct:_slsGlWindow
+run	src/slsengine/window/sls-glwindow.h	/^	void (*run)				(slsGlWindow *self, void *data);$/;"	m	struct:_slsGlWindow
+slsGlWindow	src/slsengine/window/sls-glwindow.h	/^typedef struct _slsGlWindow slsGlWindow;$/;"	t	typeref:struct:_slsGlWindow
+slsWindowRenderMode	src/slsengine/window/sls-glwindow.h	/^enum slsWindowRenderMode {$/;"	g
+slsWindowRenderMode	src/slsengine/window/sls-glwindow.h	/^typedef enum slsWindowRenderMode slsWindowRenderMode;$/;"	t	typeref:enum:slsWindowRenderMode
+super	src/slsengine/window/sls-glwindow.h	/^	slsWindow *super;$/;"	m	struct:_slsGlWindow
+update	src/slsengine/window/sls-glwindow.h	/^	void (*update)			(slsGlWindow *self, double dt, void *data);$/;"	m	struct:_slsGlWindow
+window	src/slsengine/window/sls-glwindow.h	/^	SDL_Window *window;$/;"	m	struct:_slsGlWindow
+slsWindow_create	src/slsengine/window/sls-window.c	/^slsWindow *slsWindow_create(const char *caption, void *data)$/;"	f
+slsWindow_destroy	src/slsengine/window/sls-window.c	/^void *slsWindow_destroy(slsWindow *self)$/;"	f
+window_flags	src/slsengine/window/sls-window.c	/^static int window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;$/;"	v	file:
+window_height	src/slsengine/window/sls-window.c	/^static int window_height = 480;$/;"	v	file:
+window_width	src/slsengine/window/sls-window.c	/^static int window_width = 640;$/;"	v	file:
+__SLS_SFML_RENDER_WINDOW_H__	src/slsengine/window/sls-window.h	8;"	d
+_slsWindow	src/slsengine/window/sls-window.h	/^struct _slsWindow {$/;"	s
+data	src/slsengine/window/sls-window.h	/^	void *data;$/;"	m	struct:_slsWindow
+name	src/slsengine/window/sls-window.h	/^	GString *name;$/;"	m	struct:_slsWindow
+renderer	src/slsengine/window/sls-window.h	/^	SDL_Renderer *renderer;$/;"	m	struct:_slsWindow
+slsWindow	src/slsengine/window/sls-window.h	/^typedef struct _slsWindow slsWindow;$/;"	t	typeref:struct:_slsWindow
+window	src/slsengine/window/sls-window.h	/^	SDL_Window *window;$/;"	m	struct:_slsWindow
+__SLS_SFML_WINDOW_MODULE_H__	src/slsengine/window/window.h	7;"	d
+CompFix	src/tests/component-test.c	/^} CompFix;$/;"	t	typeref:struct:__anon4	file:
+component_fix_setup	src/tests/component-test.c	/^void component_fix_setup(CompFix *fix, gconstpointer data){ }$/;"	f
+component_fix_teardown	src/tests/component-test.c	/^void component_fix_teardown(CompFix *fix, gconstpointer data){ }$/;"	f
+component_test_a	src/tests/component-test.c	/^void component_test_a(CompFix *fix, gconstpointer data){ }$/;"	f
+entities	src/tests/component-test.c	/^    slsEntityTable *entities;$/;"	m	struct:__anon4	file:
+run_component_tests	src/tests/component-test.c	/^void run_component_tests()$/;"	f
+window	src/tests/component-test.c	/^    slsWindow *window;$/;"	m	struct:__anon4	file:
+contentFix	src/tests/content-test.c	/^} contentFix;$/;"	t	typeref:struct:__anon3	file:
+content_setup	src/tests/content-test.c	/^void content_setup(contentFix *fix, gconstpointer data)$/;"	f
+content_shader_test	src/tests/content-test.c	/^void content_shader_test(contentFix *fix, gconstpointer data)$/;"	f
+content_teardown	src/tests/content-test.c	/^void content_teardown(contentFix *fix, gconstpointer data)$/;"	f
+content_test	src/tests/content-test.c	/^void content_test(contentFix *fix, gconstpointer data)$/;"	f
+content_texture_test	src/tests/content-test.c	/^void content_texture_test(contentFix *fix, gconstpointer data)$/;"	f
+mgr	src/tests/content-test.c	/^	slsContentManager *mgr;$/;"	m	struct:__anon3	file:
+run_content_tests	src/tests/content-test.c	/^void run_content_tests()$/;"	f
+window	src/tests/content-test.c	/^	slsGlWindow *window;$/;"	m	struct:__anon3	file:
+__SLS_CONSTENT_TEST_H__	src/tests/content-test.h	2;"	d
+main	src/tests/main.c	/^int main(int argc, char *argv[])$/;"	f
+a	src/tests/math-tests.c	/^    vec2i a;$/;"	m	struct:__anon5	file:
+b	src/tests/math-tests.c	/^    vec2i b;$/;"	m	struct:__anon5	file:
+mat4f_identity	src/tests/math-tests.c	/^void mat4f_identity()$/;"	f
+mat_mul_identity	src/tests/math-tests.c	/^void mat_mul_identity()$/;"	f
+mat_vec_mul	src/tests/math-tests.c	/^void mat_vec_mul()$/;"	f
+run_math_tests	src/tests/math-tests.c	/^void run_math_tests()$/;"	f
+vec2iFix	src/tests/math-tests.c	/^} vec2iFix;$/;"	t	typeref:struct:__anon5	file:
+vec2i_setup	src/tests/math-tests.c	/^void vec2i_setup(vec2iFix *fix, gconstpointer data)$/;"	f
+vec2i_teardown	src/tests/math-tests.c	/^void vec2i_teardown(vec2iFix *fix, gconstpointer data)$/;"	f
+vec2i_test_add	src/tests/math-tests.c	/^void vec2i_test_add(vec2iFix *fix, gconstpointer data)$/;"	f
+vec2i_test_overflow	src/tests/math-tests.c	/^void vec2i_test_overflow()$/;"	f
+vec4f_dot_test	src/tests/math-tests.c	/^void vec4f_dot_test()$/;"	f
+vec4f_eq_test	src/tests/math-tests.c	/^void vec4f_eq_test()$/;"	f
+MESH_DATA_ARRAY_SIZE	src/tests/mesh-test.c	5;"	d	file:
+data	src/tests/mesh-test.c	/^	meshData data;$/;"	m	struct:__anon2	file:
+elems	src/tests/mesh-test.c	/^	SLushort elems[MESH_DATA_ARRAY_SIZE];$/;"	m	struct:__anon1	file:
+mesh	src/tests/mesh-test.c	/^	slsMesh *mesh;$/;"	m	struct:__anon2	file:
+meshData	src/tests/mesh-test.c	/^} meshData;$/;"	t	typeref:struct:__anon1	file:
+meshFix	src/tests/mesh-test.c	/^} meshFix;$/;"	t	typeref:struct:__anon2	file:
+mesh_bufferTest	src/tests/mesh-test.c	/^void mesh_bufferTest(meshFix *fix, gconstpointer data)$/;"	f
+mesh_indexTest	src/tests/mesh-test.c	/^void mesh_indexTest(meshFix *fix, gconstpointer data)$/;"	f
+mesh_setup	src/tests/mesh-test.c	/^void mesh_setup(meshFix *fix, gconstpointer data)$/;"	f
+mesh_teardown	src/tests/mesh-test.c	/^void mesh_teardown(meshFix *fix, gconstpointer data)$/;"	f
+mesh_vertTest	src/tests/mesh-test.c	/^void mesh_vertTest(meshFix *fix, gconstpointer data)$/;"	f
+nelems	src/tests/mesh-test.c	/^	SLuint nelems;$/;"	m	struct:__anon1	file:
+nverts	src/tests/mesh-test.c	/^	SLuint nverts;$/;"	m	struct:__anon1	file:
+run_mesh_tests	src/tests/mesh-test.c	/^void run_mesh_tests()$/;"	f
+verts	src/tests/mesh-test.c	/^	slsVertex verts[MESH_DATA_ARRAY_SIZE];$/;"	m	struct:__anon1	file:
+window	src/tests/mesh-test.c	/^	slsGlWindow *window;$/;"	m	struct:__anon2	file:
+UTARRAY_H	src/uthash/utarray.h	27;"	d
+UTARRAY_VERSION	src/uthash/utarray.h	29;"	d
+UT_array	src/uthash/utarray.h	/^} UT_array;$/;"	t	typeref:struct:__anon11
+UT_icd	src/uthash/utarray.h	/^} UT_icd;$/;"	t	typeref:struct:__anon10
+_UNUSED_	src/uthash/utarray.h	/^static const UT_icd ut_int_icd _UNUSED_ = {sizeof(int),NULL,NULL,NULL};$/;"	v
+_UNUSED_	src/uthash/utarray.h	/^static const UT_icd ut_ptr_icd _UNUSED_ = {sizeof(void*),NULL,NULL,NULL};$/;"	v
+_UNUSED_	src/uthash/utarray.h	/^static const UT_icd ut_str_icd _UNUSED_ = {sizeof(char*),NULL,utarray_str_cpy,utarray_str_dtor};$/;"	v
+_UNUSED_	src/uthash/utarray.h	32;"	d
+_UNUSED_	src/uthash/utarray.h	34;"	d
+_utarray_eltptr	src/uthash/utarray.h	115;"	d
+copy	src/uthash/utarray.h	/^    ctor_f *copy;$/;"	m	struct:__anon10
+ctor_f	src/uthash/utarray.h	/^typedef void (ctor_f)(void *dst, const void *src);$/;"	t
+d	src/uthash/utarray.h	/^    char *d;     \/* n slots of size icd->sz*\/$/;"	m	struct:__anon11
+dtor	src/uthash/utarray.h	/^    dtor_f *dtor;$/;"	m	struct:__anon10
+dtor_f	src/uthash/utarray.h	/^typedef void (dtor_f)(void *elt);$/;"	t
+i	src/uthash/utarray.h	/^    unsigned i,n;\/* i: index of next available slot, n: num slots *\/$/;"	m	struct:__anon11
+icd	src/uthash/utarray.h	/^    UT_icd icd;  \/* initializer, copy and destructor functions *\/$/;"	m	struct:__anon11
+init	src/uthash/utarray.h	/^    init_f *init;$/;"	m	struct:__anon10
+init_f	src/uthash/utarray.h	/^typedef void (init_f)(void *elt);$/;"	t
+n	src/uthash/utarray.h	/^    unsigned i,n;\/* i: index of next available slot, n: num slots *\/$/;"	m	struct:__anon11
+oom	src/uthash/utarray.h	41;"	d
+sz	src/uthash/utarray.h	/^    size_t sz;$/;"	m	struct:__anon10
+utarray_back	src/uthash/utarray.h	215;"	d
+utarray_clear	src/uthash/utarray.h	194;"	d
+utarray_concat	src/uthash/utarray.h	171;"	d
+utarray_done	src/uthash/utarray.h	64;"	d
+utarray_eltidx	src/uthash/utarray.h	216;"	d
+utarray_eltptr	src/uthash/utarray.h	114;"	d
+utarray_erase	src/uthash/utarray.h	175;"	d
+utarray_extend_back	src/uthash/utarray.h	105;"	d
+utarray_find	src/uthash/utarray.h	210;"	d
+utarray_free	src/uthash/utarray.h	82;"	d
+utarray_front	src/uthash/utarray.h	212;"	d
+utarray_init	src/uthash/utarray.h	59;"	d
+utarray_insert	src/uthash/utarray.h	117;"	d
+utarray_inserta	src/uthash/utarray.h	129;"	d
+utarray_len	src/uthash/utarray.h	112;"	d
+utarray_new	src/uthash/utarray.h	77;"	d
+utarray_next	src/uthash/utarray.h	213;"	d
+utarray_pop_back	src/uthash/utarray.h	100;"	d
+utarray_prev	src/uthash/utarray.h	214;"	d
+utarray_push_back	src/uthash/utarray.h	94;"	d
+utarray_renew	src/uthash/utarray.h	189;"	d
+utarray_reserve	src/uthash/utarray.h	87;"	d
+utarray_resize	src/uthash/utarray.h	150;"	d
+utarray_sort	src/uthash/utarray.h	206;"	d
+utarray_str_cpy	src/uthash/utarray.h	/^static void utarray_str_cpy(void *dst, const void *src) {$/;"	f
+utarray_str_dtor	src/uthash/utarray.h	/^static void utarray_str_dtor(void *elt) {$/;"	f
+DECLTYPE	src/uthash/uthash.h	37;"	d
+DECLTYPE	src/uthash/uthash.h	40;"	d
+DECLTYPE	src/uthash/uthash.h	43;"	d
+DECLTYPE_ASSIGN	src/uthash/uthash.h	47;"	d
+DECLTYPE_ASSIGN	src/uthash/uthash.h	53;"	d
+ELMT_FROM_HH	src/uthash/uthash.h	92;"	d
+HASH_ADD	src/uthash/uthash.h	160;"	d
+HASH_ADD_INT	src/uthash/uthash.h	260;"	d
+HASH_ADD_KEYPTR	src/uthash/uthash.h	173;"	d
+HASH_ADD_PTR	src/uthash/uthash.h	266;"	d
+HASH_ADD_STR	src/uthash/uthash.h	254;"	d
+HASH_ADD_TO_BKT	src/uthash/uthash.h	612;"	d
+HASH_BER	src/uthash/uthash.h	355;"	d
+HASH_BKT_CAPACITY_THRESH	src/uthash/uthash.h	89;"	d
+HASH_BLOOM_ADD	src/uthash/uthash.h	127;"	d
+HASH_BLOOM_ADD	src/uthash/uthash.h	136;"	d
+HASH_BLOOM_BITLEN	src/uthash/uthash.h	108;"	d
+HASH_BLOOM_BITSET	src/uthash/uthash.h	124;"	d
+HASH_BLOOM_BITTEST	src/uthash/uthash.h	125;"	d
+HASH_BLOOM_BYTELEN	src/uthash/uthash.h	109;"	d
+HASH_BLOOM_BYTELEN	src/uthash/uthash.h	138;"	d
+HASH_BLOOM_FREE	src/uthash/uthash.h	119;"	d
+HASH_BLOOM_FREE	src/uthash/uthash.h	135;"	d
+HASH_BLOOM_MAKE	src/uthash/uthash.h	110;"	d
+HASH_BLOOM_MAKE	src/uthash/uthash.h	134;"	d
+HASH_BLOOM_SIGNATURE	src/uthash/uthash.h	903;"	d
+HASH_BLOOM_TEST	src/uthash/uthash.h	130;"	d
+HASH_BLOOM_TEST	src/uthash/uthash.h	137;"	d
+HASH_CLEAR	src/uthash/uthash.h	850;"	d
+HASH_CNT	src/uthash/uthash.h	879;"	d
+HASH_COUNT	src/uthash/uthash.h	878;"	d
+HASH_DEL	src/uthash/uthash.h	270;"	d
+HASH_DELETE	src/uthash/uthash.h	215;"	d
+HASH_DEL_IN_BKT	src/uthash/uthash.h	626;"	d
+HASH_EMIT_KEY	src/uthash/uthash.h	337;"	d
+HASH_EMIT_KEY	src/uthash/uthash.h	344;"	d
+HASH_EXPAND_BUCKETS	src/uthash/uthash.h	667;"	d
+HASH_FCN	src/uthash/uthash.h	349;"	d
+HASH_FCN	src/uthash/uthash.h	351;"	d
+HASH_FIND	src/uthash/uthash.h	94;"	d
+HASH_FIND_INT	src/uthash/uthash.h	258;"	d
+HASH_FIND_IN_BKT	src/uthash/uthash.h	598;"	d
+HASH_FIND_PTR	src/uthash/uthash.h	264;"	d
+HASH_FIND_STR	src/uthash/uthash.h	252;"	d
+HASH_FNV	src/uthash/uthash.h	377;"	d
+HASH_FSCK	src/uthash/uthash.h	278;"	d
+HASH_FSCK	src/uthash/uthash.h	330;"	d
+HASH_INITIAL_NUM_BUCKETS	src/uthash/uthash.h	87;"	d
+HASH_INITIAL_NUM_BUCKETS_LOG2	src/uthash/uthash.h	88;"	d
+HASH_ITER	src/uthash/uthash.h	868;"	d
+HASH_ITER	src/uthash/uthash.h	872;"	d
+HASH_JEN	src/uthash/uthash.h	417;"	d
+HASH_JEN_MIX	src/uthash/uthash.h	404;"	d
+HASH_KEYCMP	src/uthash/uthash.h	595;"	d
+HASH_MAKE_TABLE	src/uthash/uthash.h	141;"	d
+HASH_MUR	src/uthash/uthash.h	555;"	d
+HASH_OAT	src/uthash/uthash.h	388;"	d
+HASH_OOPS	src/uthash/uthash.h	277;"	d
+HASH_OVERHEAD	src/uthash/uthash.h	861;"	d
+HASH_REPLACE	src/uthash/uthash.h	163;"	d
+HASH_REPLACE_INT	src/uthash/uthash.h	262;"	d
+HASH_REPLACE_PTR	src/uthash/uthash.h	268;"	d
+HASH_REPLACE_STR	src/uthash/uthash.h	256;"	d
+HASH_SAX	src/uthash/uthash.h	367;"	d
+HASH_SELECT	src/uthash/uthash.h	812;"	d
+HASH_SFH	src/uthash/uthash.h	469;"	d
+HASH_SIGNATURE	src/uthash/uthash.h	902;"	d
+HASH_SORT	src/uthash/uthash.h	719;"	d
+HASH_SRT	src/uthash/uthash.h	720;"	d
+HASH_TO_BKT	src/uthash/uthash.h	198;"	d
+MUR_FMIX	src/uthash/uthash.h	546;"	d
+MUR_GETBLOCK	src/uthash/uthash.h	524;"	d
+MUR_GETBLOCK	src/uthash/uthash.h	540;"	d
+MUR_ONE_THREE	src/uthash/uthash.h	534;"	d
+MUR_ONE_THREE	src/uthash/uthash.h	538;"	d
+MUR_PLUS0_ALIGNED	src/uthash/uthash.h	526;"	d
+MUR_PLUS1_ALIGNED	src/uthash/uthash.h	527;"	d
+MUR_PLUS2_ALIGNED	src/uthash/uthash.h	528;"	d
+MUR_PLUS3_ALIGNED	src/uthash/uthash.h	529;"	d
+MUR_ROTL32	src/uthash/uthash.h	545;"	d
+MUR_THREE_ONE	src/uthash/uthash.h	532;"	d
+MUR_THREE_ONE	src/uthash/uthash.h	536;"	d
+MUR_TWO_TWO	src/uthash/uthash.h	533;"	d
+MUR_TWO_TWO	src/uthash/uthash.h	537;"	d
+NO_DECLTYPE	src/uthash/uthash.h	39;"	d
+UTHASH_H	src/uthash/uthash.h	25;"	d
+UTHASH_VERSION	src/uthash/uthash.h	67;"	d
+UT_hash_bucket	src/uthash/uthash.h	/^typedef struct UT_hash_bucket {$/;"	s
+UT_hash_bucket	src/uthash/uthash.h	/^} UT_hash_bucket;$/;"	t	typeref:struct:UT_hash_bucket
+UT_hash_handle	src/uthash/uthash.h	/^typedef struct UT_hash_handle {$/;"	s
+UT_hash_handle	src/uthash/uthash.h	/^} UT_hash_handle;$/;"	t	typeref:struct:UT_hash_handle
+UT_hash_table	src/uthash/uthash.h	/^typedef struct UT_hash_table {$/;"	s
+UT_hash_table	src/uthash/uthash.h	/^} UT_hash_table;$/;"	t	typeref:struct:UT_hash_table
+WP	src/uthash/uthash.h	530;"	d
+bloom_bv	src/uthash/uthash.h	/^   uint8_t *bloom_bv;$/;"	m	struct:UT_hash_table
+bloom_nbits	src/uthash/uthash.h	/^   char bloom_nbits;$/;"	m	struct:UT_hash_table
+bloom_sig	src/uthash/uthash.h	/^   uint32_t bloom_sig; \/* used only to test bloom exists in external analysis *\/$/;"	m	struct:UT_hash_table
+buckets	src/uthash/uthash.h	/^   UT_hash_bucket *buckets;$/;"	m	struct:UT_hash_table
+count	src/uthash/uthash.h	/^   unsigned count;$/;"	m	struct:UT_hash_bucket
+expand_mult	src/uthash/uthash.h	/^   unsigned expand_mult;$/;"	m	struct:UT_hash_bucket
+get16bits	src/uthash/uthash.h	459;"	d
+get16bits	src/uthash/uthash.h	462;"	d
+get16bits	src/uthash/uthash.h	466;"	d
+hashv	src/uthash/uthash.h	/^   unsigned hashv;                   \/* result of hash-fcn(key)        *\/$/;"	m	struct:UT_hash_handle
+hh_head	src/uthash/uthash.h	/^   struct UT_hash_handle *hh_head;$/;"	m	struct:UT_hash_bucket	typeref:struct:UT_hash_bucket::UT_hash_handle
+hh_next	src/uthash/uthash.h	/^   struct UT_hash_handle *hh_next;   \/* next hh in bucket order        *\/$/;"	m	struct:UT_hash_handle	typeref:struct:UT_hash_handle::UT_hash_handle
+hh_prev	src/uthash/uthash.h	/^   struct UT_hash_handle *hh_prev;   \/* previous hh in bucket order    *\/$/;"	m	struct:UT_hash_handle	typeref:struct:UT_hash_handle::UT_hash_handle
+hho	src/uthash/uthash.h	/^   ptrdiff_t hho; \/* hash handle offset (byte pos of hash handle in element *\/$/;"	m	struct:UT_hash_table
+ideal_chain_maxlen	src/uthash/uthash.h	/^   unsigned ideal_chain_maxlen;$/;"	m	struct:UT_hash_table
+ineff_expands	src/uthash/uthash.h	/^   unsigned ineff_expands, noexpand;$/;"	m	struct:UT_hash_table
+key	src/uthash/uthash.h	/^   void *key;                        \/* ptr to enclosing struct's key  *\/$/;"	m	struct:UT_hash_handle
+keylen	src/uthash/uthash.h	/^   unsigned keylen;                  \/* enclosing struct's key len     *\/$/;"	m	struct:UT_hash_handle
+log2_num_buckets	src/uthash/uthash.h	/^   unsigned num_buckets, log2_num_buckets;$/;"	m	struct:UT_hash_table
+next	src/uthash/uthash.h	/^   void *next;                       \/* next element in app order      *\/$/;"	m	struct:UT_hash_handle
+noexpand	src/uthash/uthash.h	/^   unsigned ineff_expands, noexpand;$/;"	m	struct:UT_hash_table
+nonideal_items	src/uthash/uthash.h	/^   unsigned nonideal_items;$/;"	m	struct:UT_hash_table
+num_buckets	src/uthash/uthash.h	/^   unsigned num_buckets, log2_num_buckets;$/;"	m	struct:UT_hash_table
+num_items	src/uthash/uthash.h	/^   unsigned num_items;$/;"	m	struct:UT_hash_table
+prev	src/uthash/uthash.h	/^   void *prev;                       \/* prev element in app order      *\/$/;"	m	struct:UT_hash_handle
+signature	src/uthash/uthash.h	/^   uint32_t signature; \/* used only to find hash tables in external analysis *\/$/;"	m	struct:UT_hash_table
+tail	src/uthash/uthash.h	/^   struct UT_hash_handle *tail; \/* tail hh in app order, for fast append    *\/$/;"	m	struct:UT_hash_table	typeref:struct:UT_hash_table::UT_hash_handle
+tbl	src/uthash/uthash.h	/^   struct UT_hash_table *tbl;$/;"	m	struct:UT_hash_handle	typeref:struct:UT_hash_handle::UT_hash_table
+uint32_t	src/uthash/uthash.h	/^typedef unsigned int uint32_t;$/;"	t
+uint8_t	src/uthash/uthash.h	/^typedef unsigned char uint8_t;$/;"	t
+uthash_expand_fyi	src/uthash/uthash.h	83;"	d
+uthash_fatal	src/uthash/uthash.h	70;"	d
+uthash_free	src/uthash/uthash.h	76;"	d
+uthash_malloc	src/uthash/uthash.h	73;"	d
+uthash_noexpand_fyi	src/uthash/uthash.h	80;"	d
+CDL_COUNT	src/uthash/utlist.h	679;"	d
+CDL_COUNT2	src/uthash/utlist.h	682;"	d
+CDL_DELETE	src/uthash/utlist.h	665;"	d
+CDL_DELETE2	src/uthash/utlist.h	668;"	d
+CDL_FOREACH	src/uthash/utlist.h	688;"	d
+CDL_FOREACH2	src/uthash/utlist.h	691;"	d
+CDL_FOREACH_SAFE	src/uthash/utlist.h	694;"	d
+CDL_FOREACH_SAFE2	src/uthash/utlist.h	697;"	d
+CDL_PREPEND	src/uthash/utlist.h	648;"	d
+CDL_PREPEND2	src/uthash/utlist.h	651;"	d
+CDL_PREPEND_ELEM	src/uthash/utlist.h	742;"	d
+CDL_REPLACE_ELEM	src/uthash/utlist.h	722;"	d
+CDL_SEARCH	src/uthash/utlist.h	712;"	d
+CDL_SEARCH2	src/uthash/utlist.h	715;"	d
+CDL_SEARCH_SCALAR	src/uthash/utlist.h	702;"	d
+CDL_SEARCH_SCALAR2	src/uthash/utlist.h	705;"	d
+CDL_SORT	src/uthash/utlist.h	230;"	d
+CDL_SORT2	src/uthash/utlist.h	233;"	d
+DL_APPEND	src/uthash/utlist.h	519;"	d
+DL_APPEND2	src/uthash/utlist.h	522;"	d
+DL_CONCAT	src/uthash/utlist.h	415;"	d
+DL_CONCAT	src/uthash/utlist.h	536;"	d
+DL_CONCAT2	src/uthash/utlist.h	539;"	d
+DL_COUNT	src/uthash/utlist.h	575;"	d
+DL_COUNT2	src/uthash/utlist.h	578;"	d
+DL_DELETE	src/uthash/utlist.h	554;"	d
+DL_DELETE2	src/uthash/utlist.h	557;"	d
+DL_FOREACH	src/uthash/utlist.h	584;"	d
+DL_FOREACH2	src/uthash/utlist.h	587;"	d
+DL_FOREACH_SAFE	src/uthash/utlist.h	591;"	d
+DL_FOREACH_SAFE2	src/uthash/utlist.h	594;"	d
+DL_PREPEND	src/uthash/utlist.h	504;"	d
+DL_PREPEND2	src/uthash/utlist.h	507;"	d
+DL_PREPEND_ELEM	src/uthash/utlist.h	629;"	d
+DL_REPLACE_ELEM	src/uthash/utlist.h	603;"	d
+DL_SEARCH	src/uthash/utlist.h	599;"	d
+DL_SEARCH2	src/uthash/utlist.h	601;"	d
+DL_SEARCH_SCALAR	src/uthash/utlist.h	598;"	d
+DL_SEARCH_SCALAR2	src/uthash/utlist.h	600;"	d
+DL_SORT	src/uthash/utlist.h	168;"	d
+DL_SORT2	src/uthash/utlist.h	171;"	d
+LDECLTYPE	src/uthash/utlist.h	68;"	d
+LDECLTYPE	src/uthash/utlist.h	71;"	d
+LDECLTYPE	src/uthash/utlist.h	75;"	d
+LDECLTYPE	src/uthash/utlist.h	77;"	d
+LL_APPEND	src/uthash/utlist.h	333;"	d
+LL_APPEND	src/uthash/utlist.h	406;"	d
+LL_APPEND	src/uthash/utlist.h	407;"	d
+LL_APPEND2	src/uthash/utlist.h	336;"	d
+LL_APPEND2	src/uthash/utlist.h	412;"	d
+LL_APPEND2	src/uthash/utlist.h	413;"	d
+LL_APPEND2_VS2008	src/uthash/utlist.h	372;"	d
+LL_APPEND_VS2008	src/uthash/utlist.h	369;"	d
+LL_CONCAT	src/uthash/utlist.h	318;"	d
+LL_CONCAT	src/uthash/utlist.h	414;"	d
+LL_CONCAT2	src/uthash/utlist.h	321;"	d
+LL_COUNT	src/uthash/utlist.h	419;"	d
+LL_COUNT2	src/uthash/utlist.h	422;"	d
+LL_DELETE	src/uthash/utlist.h	349;"	d
+LL_DELETE	src/uthash/utlist.h	408;"	d
+LL_DELETE	src/uthash/utlist.h	409;"	d
+LL_DELETE2	src/uthash/utlist.h	352;"	d
+LL_DELETE2	src/uthash/utlist.h	410;"	d
+LL_DELETE2	src/uthash/utlist.h	411;"	d
+LL_DELETE2_VS2008	src/uthash/utlist.h	387;"	d
+LL_DELETE_VS2008	src/uthash/utlist.h	384;"	d
+LL_FOREACH	src/uthash/utlist.h	428;"	d
+LL_FOREACH2	src/uthash/utlist.h	431;"	d
+LL_FOREACH_SAFE	src/uthash/utlist.h	434;"	d
+LL_FOREACH_SAFE2	src/uthash/utlist.h	437;"	d
+LL_PREPEND	src/uthash/utlist.h	309;"	d
+LL_PREPEND2	src/uthash/utlist.h	312;"	d
+LL_PREPEND_ELEM	src/uthash/utlist.h	480;"	d
+LL_REPLACE_ELEM	src/uthash/utlist.h	460;"	d
+LL_SEARCH	src/uthash/utlist.h	450;"	d
+LL_SEARCH2	src/uthash/utlist.h	453;"	d
+LL_SEARCH_SCALAR	src/uthash/utlist.h	440;"	d
+LL_SEARCH_SCALAR2	src/uthash/utlist.h	443;"	d
+LL_SORT	src/uthash/utlist.h	105;"	d
+LL_SORT2	src/uthash/utlist.h	108;"	d
+NO_DECLTYPE	src/uthash/utlist.h	70;"	d
+NO_DECLTYPE	src/uthash/utlist.h	74;"	d
+UTLIST_H	src/uthash/utlist.h	25;"	d
+UTLIST_VERSION	src/uthash/utlist.h	27;"	d
+_CASTASGN	src/uthash/utlist.h	90;"	d
+_CASTASGN	src/uthash/utlist.h	98;"	d
+_NEXT	src/uthash/utlist.h	85;"	d
+_NEXT	src/uthash/utlist.h	93;"	d
+_NEXTASGN	src/uthash/utlist.h	86;"	d
+_NEXTASGN	src/uthash/utlist.h	94;"	d
+_PREVASGN	src/uthash/utlist.h	88;"	d
+_PREVASGN	src/uthash/utlist.h	96;"	d
+_RS	src/uthash/utlist.h	89;"	d
+_RS	src/uthash/utlist.h	97;"	d
+_SV	src/uthash/utlist.h	84;"	d
+_SV	src/uthash/utlist.h	92;"	d
+UTSTRING_H	src/uthash/utstring.h	27;"	d
+UTSTRING_VERSION	src/uthash/utstring.h	29;"	d
+UT_string	src/uthash/utstring.h	/^} UT_string;$/;"	t	typeref:struct:__anon9
+_UNUSED_	src/uthash/utstring.h	32;"	d
+_UNUSED_	src/uthash/utstring.h	34;"	d
+_utstring_BuildTable	src/uthash/utstring.h	/^_UNUSED_ static void _utstring_BuildTable($/;"	f
+_utstring_BuildTableR	src/uthash/utstring.h	/^_UNUSED_ static void _utstring_BuildTableR($/;"	f
+_utstring_find	src/uthash/utstring.h	/^_UNUSED_ static long _utstring_find($/;"	f
+_utstring_findR	src/uthash/utstring.h	/^_UNUSED_ static long _utstring_findR($/;"	f
+d	src/uthash/utstring.h	/^    char *d;$/;"	m	struct:__anon9
+i	src/uthash/utstring.h	/^    size_t i; \/* index of first unused byte *\/$/;"	m	struct:__anon9
+n	src/uthash/utstring.h	/^    size_t n; \/* allocd size *\/$/;"	m	struct:__anon9
+oom	src/uthash/utstring.h	41;"	d
+utstring_bincpy	src/uthash/utstring.h	99;"	d
+utstring_body	src/uthash/utstring.h	117;"	d
+utstring_clear	src/uthash/utstring.h	93;"	d
+utstring_concat	src/uthash/utstring.h	107;"	d
+utstring_done	src/uthash/utstring.h	65;"	d
+utstring_find	src/uthash/utstring.h	/^_UNUSED_ static long utstring_find($/;"	f
+utstring_findR	src/uthash/utstring.h	/^_UNUSED_ static long utstring_findR($/;"	f
+utstring_free	src/uthash/utstring.h	71;"	d
+utstring_init	src/uthash/utstring.h	58;"	d
+utstring_len	src/uthash/utstring.h	115;"	d
+utstring_new	src/uthash/utstring.h	77;"	d
+utstring_printf	src/uthash/utstring.h	/^_UNUSED_ static void utstring_printf(UT_string *s, const char *fmt, ...) {$/;"	f
+utstring_printf_va	src/uthash/utstring.h	/^_UNUSED_ static void utstring_printf_va(UT_string *s, const char *fmt, va_list ap) {$/;"	f
+utstring_renew	src/uthash/utstring.h	84;"	d
+utstring_reserve	src/uthash/utstring.h	49;"	d

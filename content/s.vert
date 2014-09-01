@@ -18,5 +18,5 @@ void main()
 	fragPosition = vec4(vertPosition, 1.0);
 	fragNormal = vec4(vertNormal, 0.0);
 	
-	gl_Position = fragPosition;
+	gl_Position = model * fragPosition;
 }

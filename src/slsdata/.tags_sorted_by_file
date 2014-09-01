@@ -1,0 +1,24 @@
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+SLS_ARRAY_ALLOCATION_BUFFER	sls-array.c	8;"	d	file:
+slsArray_free	sls-array.c	/^void slsArray_free(slsArray *self)$/;"	f
+slsArray_getIndexPtr	sls-array.c	/^char *slsArray_getIndexPtr(slsArray *self, size_t i)$/;"	f
+slsArray_insert	sls-array.c	/^void slsArray_insert(slsArray *self, size_t n_elements, char *data)$/;"	f
+slsArray_new	sls-array.c	/^slsArray *slsArray_new(size_t element_size, slsFreeFunc free_func)$/;"	f
+__SLS_DYNAMIC_ARRAY_H__	sls-array.h	2;"	d
+allocation_buffer	sls-array.h	/^	size_t allocation_buffer;$/;"	m	struct:slsArray
+data	sls-array.h	/^	char *data;$/;"	m	struct:slsArray
+element_size	sls-array.h	/^	size_t element_size;$/;"	m	struct:slsArray
+free_func	sls-array.h	/^	slsFreeFunc free_func;$/;"	m	struct:slsArray
+len	sls-array.h	/^	size_t len;$/;"	m	struct:slsArray
+memory	sls-array.h	/^	size_t memory;$/;"	m	struct:slsArray
+slsArray	sls-array.h	/^struct slsArray {$/;"	s
+slsArray	sls-array.h	/^typedef struct slsArray slsArray;$/;"	t	typeref:struct:slsArray
+slsArray_index	sls-array.h	35;"	d
+slsFreeFunc	sls-array.h	/^typedef void (*slsFreeFunc)(void *data);$/;"	t
+__SLS_DATA_STDHDR_H__	slsdata-hdr.h	2;"	d
+sls_abort	slsdata-hdr.h	13;"	d

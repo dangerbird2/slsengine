@@ -1,12 +1,21 @@
 all:build
 all:$(ENGINE_TGT)
-all:demobuild
 all:tests
 
 CC=clang
 
 #packages linked via pkg-config
 PKGS= glib-2.0
+
+DEPS= \
+	GL 			\
+	GLEW 		\
+	SDL2 		\
+	SDL2_image 	\
+	SDL2_mixer 	\
+	3ds			\
+	BlocksRuntime \
+	dispatch
 
 
 #clang analyzer conventions
@@ -18,38 +27,44 @@ CHECK_CONVENTIONS=	\
 CFLAGS= \
 	-g 	\
 	-Wall \
-	-std=gnu99 \
+	-std=gnu11 \
+	-O0			\
+	-fblocks 	\
 	$(shell pkg-config --cflags $(PKGS)) \
-	-I$(CURDIR)/src \
+	-I$(CURDIR)/src/ \
 	-D __SLS_QUIET__ \
 	-D __GNU_SOURCE
 LDLIBS=-lm 	\
-	-lpthread	\
-	-lGL 		\
-	-lGLEW 		\
-	$(shell pkg-config --libs $(PKGS))	\
-	-lSDL2 		\
-	-lSDL2_image \
-	-lSDL2_mixer
+	-pthread	\
+	$(patsubst %, -l%, $(DEPS))	\
+	$(shell pkg-config --libs $(PKGS))
+
+SLSDATA_NAME=libslsdata.a
+SLSDATA_SRC=$(wildcard src/slsdata/**/*.c src/slsdata/*.c)
+SLSDATA_OBJ=$(patsubst %.c,%.o,$(SLSDATA_SRC))
+SLSDATA_TGT=lib/SLSDATA_NAME
+
+$(SLSDATA_TGT):$(SLSDATA_OBJ)
+	ar rcs $@ $^
 
 
 #the main target build
 ENGINE_NAME=libsls.a
-ENGINE_SRC=$(wildcard src/**/*.c src/*.c)
-ENGINE_HDR=$(wildcard src/**/*.h src/*.h)
+ENGINE_SRC=$(wildcard src/slsengine/**/*.c src/slsengine/*.c)
+ENGINE_HDR=$(wildcard src/slsengine/**/*.h src/slsengine/*.h)
 ENGINE_OBJ=$(patsubst %.c,%.o,$(ENGINE_SRC))
 ENGINE_TGT=lib/$(ENGINE_NAME)
 
 .PHONY:$(ENGINE_NAME)
 $(ENGINE_NAME): build $(ENGINE_TGT)
 
-$(ENGINE_TGT): $(ENGINE_OBJ)
+$(ENGINE_TGT): $(ENGINE_OBJ) $(SLSDATA_TGT)
 	ar rcs $@ $^
 
 #test build
 
 TEST_NAME=tests
-TEST_SRC=$(wildcard tests/**/*.c tests/*.c)
+TEST_SRC=$(wildcard src/tests/**/*.c src/tests/*.c)
 TEST_HDR=$(wildcard tests/**/*.h tests/*.h)
 TEST_OBJ=$(patsubst %.c,%.o,$(TEST_SRC))
 TEST_TGT=bin/$(TEST_NAME)
@@ -60,18 +75,6 @@ $(TEST_TGT):$(TEST_OBJ) $(ENGINE_TGT)
 .PHONY:tests testdbg testvalgrind
 tests: $(TEST_TGT)
 	gtester --verbose $(TEST_TGT)
-
-DEMO_NAME=demo
-DEMO_SRC=$(wildcard demosrc/*.c demosrc/**/*.c)
-DEMO_OBJ=$(patsubst %.c,%.o,$(DEMO_SRC))
-DEMO_TGT=bin/$(DEMO_NAME)
-
-$(DEMO_TGT):$(DEMO_OBJ) $(ENGINE_TGT)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
-
-.PHONY:demobuild
-demobuild: $(DEMO_TGT)
-	./$(DEMO_TGT)
 
 
 .PHONY: build
