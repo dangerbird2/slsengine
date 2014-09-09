@@ -5,8 +5,8 @@
 #include <CoreFoundation/CoreFoundation.h>
 
 #include "sls-sprite.h"
-#include "../gl/sls-mesh.h"
-#include "../gl/sls-shader.h"
+#include "../graphics/sls-mesh.h"
+#include "../graphics/sls-shader.h"
 
 typedef struct slsContentContainer slsContentContainer;
 
@@ -19,15 +19,15 @@ typedef enum {
 	SLS_CONTENT_AUDIO
 } slsContentType;
 
+
+
 struct slsContentContainer{
 	slsContentType type;
-	
-	CFDictionaryValueCallBacks callbacks;
 
-	unsigned ref;
+	uint32_t ref;
 
 	union {
-		void *v;
+		void *data;
 		SDL_Texture *t;
 		slsSprite *sp;
 		slsShader *sh;
@@ -53,16 +53,16 @@ void slsContentContainer_setData(slsContentContainer *self,
 /* dictionary value callback functions */
 const void *slsContentContainer_retain(CFAllocatorRef allocator, const void *value);
 void slsContentContainer_release(CFAllocatorRef allocator, const void *value);
-CFStringRef slsContentContainer_copyString(const void *value);
+
 Boolean slsContentContainer_cmp(const void *value1, const void *value2);
 
 
 static const CFDictionaryValueCallBacks
-slsContentContainer_callbackProto = {
+slsContentContainer_callback = {
 	.version = 1,
 	.retain = slsContentContainer_retain,
 	.release = slsContentContainer_release,
-	.copyDescription = slsContentContainer_copyString,
+	.copyDescription = NULL,
 	.equal = slsContentContainer_cmp
 };
 

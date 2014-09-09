@@ -1,6 +1,6 @@
 all:build
 all:$(ENGINE_TGT)
-all:tests
+all:demo
 
 CC=clang
 
@@ -15,7 +15,8 @@ DEPS= \
 	SDL2_mixer 	\
 	3ds			\
 	BlocksRuntime \
-	dispatch
+	dispatch		\
+	CoreFoundation
 
 
 #clang analyzer conventions
@@ -39,14 +40,6 @@ LDLIBS=-lm 	\
 	$(patsubst %, -l%, $(DEPS))	\
 	$(shell pkg-config --libs $(PKGS))
 
-SLSDATA_NAME=libslsdata.a
-SLSDATA_SRC=$(wildcard src/slsdata/**/*.c src/slsdata/*.c)
-SLSDATA_OBJ=$(patsubst %.c,%.o,$(SLSDATA_SRC))
-SLSDATA_TGT=lib/SLSDATA_NAME
-
-$(SLSDATA_TGT):$(SLSDATA_OBJ)
-	ar rcs $@ $^
-
 
 #the main target build
 ENGINE_NAME=libsls.a
@@ -58,8 +51,22 @@ ENGINE_TGT=lib/$(ENGINE_NAME)
 .PHONY:$(ENGINE_NAME)
 $(ENGINE_NAME): build $(ENGINE_TGT)
 
-$(ENGINE_TGT): $(ENGINE_OBJ) $(SLSDATA_TGT)
+$(ENGINE_TGT): $(ENGINE_OBJ)
 	ar rcs $@ $^
+
+DEMO_NAME=demo
+DEMO_SRC=$(wildcard src/demo/*.c wildcard src/demo/**/*.c)
+DEMO_OBJ=$(patsubst %.c, %.o, $(DEMO_SRC))
+DEMO_TGT=bin/$(DEMO_NAME)
+
+$(DEMO_TGT):$(DEMO_OBJ) $(ENGINE_TGT)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
+
+demo:$(ENGINE_TGT)
+demo:$(DEMO_TGT)
+	./$(DEMO_TGT)
+
+
 
 #test build
 

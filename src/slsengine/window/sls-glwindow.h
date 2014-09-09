@@ -38,7 +38,7 @@ struct _slsGlWindow {
 	 * 
 	 * @return void
 	 */
-	void (*run)				(slsGlWindow *self, void *data);
+	void (*run)				(slsGlWindow *self);
 
 	/**
 	 * @brief polls SDL events
@@ -49,12 +49,12 @@ struct _slsGlWindow {
 	 * 
 	 * @return void
 	 */
-	void (*poll_events)		(slsGlWindow *self, void *data);
-	void (*load_content)	(slsGlWindow *self, void *data);
-	void (*update)			(slsGlWindow *self, double dt, void *data);
+	void (*poll_events)		(slsGlWindow *self);
+	void (*load_content)	(slsGlWindow *self);
+	void (*update)			(slsGlWindow *self, double dt);
 	
-	void (*resize)			(slsGlWindow *self, int w, int h, void *data);
-	void (*render)			(slsGlWindow *self, void *data);
+	void (*resize)			(slsGlWindow *self, int w, int h);
+	void (*render)			(slsGlWindow *self, double dt);
 
 	void *(*dtor)			(slsGlWindow *self);
 };
@@ -62,13 +62,13 @@ struct _slsGlWindow {
 slsGlWindow *slsGlWindow_create(const char *caption, void *data);
 void *slsGlWindow_destroy(slsGlWindow *self);
 
-void slsGlWindow_run	(slsGlWindow *self, void *data);
-void slsGlWindow_poll_events	(slsGlWindow *self, void *data);
-void slsGlWindow_load_content (slsGlWindow *self, void *data);
-void slsGlWindow_update (slsGlWindow *self, double dt, void *data);
+void slsGlWindow_run	(slsGlWindow *self);
+void slsGlWindow_poll_events	(slsGlWindow *self);
+void slsGlWindow_load_content (slsGlWindow *self);
+void slsGlWindow_update (slsGlWindow *self, double dt);
 
-void slsGlWindow_resize (slsGlWindow *self, int w, int h, void *data);
-void slsGlWindow_render (slsGlWindow *self, void *data);
+void slsGlWindow_resize (slsGlWindow *self, int w, int h);
+void slsGlWindow_render (slsGlWindow *self, double dt);
 
 void sls_gl_init(slsGlWindow *self);
 

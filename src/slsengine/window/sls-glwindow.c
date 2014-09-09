@@ -1,8 +1,26 @@
 #include "sls-glwindow.h"
 #include "sls-window.h"
+#include "sls-clock.h"
 #include "../stdhdr.h"
 
+
 #include <stdlib.h>
+
+static const slsGlWindow slsGlWindow_proto = {
+	.name = NULL,
+	.data = NULL,
+	.is_open = false,
+	.window = NULL,
+	.renderer = NULL,
+	.clear_color = {1.f, 1.f, 1.f, 1.f},
+	.run = slsGlWindow_run,
+	.poll_events = slsGlWindow_poll_events,
+	.load_content = slsGlWindow_load_content,
+	.update = slsGlWindow_update,
+	.resize = slsGlWindow_resize,
+	.render = slsGlWindow_render,
+	.dtor = slsGlWindow_destroy
+};
 
 slsGlWindow *slsGlWindow_create(const char *caption, void *data)
 {
@@ -10,37 +28,21 @@ slsGlWindow *slsGlWindow_create(const char *caption, void *data)
 	self = malloc(sizeof(slsGlWindow));
 	g_return_val_if_fail(self, NULL);
 
-	// instantiate super, return null if it fails
-	self->super = NULL;
-	self->super = slsWindow_create(caption, NULL);
+	memcpy(self, &slsGlWindow_proto, sizeof(slsGlWindow));
 
-	self->window = self->super->window;
-	self->renderer = self->super->renderer;
-
+	self->super = slsWindow_create(caption, data);
 	if (!self->super) {
 		free(self);
 		g_return_val_if_reached(NULL);	
 	}
-	
-
 	self->name = self->super->name;
-
-	// set slsGlWindow callbacks
-	self->run = slsGlWindow_run;
-	self->poll_events = slsGlWindow_poll_events;
-	self->load_content = slsGlWindow_load_content;
-	self->update = slsGlWindow_update;
-	self->resize = slsGlWindow_resize;
-	self->render = slsGlWindow_render;
-	self->dtor = slsGlWindow_destroy;
+	self->window = self->super->window;
+	self->renderer = self->super->renderer;
 
 	// setup gl context
 	sls_gl_init(self);
 
-	self->is_open = false;
-
 	return self;
-
 }
 
 void *slsGlWindow_destroy(slsGlWindow *self)
@@ -51,28 +53,36 @@ void *slsGlWindow_destroy(slsGlWindow *self)
 	if (self->super) {slsWindow_destroy(self->super);}
 
 	SDL_GL_DeleteContext(self->context);
-	if (self) {free(self);}
+	free(self);
 
 	return data;
 }
 
-void slsGlWindow_run (slsGlWindow *self, void *data)
+void slsGlWindow_run (slsGlWindow *self)
 {
 	self->is_open = true;
 
+	uint64_t timeA, timeB;
+	timeA = timeB = clock();
+
 	while(self->is_open) {
-		self->poll_events(self, data);
+		timeA = timeB;
+		timeB = clock();
+		double dt = sls_diffclock(timeA, timeB);
 
-		self->update(self, 0.0, data);
-
-		self->render(self, data);
+		slsMsg(self, poll_events);
+		slsMsg(self, update, dt);
+		slsMsg(self, render, dt);
+		
 		
 	}
 }
-void slsGlWindow_poll_events	(slsGlWindow *self, void *data)
+void slsGlWindow_poll_events (slsGlWindow *self)
 {
 	
 	SDL_Event event;
+	
+
 	while(SDL_PollEvent(&event)) {
 		if (event.type == SDL_QUIT) {
 			self->is_open = false;
@@ -81,21 +91,21 @@ void slsGlWindow_poll_events	(slsGlWindow *self, void *data)
 	}
 
 }
-void slsGlWindow_load_content (slsGlWindow *self, void *data)
+void slsGlWindow_load_content (slsGlWindow *self)
 {
 	
 }
-void slsGlWindow_update (slsGlWindow *self, double dt, void *data)
+void slsGlWindow_update (slsGlWindow *self, double dt)
 {
-
+	
 }
 
-void slsGlWindow_resize (slsGlWindow *self, int w, int h, void *data)
+void slsGlWindow_resize (slsGlWindow *self, int w, int h)
 {
 	glViewport(0, 0, w, h);
 }
 
-void slsGlWindow_render (slsGlWindow *self, void *data)
+void slsGlWindow_render (slsGlWindow *self, double dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT |
 			GL_DEPTH_BUFFER_BIT);

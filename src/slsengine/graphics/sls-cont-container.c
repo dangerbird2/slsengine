@@ -17,7 +17,7 @@ void slsContentContainer_setData(slsContentContainer *self,
 		self->sh = (slsShader *)data;
 	}
 	else {
-		self->v = data;
+		self->data = data;
 	}
 }
 
@@ -29,7 +29,6 @@ slsContentContainer *slsContentContainer_new(
 	g_return_val_if_fail(self, NULL);
 
 	self->ref = 1;
-	self->callbacks = slsContentContainer_callbackProto;
 	self->type = type;
 
 	self->setData = slsContentContainer_setData;
@@ -52,7 +51,7 @@ void slsContentContainer_dtor(slsContentContainer *self)
 {
 	if (!self) {return;}
 	// do not free data if data is NULL
-	if (!self->v) {
+	if (!self->data) {
 
 	}
 	else if (self->type == SLS_CONTENT_TEXTURE) {
@@ -65,7 +64,7 @@ void slsContentContainer_dtor(slsContentContainer *self)
 		slsSprite_destroy(self->sp);
 	}
 	else if (self->custom_data_dtor != NULL) {
-		self->custom_data_dtor(self->v);
+		self->custom_data_dtor(self->data);
 	}
 
 	free(self);
@@ -77,4 +76,29 @@ const void *slsContentContainer_retain(CFAllocatorRef allocator, const void *val
 	slsContentContainer *self = (slsContentContainer *) value;
 	self->ref ++;
 	return value;
+}
+
+void slsContentContainer_release(CFAllocatorRef allocator, const void *value)
+{
+	slsContentContainer *self = (slsContentContainer *) value;
+	self->ref --;
+	if (self->ref < 1) {
+		slsMsg(self, dtor);
+	}
+}
+
+
+Boolean slsContentContainer_cmp(const void *value1, const void *value2)
+{
+	slsContentContainer *c1 = (slsContentContainer *) value1;
+	slsContentContainer *c2 = (slsContentContainer *) value2;
+	if ((!c1) || (!c2)) {return false;}
+	
+	if (c1->type != c2->type) { return false;}
+
+	// check if pointers point to the same data
+	if (c1->data != c2->data) {
+		return false;
+	}
+	return true;
 }

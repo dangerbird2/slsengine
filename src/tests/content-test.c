@@ -32,8 +32,7 @@ void content_teardown(contentFix *fix, gconstpointer data)
 
 void content_test(contentFix *fix, gconstpointer data)
 {
-	g_assert(fix->mgr->textures);
-	g_assert(fix->mgr->shaders);
+	g_assert(fix->mgr->content);
 }
 
 void content_texture_test(contentFix *fix, gconstpointer data)
@@ -43,10 +42,6 @@ void content_texture_test(contentFix *fix, gconstpointer data)
 	SDL_Texture *tex = slsContentManager_load_texture(fix->mgr, fix->window->super->renderer, key, path);
 	// assert tex != NULL
 	g_assert(tex);
-
-	// find tex in mgr's hash table
-	SDL_Texture *tex2 = g_hash_table_lookup(fix->mgr->textures, key);
-	g_assert(tex == tex2);
 }
 
 void content_shader_test(contentFix *fix, gconstpointer data)
@@ -56,9 +51,7 @@ void content_shader_test(contentFix *fix, gconstpointer data)
 	char const *fs = "content/s.frag";
 
 	slsShader *shad = slsContentManager_load_shader(fix->mgr, key, vs, fs);
-	slsShader *shad1 = g_hash_table_lookup(fix->mgr->shaders, key);
-
-	g_assert(shad == shad1);
+	
 
 	g_assert(shad);
 	

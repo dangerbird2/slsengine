@@ -7,7 +7,8 @@
 #define __SLS_SFML_WINDOW_MODULE_H__
 
 #include "sls-window.h"
-
 #include "sls-glwindow.h"
+#include "sls-clock.h"
+#include "sls-statestack.h"
 
 #endif

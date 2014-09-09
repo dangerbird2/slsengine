@@ -4,26 +4,31 @@
 #include <glib-2.0/glib.h>
 #include <SDL2/SDL.h>
 #include "sls-sprite.h"
-#include "../gl/sls-shader.h"
-#include "../gl/sls-mesh.h"
+#include "../graphics/sls-shader.h"
+#include "../graphics/sls-mesh.h"
 #include "sls-cont-container.h"
 
 typedef struct _slsContentManager slsContentManager;
 
 struct _slsContentManager {
-    GHashTable *textures;
-    GHashTable *shaders;
-    GHashTable *meshes;
-
+    
     CFMutableDictionaryRef content;
+
+    CFMutableDictionaryRef textures;
+    CFMutableDictionaryRef sprites;
+    CFMutableDictionaryRef shaders;
+    CFMutableDictionaryRef meshes;
 };
 
 slsContentManager *slsContentManager_create();
 void slsContentManager_destroy(slsContentManager *self);
 
+
+
 void sls_hash_texture_free(gpointer texture);
 void sls_hash_shader_free(gpointer shader);
 void sls_hash_mesh_free(gpointer mesh);
+
 
 
 SDL_Texture *slsContentManager_load_texture(

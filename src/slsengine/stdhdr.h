@@ -37,6 +37,10 @@
 #include <stdlib.h>
 #include <inttypes.h>
 #include <stdbool.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
+#include <math.h>
 
 /****************************************
  * my pre-defined primitive types
