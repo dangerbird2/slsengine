@@ -5,7 +5,8 @@ set (tests_SOURCES
     math-tests.c
     mesh-test.c
     component-test.c
-    content-test.c)
+    content-test.c
+    statestack-test.c)
 
 
 add_executable(tests ${tests_SOURCES})

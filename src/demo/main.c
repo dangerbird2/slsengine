@@ -8,10 +8,11 @@ int main(int argc, char const *argv[])
 	}
 	atexit(quit_Sls);
 
-	slsGlWindow *window = slsGlWindow_create("hello", NULL);
+	slsGameWindow *window = slsGameWindow_alloc();
+    slsMsg(window, initWithSize, "window", 600, 400);
 	if (!window) {return -1;}
 
-	slsMsg(window, run);
+    slsMsg(window, run);
 
 	return 0;
 }

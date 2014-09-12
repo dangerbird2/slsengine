@@ -7,7 +7,7 @@
 
 typedef struct _slsClock slsClock;
 
-struct slsClock {
+struct _slsClock {
 	uint64_t first_time;
 	uint64_t last_time;
 	bool is_paused;

@@ -41,6 +41,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <math.h>
+#include <assert.h>
 
 /****************************************
  * my pre-defined primitive types

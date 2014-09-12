@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 2.8.4)
 project(slsengine)
 
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
-set(CMAKE_C_FLAGS "-Wall --std=gnu11")
+set (CLANG_CFLAGS "--std=gnu11 -fblocks")
+
+set (USE_CLANG "TRUE")
+
+if (USE_CLANG)
+    set(CMAKE_C_COMPILER clang)
+    set(CMAKE_CXX_COMPILER clang++)
+    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} ${CLANG_CFLAGS})
+endif()
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLIB REQUIRED glib-2.0)

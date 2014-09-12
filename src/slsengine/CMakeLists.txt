@@ -12,6 +12,7 @@ set(slsengine_SOURCES
     window/sls-clock.c
     window/sls-window.c
     window/sls-glwindow.c
+    window/sls-gamewindow.c
     window/sls-renderwindow.c
     window/sls-statestack.c
     )

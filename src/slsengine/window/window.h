@@ -8,6 +8,7 @@
 
 #include "sls-window.h"
 #include "sls-glwindow.h"
+#include "sls-gamewindow.h"
 #include "sls-clock.h"
 #include "sls-statestack.h"
 

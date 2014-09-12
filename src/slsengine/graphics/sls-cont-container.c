@@ -50,7 +50,7 @@ slsContentContainer *slsContentContainer_new(
 void slsContentContainer_dtor(slsContentContainer *self)
 {
 	if (!self) {return;}
-	// do not free data if data is NULL
+	// do not free state_data if state_data is NULL
 	if (!self->data) {
 
 	}
@@ -96,7 +96,7 @@ Boolean slsContentContainer_cmp(const void *value1, const void *value2)
 	
 	if (c1->type != c2->type) { return false;}
 
-	// check if pointers point to the same data
+	// check if pointers point to the same state_data
 	if (c1->data != c2->data) {
 		return false;
 	}

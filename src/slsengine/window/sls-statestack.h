@@ -1,13 +1,28 @@
 #ifndef __SLS_TYPE_STATESTACK_H__
 #define __SLS_TYPE_STATESTACK_H__
 
-typedef struct _slsStateNode slsStateNode;
-typedef struct _slsStateStack slsStateStack;
-typedef struct _slsStateCallbacks slsStateCallbacks;
+
 
 #include <inttypes.h>
 #include <SDL2/SDL.h>
 #include "sls-glwindow.h"
+
+
+typedef struct _slsStateNode slsStateNode;
+typedef struct _slsStateStack slsStateStack;
+typedef struct _slsStateCallbacks slsStateCallbacks;
+
+struct _slsStateCallbacks {
+    void (*dealloc)    (void *state_data);
+
+    void (*start)			(void *state_data);
+
+    void (*resize)			(void *state_data, int w, int h);
+    void (*poll_events)		(void *state_data, SDL_Event *event);
+
+    void (*update) 			(void *state_data, double dt);
+    void (*draw) 			(void *state_data, double dt);
+};
 
 
 struct _slsStateNode {
@@ -15,19 +30,12 @@ struct _slsStateNode {
 	slsStateNode *next;
 	slsStateStack *host;
 
-	void *data;
+	void *state_data;
+    slsStateCallbacks state_callbacks;
 
 	slsStateNode *(*init)	(slsStateNode *self);
-
 	void (*dtor)			(slsStateNode *self);
 
-	void (*start)			(slsStateNode *self);
-
-	void (*resize)			(slsStateNode *self, int w, int h);
-	void (*poll_events)		(slsStateNode *self, SDL_Event *event);
-
-	void (*update) 			(slsStateNode *self, double dt);
-	void (*draw) 			(slsStateNode *self, double dt);
 
 };
 
@@ -48,10 +56,12 @@ struct _slsStateStack {
 
 slsStateNode *slsStateNode_alloc();
 slsStateNode *slsStateNode_init(slsStateNode *self);
+slsStateNode *slsStateNode_new();
 void slsStateNode_dtor(slsStateNode *self);
 
 slsStateStack *slsStateStack_alloc();
 slsStateStack *slsStateStack_init(slsStateStack *self, slsGlWindow *window);
+slsStateStack *slsStateStack_new(slsGlWindow *window);
 void slsStateStack_dtor (slsStateStack *self);
 
 void slsStateStack_clear(slsStateStack *self);

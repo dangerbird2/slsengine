@@ -1,5 +1,5 @@
-#ifndef __SLS_SFML_ENGINE_MAIN_H__
-#define __SLS_SFML_ENGINE_MAIN_H__
+#ifndef __SLS_SDL_ENGINE_MAIN_H__
+#define __SLS_SDL_ENGINE_MAIN_H__
 
 #include "window/window.h"
 #include "graphics/graphics.h"
@@ -10,4 +10,4 @@
 #include "linalg/sls-mat4.h"
 #include "setup.h"
 
-#endif
+#endif /*__SLS_SDL_ENGINE_MAIN_H__*/

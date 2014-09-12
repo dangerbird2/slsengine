@@ -34,7 +34,7 @@ struct _slsGlWindow {
 	 * @details [long description]
 	 * 
 	 * @param n "self"
-	 * @param data user-defined data
+	 * @param state_data user-defined state_data
 	 * 
 	 * @return void
 	 */
@@ -45,7 +45,7 @@ struct _slsGlWindow {
 	 * @details [long description]
 	 * 
 	 * @param n "self"
-	 * @param data user-defined data
+	 * @param state_data user-defined state_data
 	 * 
 	 * @return void
 	 */

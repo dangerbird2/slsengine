@@ -40,7 +40,7 @@ slsWindow *slsWindow_create(const char *caption, void *data)
 
 void *slsWindow_destroy(slsWindow *self)
 {
-	// this function will preserve and return user data
+	// this function will preserve and return user state_data
 	g_return_val_if_fail(self != NULL, NULL);
 	void *data = self->data;
 
