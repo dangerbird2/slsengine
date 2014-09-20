@@ -3,57 +3,98 @@
 
 #include "sls-mesh.h"
 #include "sls-shader.h"
-#include "sls-cont-container.h"
+
 
 #include "../stdhdr.h"
 
-slsContentManager *slsContentManager_create()
+static const slsContentManager slsContentManager_proto = {
+        .textures = NULL,
+        .sprites = NULL,
+        .shaders = NULL,
+        .meshes = NULL,
+        .init = slsContentManager_init,
+        .dtor = slsContentManager_destroy
+};
+
+slsContentManager *slsContentManager_alloc()
 {
     slsContentManager *self = NULL;
     self = malloc (sizeof(slsContentManager));
-    g_return_val_if_fail(self, NULL);
 
-    int ndictionaries = 5;
-    CFMutableDictionaryRef *dicts[5] = {&self->content, &self->textures, &self->sprites, &self->shaders, &self->meshes};
-    for (int i=0; i < ndictionaries; i++) {
-        *(dicts[i]) = CFDictionaryCreateMutable(
-            NULL,
-            0,
-            &kCFCopyStringDictionaryKeyCallBacks,
-            &slsContentContainer_callback
-        );
-    }
+    memcpy(self, &slsContentManager_proto, sizeof(slsContentManager));
 
     return self;
 }
+
+slsContentManager *slsContentManager_init(slsContentManager *self)
+{
+    if (!self) {return NULL;}
+
+    check_mem(apr_pool_create_core(&self->pool) == APR_SUCCESS);
+    apr_hash_t **hash_tables[] = {
+        &(self->textures),
+        &(self->sprites),
+        &(self->shaders),
+        &(self->meshes),
+        NULL};
+    for (int i=0; hash_tables[i] != NULL; i++) {
+        *(hash_tables[i]) = apr_hash_make(self->pool);
+        check_mem(*(hash_tables[i]));
+    }
+
+    return self;
+
+error:
+    log_err("slsContentManager_init failure");
+    slsMsg(self, dtor);
+    return NULL;
+}
+
+void sls_clear_hash(apr_pool_t *pool, apr_hash_t *hash, slsFreeFn free_fn)
+{
+
+    if ((!hash ) || (!free_fn)) {return;}
+    for (apr_hash_index_t *hi = apr_hash_first(pool, hash);
+         hi;
+         hi = apr_hash_next(hi)) {
+        void *val = NULL;
+        apr_hash_this(hi, NULL, NULL, &val);
+        if (val) {
+            free_fn(val);
+        }
+    }
+
+    
+}
+
 void slsContentManager_destroy(slsContentManager *self)
 {
     if (!self) {return;}
+    sls_clear_hash(self->pool, self->textures, sls_hash_texture_free);
+    sls_clear_hash(self->pool, self->shaders, sls_hash_shader_free);
+    sls_clear_hash(self->pool, self->meshes, sls_hash_mesh_free);
 
-    int ndictionaries = 5;
-    CFMutableDictionaryRef dicts[5] = {self->content, self->textures, self->sprites, self->shaders, self->meshes};
-    for (int i=0; i < ndictionaries; i++) {
-        if (dicts[i]) {
-            CFRelease(dicts[i]);
-        }
+    // destroy memory pool
+    if (self->pool) {
+        apr_pool_destroy(self->pool);
     }
 
     if (self) {free(self);}
 }
 
-void sls_hash_texture_free(gpointer texture)
+void sls_hash_texture_free(void * texture)
 {
     SDL_DestroyTexture((SDL_Texture *) texture);
 }
 
-void sls_hash_shader_free(gpointer shader)
+void sls_hash_shader_free(void * shader)
 {
     slsShader *self = shader;
     if (self->dtor != NULL)
     self->dtor(self);
 }
 
-void sls_hash_mesh_free(gpointer mesh)
+void sls_hash_mesh_free(void * mesh)
 {
     slsMesh *meshobj = mesh;
     slsMsg(meshobj, dtor);
@@ -89,7 +130,6 @@ slsShader *slsContentManager_load_shader(
     slsShader *shader = NULL;
     shader = slsShader_create(shader_name, vspath, fspath);
     g_return_val_if_fail(shader != NULL, NULL);
-
 
     return shader;
 }

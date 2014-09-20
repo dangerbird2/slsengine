@@ -14,12 +14,12 @@ slsGameWindow *slsGameWindow_alloc()
 {
     slsGameWindow *self = NULL;
     self = calloc(1, sizeof(slsGameWindow));
-    if (!self) {
-        fprintf(stderr, "slsGameWindow_alloc: memory error\n");
-        return NULL;
-    }
+    check_mem(self);
     memcpy(self, &slsGameWindow_proto, sizeof(slsGameWindow));
     return self;
+
+error:
+    return NULL;
 }
 
 slsGameWindow *__slsGameWindow_create__(slsGameWindow *self, char const *caption, int w, int h)
@@ -27,7 +27,7 @@ slsGameWindow *__slsGameWindow_create__(slsGameWindow *self, char const *caption
     if (!self) {return NULL;}
 
     self->super = slsGlWindow_create(caption, (void*) self);
-    assert(self->super);
+    check_mem(self->super);
 
     // create scene stack
     self->states = slsStateStack_new(self->super);
@@ -36,6 +36,11 @@ slsGameWindow *__slsGameWindow_create__(slsGameWindow *self, char const *caption
     SDL_SetWindowSize(self->super->window, w, h);
 
     return self;
+error:
+    if (self && self->dtor) {
+        slsMsg(self, dtor);
+    }
+    return NULL;
 }
 
 slsGameWindow *slsGameWindow_init(slsGameWindow *self, char const *caption)
@@ -54,7 +59,17 @@ slsGameWindow *slsGameWindow_initWithSize(slsGameWindow *self, char const *capti
 
 void slsGameWindow_run(slsGameWindow *self)
 {
-    slsMsg(self->super, run);
+
+}
+
+void slsGameWindow_update(slsGameWindow *self, double dt)
+{
+
+}
+
+void slsGameWindow_render(slsGameWindow *self, double dt)
+{
+
 }
 
 void slsGameWindow_dtor(slsGameWindow *self)
@@ -64,4 +79,11 @@ void slsGameWindow_dtor(slsGameWindow *self)
     if (self->states) {slsMsg(self->states, dtor);}
 
     free (self);
+}
+
+void slsGameWindow_autofree(slsGameWindow **self_ptr)
+{
+    if (!self_ptr) {return;}
+
+    slsMsg((*self_ptr), dtor);
 }

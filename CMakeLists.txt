@@ -13,6 +13,7 @@ endif()
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
+pkg_check_modules(APR REQUIRED apr-1)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 
@@ -20,22 +21,24 @@ find_library(SDL2 SDL2)
 find_library(SDL2_IMAGE SDL2_image)
 find_library(SDL2_TTF SDL2_ttf)
 find_library(SDL2_MIXER SDL2_mixer)
-find_library(CFLITE CoreFoundation)
 find_library(BLOCKS BlocksRuntime)
 find_library(DISPATCH dispatch)
 
-include_directories(${PROJECT_SOURCE_DIR}/src ${GLIB_INCLUDE_DIRS})
+set (DIRS ${PROJECT_SOURCE_DIR}/src ${GLIB_INCLUDE_DIRS} ${APR_INCLUDE_DIRS})
+
+include_directories(${DIRS})
 set (LIBS
     ${GLIB_LIBRARIES}
-     ${OPENGL_gl_LIBRARY}
-     ${GLEW_LIBRARY}
-     ${SDL2}
-     ${SDL2_IMAGE}
-     ${SDL2_TTF}
-     ${SDL2_MIXER}
-     ${CFLITE}
-     ${BLOCKS}
-     ${DISPATCH})
+    ${APR_LIBRARIES}
+
+    ${OPENGL_gl_LIBRARY}
+    ${GLEW_LIBRARY}
+    ${SDL2}
+    ${SDL2_IMAGE}
+    ${SDL2_TTF}
+    ${SDL2_MIXER}
+    ${BLOCKS}
+    ${DISPATCH})
 
 add_subdirectory(src/slsengine)
 add_subdirectory(src/tests)

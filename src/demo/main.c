@@ -1,6 +1,5 @@
 #include <slsengine/slsengine.h>
 
-
 int main(int argc, char const *argv[])
 {
 	if (!init_Sls()) {
@@ -8,7 +7,7 @@ int main(int argc, char const *argv[])
 	}
 	atexit(quit_Sls);
 
-	slsGameWindow *window = slsGameWindow_alloc();
+	slsGameWindow* window slsGameWindowAF = slsGameWindow_alloc();
     slsMsg(window, initWithSize, "window", 600, 400);
 	if (!window) {return -1;}
 

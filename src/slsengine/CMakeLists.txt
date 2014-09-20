@@ -4,7 +4,6 @@ set(slsengine_SOURCES
     linalg/sls-mat4.c
     linalg/vectypes.c
     graphics/shaderutils.c
-    graphics/sls-cont-container.c
     graphics/sls-content.c
     graphics/sls-mesh.c
     graphics/sls-shader.c
@@ -17,7 +16,7 @@ set(slsengine_SOURCES
     window/sls-statestack.c
     )
 
-include_directories(${GLIB_INCLUDE_DIRS})
+include_directories(${DIRS} )
 link_directories(${GLIB_LINK_DIRS})
 
 

@@ -1,6 +1,7 @@
+#include "../stdhdr.h"
 #include "sls-shader.h"
 #include "shaderutils.h"
-#include "../stdhdr.h"
+
 
 
 slsShader *slsShader_create(char const *shader_name, char const *vspath, char const *fspath)

@@ -8,6 +8,6 @@ set (tests_SOURCES
     content-test.c
     statestack-test.c)
 
-
+include_directories(${DIRS})
 add_executable(tests ${tests_SOURCES})
 target_link_libraries(tests slsengine ${LIBS})

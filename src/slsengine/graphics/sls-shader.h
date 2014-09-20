@@ -1,7 +1,7 @@
 #ifndef __SLS_SHADER_H__
 #define __SLS_SHADER_H__
 
-#include "../stdhdr.h"
+#include <GL/glew.h>
 #include "../linalg/sls-mat4.h"
 
 typedef struct _slsShader slsShader;

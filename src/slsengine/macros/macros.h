@@ -17,4 +17,11 @@
 #define slsAF(fn) __attribute__((cleanup(fn)))
 
 
+/**
+* macro for standard char buffer size
+*/
+
+#define SLS_BUFFER_SIZE
+
+
 #endif //__SLS_MACROS_H__

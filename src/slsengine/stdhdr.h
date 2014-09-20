@@ -46,6 +46,10 @@
 /****************************************
  * my pre-defined primitive types
  ****************************************/
+#include <apr_general.h>
+#include <apr_tables.h>
+#include <apr_hash.h>
+
 #include "types.h"
 #include "macros/dbg.h"
 #include "linalg/vectypes.h"

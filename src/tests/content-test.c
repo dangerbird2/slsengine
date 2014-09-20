@@ -18,7 +18,7 @@ void content_setup(contentFix *fix, gconstpointer data);
 void content_setup(contentFix *fix, gconstpointer data)
 {
 	fix->window = slsGlWindow_create("test", NULL);
-	fix->mgr = slsContentManager_create();
+	fix->mgr = slsContentManager_alloc();
 }
 /**
  * test implementation

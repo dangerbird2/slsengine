@@ -6,28 +6,40 @@
 #include "sls-sprite.h"
 #include "../graphics/sls-shader.h"
 #include "../graphics/sls-mesh.h"
-#include "sls-cont-container.h"
+
+#include <apr_pools.h>
+#include <apr_tables.h>
+#include <apr_hash.h>
+
 
 typedef struct _slsContentManager slsContentManager;
+typedef void (*slsFreeFn)(void*);
 
 struct _slsContentManager {
-    
-    CFMutableDictionaryRef content;
 
-    CFMutableDictionaryRef textures;
-    CFMutableDictionaryRef sprites;
-    CFMutableDictionaryRef shaders;
-    CFMutableDictionaryRef meshes;
+    apr_pool_t *pool;
+
+    apr_hash_t *content;
+
+    apr_hash_t *textures;
+    apr_hash_t *sprites;
+    apr_hash_t *shaders;
+    apr_hash_t *meshes;
+    slsContentManager* (*init)  (slsContentManager *self);
+    void (*dtor)                (slsContentManager *self);
 };
 
-slsContentManager *slsContentManager_create();
+slsContentManager *slsContentManager_alloc();
+
+slsContentManager *slsContentManager_init(slsContentManager *self);
+
 void slsContentManager_destroy(slsContentManager *self);
 
 
 
-void sls_hash_texture_free(gpointer texture);
-void sls_hash_shader_free(gpointer shader);
-void sls_hash_mesh_free(gpointer mesh);
+void sls_hash_texture_free(void * texture);
+void sls_hash_shader_free(void * shader);
+void sls_hash_mesh_free(void * mesh);
 
 
 

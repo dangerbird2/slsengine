@@ -25,4 +25,8 @@ slsGameWindow *__slsGameWindow_create__(slsGameWindow *self, char const *caption
 
 void slsGameWindow_run(slsGameWindow *self);
 
+void slsGameWindow_autofree(slsGameWindow **self_ptr);
+
+#define slsGameWindowAF slsAF(slsGameWindow_autofree)
+
 #endif /*__SLS_TYPE_GAME_WINDOW_H__*/
