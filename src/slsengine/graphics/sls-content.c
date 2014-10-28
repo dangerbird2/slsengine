@@ -30,17 +30,9 @@ slsContentManager *slsContentManager_init(slsContentManager *self)
 {
     if (!self) {return NULL;}
 
-    check_mem(apr_pool_create_core(&self->pool) == APR_SUCCESS);
-    apr_hash_t **hash_tables[] = {
-        &(self->textures),
-        &(self->sprites),
-        &(self->shaders),
-        &(self->meshes),
-        NULL};
-    for (int i=0; hash_tables[i] != NULL; i++) {
-        *(hash_tables[i]) = apr_hash_make(self->pool);
-        check_mem(*(hash_tables[i]));
-    }
+    memcpy(self, &slsContentManager_proto, sizeof(slsContentManager));
+
+    
 
     return self;
 
@@ -50,19 +42,10 @@ error:
     return NULL;
 }
 
-void sls_clear_hash(apr_pool_t *pool, apr_hash_t *hash, slsFreeFn free_fn)
+void sls_clear_hash(GHashTable *hash, slsFreeFn free_fn)
 {
 
-    if ((!hash ) || (!free_fn)) {return;}
-    for (apr_hash_index_t *hi = apr_hash_first(pool, hash);
-         hi;
-         hi = apr_hash_next(hi)) {
-        void *val = NULL;
-        apr_hash_this(hi, NULL, NULL, &val);
-        if (val) {
-            free_fn(val);
-        }
-    }
+    
 
     
 }
@@ -70,16 +53,12 @@ void sls_clear_hash(apr_pool_t *pool, apr_hash_t *hash, slsFreeFn free_fn)
 void slsContentManager_destroy(slsContentManager *self)
 {
     if (!self) {return;}
-    sls_clear_hash(self->pool, self->textures, sls_hash_texture_free);
-    sls_clear_hash(self->pool, self->shaders, sls_hash_shader_free);
-    sls_clear_hash(self->pool, self->meshes, sls_hash_mesh_free);
+    sls_clear_hash(self->textures, sls_hash_texture_free);
+    sls_clear_hash(self->shaders, sls_hash_shader_free);
+    sls_clear_hash(self->meshes, sls_hash_mesh_free);
 
-    // destroy memory pool
-    if (self->pool) {
-        apr_pool_destroy(self->pool);
-    }
-
-    if (self) {free(self);}
+    
+    free(self);
 }
 
 void sls_hash_texture_free(void * texture)

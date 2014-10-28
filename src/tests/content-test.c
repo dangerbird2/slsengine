@@ -19,6 +19,7 @@ void content_setup(contentFix *fix, gconstpointer data)
 {
 	fix->window = slsGlWindow_create("test", NULL);
 	fix->mgr = slsContentManager_alloc();
+    slsMsg(fix->mgr, init);
 }
 /**
  * test implementation
@@ -26,13 +27,13 @@ void content_setup(contentFix *fix, gconstpointer data)
 
 void content_teardown(contentFix *fix, gconstpointer data)
 {
-	slsContentManager_destroy(fix->mgr);
-	fix->window->dtor(fix->window);
+	slsMsg(fix->window, dtor);
+    //slsMsg(fix->mgr, dtor);
 }
 
 void content_test(contentFix *fix, gconstpointer data)
 {
-	g_assert(fix->mgr->content);
+	g_assert(!fix->mgr->content);
 }
 
 void content_texture_test(contentFix *fix, gconstpointer data)

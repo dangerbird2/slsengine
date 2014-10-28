@@ -7,9 +7,6 @@
 #include "../graphics/sls-shader.h"
 #include "../graphics/sls-mesh.h"
 
-#include <apr_pools.h>
-#include <apr_tables.h>
-#include <apr_hash.h>
 
 
 typedef struct _slsContentManager slsContentManager;
@@ -17,14 +14,12 @@ typedef void (*slsFreeFn)(void*);
 
 struct _slsContentManager {
 
-    apr_pool_t *pool;
+    GHashTable *content;
 
-    apr_hash_t *content;
-
-    apr_hash_t *textures;
-    apr_hash_t *sprites;
-    apr_hash_t *shaders;
-    apr_hash_t *meshes;
+    GHashTable *textures;
+    GHashTable *sprites;
+    GHashTable *shaders;
+    GHashTable *meshes;
     slsContentManager* (*init)  (slsContentManager *self);
     void (*dtor)                (slsContentManager *self);
 };
@@ -35,6 +30,7 @@ slsContentManager *slsContentManager_init(slsContentManager *self);
 
 void slsContentManager_destroy(slsContentManager *self);
 
+void sls_clear_hash(GHashTable *hash, slsFreeFn free_fn);
 
 
 void sls_hash_texture_free(void * texture);

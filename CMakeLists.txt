@@ -13,7 +13,6 @@ endif()
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
-pkg_check_modules(APR REQUIRED apr-1)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 
@@ -24,7 +23,7 @@ find_library(SDL2_MIXER SDL2_mixer)
 find_library(BLOCKS BlocksRuntime)
 find_library(DISPATCH dispatch)
 
-set (DIRS ${PROJECT_SOURCE_DIR}/src ${GLIB_INCLUDE_DIRS} ${APR_INCLUDE_DIRS})
+set (DIRS ${PROJECT_SOURCE_DIR}/src ${GLIB_INCLUDE_DIRS})
 
 include_directories(${DIRS})
 set (LIBS

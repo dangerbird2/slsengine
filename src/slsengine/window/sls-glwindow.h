@@ -4,13 +4,12 @@
 #include "sls-window.h"
 
 typedef struct _slsGlWindow slsGlWindow;
-typedef enum slsWindowRenderMode slsWindowRenderMode;
 
-enum slsWindowRenderMode {
+typedef enum slsWindowRenderMode {
 	SLS_WINDOW_SDL_RENDER,
 	SLS_WINDOW_OGL_RENDER,
 	SLS_WINDOW_GLES_RENDER
-};
+} slsWindowRenderMode;
 /**
  * @brief window management structure
  * @details structure managing SDL openGL contextm including main loop callbacks. "inherrits" slsWindow via a pointer to a window object.
@@ -62,10 +61,10 @@ struct _slsGlWindow {
 slsGlWindow *slsGlWindow_create(const char *caption, void *data);
 void *slsGlWindow_destroy(slsGlWindow *self);
 
-void slsGlWindow_run	(slsGlWindow *self);
+void slsGlWindow_run	(slsGlWindow *self) slsDeprecated; 
 void slsGlWindow_poll_events	(slsGlWindow *self);
 void slsGlWindow_load_content (slsGlWindow *self);
-void slsGlWindow_update (slsGlWindow *self, double dt);
+void slsGlWindow_update (slsGlWindow *self, double dt) slsDeprecated;
 
 void slsGlWindow_resize (slsGlWindow *self, int w, int h);
 void slsGlWindow_render (slsGlWindow *self, double dt);

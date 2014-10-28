@@ -60,6 +60,7 @@ void *slsGlWindow_destroy(slsGlWindow *self)
 
 void slsGlWindow_run (slsGlWindow *self)
 {
+	#if 0
 	self->is_open = true;
 
 	uint64_t timeA, timeB;
@@ -76,6 +77,8 @@ void slsGlWindow_run (slsGlWindow *self)
 		
 		
 	}
+
+	#endif
 }
 void slsGlWindow_poll_events (slsGlWindow *self)
 {

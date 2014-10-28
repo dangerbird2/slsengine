@@ -9,6 +9,11 @@
 // & such
 #define SAFE_STRING_LEN 200
 
+
+/**
+ * aliases for integer types, hinting glib and opengl typedefs without needing to include gl or glib headers.
+ * 
+ */
 typedef int8_t SLbyte;
 typedef int16_t SLshort;
 typedef int32_t SLint;

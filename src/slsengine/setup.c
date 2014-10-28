@@ -1,6 +1,5 @@
 #include "stdhdr.h"
 #include "setup.h"
-#include <apr_errno.h>
 
 static SLbool is_active = false;
 
@@ -22,15 +21,6 @@ SLbool init_Sls()
         exit(-1);
     }
 
-    // setup apache portable runtime
-    apr_status_t apr_init = apr_initialize();
-    if (APR_SUCCESS != apr_init) {
-        char buffer[SLS_BUFFER_SIZE] = {'\0'};
-        apr_strerror(apr_init, buffer, SLS_BUFFER_SIZE - 1);
-        log_err("%s\n", buffer);
-
-    }
-    atexit(apr_terminate);
 
     is_active = true;
     return true;

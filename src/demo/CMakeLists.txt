@@ -5,3 +5,9 @@ set (demo_SOURCES
 
 add_executable(demo ${demo_SOURCES})
 target_link_libraries(demo slsengine ${LIBS})
+
+add_custom_command(
+	TARGET demo POST_BUILD
+	COMMAND demo
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+	VERBATIM)

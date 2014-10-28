@@ -2,9 +2,29 @@
 #define __SLS_MACROS_H__
 
 #include <stdlib.h>
+#include <string.h>
 #include "dbg.h"
 
 #define slsMsg(obj, method, ...) (obj->method(obj, ##__VA_ARGS__))
+
+static inline void *sls_objalloc(void const *klass, size_t size)
+{
+	void *obj = NULL;
+
+	check(klass, "'klass' must be non-null");
+	obj = calloc(1, size);
+	check_mem(obj);
+	memcpy(obj, klass, size);
+
+
+	return obj;
+
+error:
+	if (obj) {
+		free(obj);
+	}
+	return NULL;
+}
 
 /**
  * @brief autofree attribute
@@ -12,16 +32,10 @@
  * 
  * @param  fn: a function that takes a pointer to the attributed
  * object
- * @return [description]
  */
 #define slsAF(fn) __attribute__((cleanup(fn)))
 
-
-/**
-* macro for standard char buffer size
-*/
-
-#define SLS_BUFFER_SIZE
+#define slsDeprecated __attribute__((deprecated))
 
 
 #endif //__SLS_MACROS_H__
