@@ -18,7 +18,7 @@ struct _slsGameWindow {
     SDL_Window *window;
 
     /**
-     * @brief pointer to SDL renderer object
+     * @brief pointer to SDL renderer objectv
      * @details note: memory not owned by this object. by destructing self->super,
      * renderer will free
      */
@@ -50,7 +50,11 @@ void slsGameWindow_run(slsGameWindow *self);
 void slsGameWindow_poll_events	(slsGameWindow *self);
 void slsGameWindow_load_content (slsGameWindow *self);
 
+void slsGameWindow_update (slsGameWindow *self, double dt);
+
 void slsGameWindow_autofree(slsGameWindow **self_ptr);
+
+const slsGameWindow sls_gamewindow_class();
 
 #define slsGameWindowAF slsAF(slsGameWindow_autofree)
 

@@ -13,12 +13,16 @@ static const slsGlWindow slsGlWindow_proto = {
 	.window = NULL,
 	.renderer = NULL,
 	.clear_color = {1.f, 1.f, 1.f, 1.f},
-	.run = slsGlWindow_run,
-	.poll_events = slsGlWindow_poll_events,
-	.load_content = slsGlWindow_load_content,
-	.update = slsGlWindow_update,
+	.run = NULL,
+	.poll_events = NULL,
+	.load_content = NULL,
+	.update = NULL,
 	.resize = slsGlWindow_resize,
 	.render = slsGlWindow_render,
+
+	.clear = NULL,
+	.swap_buffers = NULL,
+
 	.dtor = slsGlWindow_destroy
 };
 

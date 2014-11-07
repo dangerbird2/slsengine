@@ -32,7 +32,33 @@ slsContentManager *slsContentManager_init(slsContentManager *self)
 
     memcpy(self, &slsContentManager_proto, sizeof(slsContentManager));
 
-    
+    // create hash tables with two arrays, corresponding to pointers to hash table attributes
+    // and cooresponding free functions for specified value type
+    GHashTable **tables[] = {
+        &(self->content),
+        &(self->textures),
+        &(self->sprites),
+        &(self->shaders),
+        &(self->meshes),
+        NULL
+    };
+    GDestroyNotify free_fns[] = {
+        NULL,
+        sls_hash_texture_free,
+        sls_hash_sprite_free,
+        sls_hash_shader_free,
+        sls_hash_mesh_free
+    };
+
+    GDestroyNotify string_key_free = free;
+
+    for (int i=0; tables[i] != NULL; i++) {
+        *(tables[i]) = g_hash_table_new_full(
+            g_str_hash,
+            g_str_equal,
+            string_key_free,
+            free_fns[i]);
+    }
 
     return self;
 
@@ -53,9 +79,7 @@ void sls_clear_hash(GHashTable *hash, slsFreeFn free_fn)
 void slsContentManager_destroy(slsContentManager *self)
 {
     if (!self) {return;}
-    sls_clear_hash(self->textures, sls_hash_texture_free);
-    sls_clear_hash(self->shaders, sls_hash_shader_free);
-    sls_clear_hash(self->meshes, sls_hash_mesh_free);
+
 
     
     free(self);
@@ -63,21 +87,35 @@ void slsContentManager_destroy(slsContentManager *self)
 
 void sls_hash_texture_free(void * texture)
 {
+    if (!texture) {return;}
     SDL_DestroyTexture((SDL_Texture *) texture);
 }
 
 void sls_hash_shader_free(void * shader)
 {
+    if (!shader) {return;}
     slsShader *self = shader;
-    if (self->dtor != NULL)
-    self->dtor(self);
+    if (self->dtor != NULL){
+        self->dtor(self);
+    }
 }
 
 void sls_hash_mesh_free(void * mesh)
 {
-    slsMesh *meshobj = mesh;
-    slsMsg(meshobj, dtor);
+    if (!mesh) {return;}
+    slsMesh *self = mesh;
+    if (self->dtor){
+        slsMsg(self, dtor);
+    }
 }
+
+void sls_hash_sprite_free(void *sprite)
+{
+    if (!sprite) {return;}
+    slsSprite_destroy((slsSprite*)sprite);
+}
+
+
 
 SDL_Texture *slsContentManager_load_texture(
     slsContentManager *self,

@@ -26,6 +26,17 @@ error:
 	return NULL;
 }
 
+static inline void *sls_xobjalloc(void const *klass, size_t size)
+{
+	void *obj = sls_objalloc(klass, size);
+
+	if (!obj) {
+		abort();
+	}
+
+	return obj;
+}
+
 /**
  * @brief autofree attribute
  * @details [long description]

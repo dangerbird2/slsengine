@@ -34,6 +34,7 @@ void sls_clear_hash(GHashTable *hash, slsFreeFn free_fn);
 
 
 void sls_hash_texture_free(void * texture);
+void sls_hash_sprite_free(void *sprite);
 void sls_hash_shader_free(void * shader);
 void sls_hash_mesh_free(void * mesh);
 

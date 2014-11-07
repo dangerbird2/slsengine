@@ -4,6 +4,14 @@
 		{
 			"follow_symlinks": true,
 			"path": "."
+		},
+		{
+			"follow_symlinks": true,
+			"path": "/home/steven/projects"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "/home/steven/golang/src"
 		}
 	]
 }

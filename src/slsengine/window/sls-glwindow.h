@@ -55,6 +55,9 @@ struct _slsGlWindow {
 	void (*resize)			(slsGlWindow *self, int w, int h);
 	void (*render)			(slsGlWindow *self, double dt);
 
+	void (*clear)			(slsGlWindow *self, float r, float g, float b, float a);
+	void (*swap_buffers)	(slsGlWindow *self);
+
 	void *(*dtor)			(slsGlWindow *self);
 };
 
@@ -62,8 +65,8 @@ slsGlWindow *slsGlWindow_create(const char *caption, void *data);
 void *slsGlWindow_destroy(slsGlWindow *self);
 
 void slsGlWindow_run	(slsGlWindow *self) slsDeprecated; 
-void slsGlWindow_poll_events	(slsGlWindow *self);
-void slsGlWindow_load_content (slsGlWindow *self);
+void slsGlWindow_poll_events	(slsGlWindow *self) slsDeprecated;
+void slsGlWindow_load_content (slsGlWindow *self) slsDeprecated;
 void slsGlWindow_update (slsGlWindow *self, double dt) slsDeprecated;
 
 void slsGlWindow_resize (slsGlWindow *self, int w, int h);

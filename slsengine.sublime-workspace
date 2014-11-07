@@ -4,6 +4,146 @@
 		"selected_items":
 		[
 			[
+				"TS",
+				"TSFLAGS"
+			],
+			[
+				"NOD",
+				"NODE_JS"
+			],
+			[
+				"CLI",
+				"CLIENT_JS"
+			],
+			[
+				"NO",
+				"NODE_JS"
+			],
+			[
+				"CLIE",
+				"CLIENT_JS"
+			],
+			[
+				"NODE",
+				"NODE_JS"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"write",
+				"write(${0:markup})	Document"
+			],
+			[
+				"lis",
+				"listenCallback"
+			],
+			[
+				"De",
+				"DeleteNotSupported"
+			],
+			[
+				"Pu",
+				"PutNotSupported"
+			],
+			[
+				"Post",
+				"PostNotSupported"
+			],
+			[
+				"Ge",
+				"GetNotSupported"
+			],
+			[
+				"respo",
+				"ResponseWriter	interface ¡"
+			],
+			[
+				"P",
+				"Printf	n int, err error ƒ"
+			],
+			[
+				"get",
+				"getwriter"
+			],
+			[
+				"std",
+				"stdout"
+			],
+			[
+				"new",
+				"newargs"
+			],
+			[
+				"fil",
+				"filter_args"
+			],
+			[
+				"err",
+				"errfile"
+			],
+			[
+				"log",
+				"logfile"
+			],
+			[
+				"re",
+				"restart"
+			],
+			[
+				"res",
+				"restart"
+			],
+			[
+				"c",
+				"cache_size  (variable)"
+			],
+			[
+				"hel",
+				"help='sqlite"
+			],
+			[
+				"free",
+				"free_fn"
+			],
+			[
+				"sls_Ha",
+				"sls_hash_mesh_free"
+			],
+			[
+				"sls_ha",
+				"sls_hash_shader_free"
+			],
+			[
+				"slsSp",
+				"slsSprite"
+			],
+			[
+				"slsSpri",
+				"slsSprite_destroy"
+			],
+			[
+				"con",
+				"content"
+			],
+			[
+				"sls_gam",
+				"sls_gamewindow_class"
+			],
+			[
+				"check",
+				"check_mem"
+			],
+			[
+				"slsGlW",
+				"slsGlWindow_run"
+			],
+			[
+				"TAR",
+				"TARGET"
+			],
+			[
 				"shad",
 				"shader_name"
 			],
@@ -92,10 +232,6 @@
 				"create_program"
 			],
 			[
-				"log",
-				"log_len"
-			],
-			[
 				"pr",
 				"program"
 			],
@@ -116,10 +252,6 @@
 				"shader_type"
 			],
 			[
-				"get",
-				"get_shader_source"
-			],
-			[
 				"shader",
 				"shader_source"
 			],
@@ -130,10 +262,6 @@
 			[
 				"s_",
 				"s_size"
-			],
-			[
-				"re",
-				"result"
 			],
 			[
 				"SDL_",
@@ -167,14 +295,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/home/steven/Downloads/corefw/Makefile",
-			"settings":
-			{
-				"buffer_size": 53,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -182,6 +302,46 @@
 		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"cons",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"spaces",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"conspa",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"csco",
+				"Cscope: Find files #including a file"
+			],
+			[
+				"show",
+				"CTags: Show Symbols (all)"
+			],
+			[
+				"shows",
+				"CTags: Show Symbols (file)"
+			],
+			[
+				"cta",
+				"CTags: Show Symbols (file)"
+			],
+			[
+				"ctags",
+				"CTags: Show Symbols (all)"
+			],
+			[
+				"symbol",
+				"Cscope: Look up symbol"
+			],
+			[
+				"cs",
+				"Cscope: Find file"
+			],
 			[
 				"ci",
 				"Set Syntax: C Improved"
@@ -207,10 +367,6 @@
 				"CTags: Show Symbols (all)"
 			],
 			[
-				"cta",
-				"CTags: Show Symbols (all)"
-			],
-			[
 				"syntax c+",
 				"Set Syntax: C++"
 			],
@@ -227,10 +383,6 @@
 				"Clang Format: Format Selection"
 			],
 			[
-				"ctags",
-				"CTags: Rebuild Tags"
-			],
-			[
 				"packa",
 				"Package Control: Install Package"
 			],
@@ -243,7 +395,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 746.0
+		"width": 502.0
 	},
 	"console":
 	{
@@ -262,8 +414,73 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/home/steven/projects",
+		"/home/steven/projects/twitter-node"
+	],
 	"file_history":
 	[
+		"/home/steven/projects/twitter-node/index.js",
+		"/home/steven/projects/twitter-node/package.json",
+		"/home/steven/projects/spacewars/Makefile",
+		"/home/steven/projects/spacewars/typings/tsd.d.ts",
+		"/home/steven/projects/spacewars/bin/www",
+		"/home/steven/projects/spacewars/package.json",
+		"/home/steven/projects/spacewars/scripts/app.ts",
+		"/home/steven/projects/spacewars/www.js",
+		"/home/steven/projects/spacewars/npm-debug.log",
+		"/home/steven/projects/spacewars/static/scripts/foo.ts",
+		"/home/steven/.config/sublime-text-3/Packages/User/JavaScript.sublime-settings",
+		"/home/steven/projects/spacewars/gruntfile.js",
+		"/home/steven/projects/spacewars/static/scripts/foo.js",
+		"/home/steven/projects/spacewars/static/scripts/foo.js.map",
+		"/home/steven/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/steven/projects/spacewars/index.js",
+		"/home/steven/projects/spacewars/app.js",
+		"/home/steven/projects/nodetutorial/index.js",
+		"/home/steven/projects/nodetutorial/main.txt",
+		"/home/steven/projects/nodetutorial/req.js",
+		"/home/steven/golang/src/dangerbird2/restapp/main.go",
+		"/home/steven/golang/src/dangerbird2/restapp/resource.go",
+		"/home/steven/golang/src/dangerbird2/restapp/rest_test.go",
+		"/home/steven/golang/src/dangerbird2/restapp/tests.go",
+		"/home/steven/projects/twittertron/config.json",
+		"/home/steven/tweetd.log.err",
+		"/home/steven/projects/twittertron/twittertron/streaming.py",
+		"/home/steven/projects/twittertron/stream.py",
+		"/home/steven/projects/twittertron/twittertron/utils.py",
+		"/home/steven/pypy/site-packages/couchdb/client.py",
+		"/home/steven/projects/twittertron/twittertron/couch.py",
+		"/home/steven/pypy/site-packages/couchdb/design.py",
+		"/home/steven/projects/twittertron/twittertron/daemon.py",
+		"/home/steven/tweetd.log",
+		"/home/steven/projects/twittertron/twittertron/tweeetdaemon.py",
+		"/home/steven/pypy/bin/activate",
+		"/home/steven/projects/twittertron/activate",
+		"/home/steven/projects/slsengine/src/slsengine/window/sls-gamewindow.c",
+		"/home/steven/apps/pycharm-3.4.1/bin/pycharm.sh",
+		"/home/steven/projects/slsengine/src/slsengine/window/sls-gamewindow.h",
+		"/home/steven/projects/slsengine/src/slsengine/graphics/sls-content.c",
+		"/home/steven/projects/slsengine/src/slsengine/window/sls-glwindow.c",
+		"/home/steven/projects/slsengine/src/slsengine/graphics/sls-content.h",
+		"/home/steven/projects/slsengine/src/slsengine/window/sls-glwindow.h",
+		"/home/steven/projects/slsengine/src/slsengine/setup.c",
+		"/home/steven/projects/slsengine/src/slsengine/stdhdr.h",
+		"/home/steven/projects/slsengine/src/slsengine/macros/macros.h",
+		"/home/steven/projects/slsengine/.gitignore",
+		"/home/steven/projects/slsengine/src/tests/CMakeLists.txt",
+		"/home/steven/projects/slsengine/src/demo/main.c",
+		"/home/steven/projects/slsengine/CMakeLists.txt",
+		"/home/steven/projects/slsengine/src/tests/main.c",
+		"/home/steven/projects/slsengine/src/demo/CMakeLists.txt",
+		"/home/steven/projects/slsengine/src/slsengine/types.h",
+		"/home/steven/projects/slsengine/src/window.h",
+		"/home/steven/projects/slsengine/src/.tags_sorted_by_file",
+		"/home/steven/projects/slsengine/src/main.c",
+		"/home/steven/Downloads/corefw/Makefile",
+		"/home/steven/.config/sublime-text-3/Packages/CTags/CTags.sublime-settings",
+		"/home/steven/projects/slsengine/cscope.files",
 		"/home/steven/projects/slsengine/src/gl/sls-gl.h",
 		"/home/steven/projects/slsengine/src/slsengine.h",
 		"/home/steven/projects/slsengine/src/gl/mesh.h",
@@ -323,9 +540,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
+			"/home/steven/pypy/site-packages/couchdb"
 		]
 	},
 	"find_state":
@@ -333,6 +551,19 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"NODE",
+			"spaces",
+			"();\n",
+			"Get",
+			"class Server",
+			"encode",
+			"decode",
+			"encode",
+			"start",
+			"type=bool, ",
+			"GlWindow",
+			"slsGameWindow_proto",
+			"__slsGameWindow_create__",
 			"SYMBOL",
 			"Wndow",
 			";",
@@ -344,11 +575,25 @@
 			"SYMBOL"
 		],
 		"highlight": true,
-		"in_selection": false,
+		"in_selection": true,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
 		[
+			"CLIENT",
+			"Post",
+			"Put",
+			"Delete",
+			"decode",
+			"encode",
+			"decode",
+			"stop",
+			"restart",
+			"",
+			"GameWindo",
+			"GameWindow",
+			"sls_gamewindow_proto",
+			"_slsGameWindow_create",
 			"__SLS_SHADER_H__",
 			"__SLS_MODULE_GL_H__",
 			"Window",
@@ -372,38 +617,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/home/steven/Downloads/corefw/Makefile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 53,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"side_bar_folders_auto_load_folder": 1,
-							"syntax": "Packages/Makefile/Makefile.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -442,6 +657,14 @@
 	{
 		"height": 0.0
 	},
+	"output.sbt":
+	{
+		"height": 0.0
+	},
+	"output.sbt_error":
+	{
+		"height": 0.0
+	},
 	"project": "slsengine.sublime-project",
 	"replace":
 	{
@@ -472,6 +695,7 @@
 		],
 		"width": 0.0
 	},
+	"selected_group": 0,
 	"settings":
 	{
 	},
@@ -479,7 +703,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 252.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

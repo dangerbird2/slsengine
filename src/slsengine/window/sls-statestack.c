@@ -1,8 +1,9 @@
 #include "../stdhdr.h"
 #include "sls-statestack.h"
+#include "sls-gamewindow.h"
 
 static slsStateCallbacks const slsStateCallbacks_proto = {
-    .dealloc = NULL,
+    .end = NULL,
     .start = NULL,
     .resize = NULL,
     .poll_events = NULL,
@@ -16,29 +17,25 @@ static const slsStateNode slsStateNode_proto = {
 	.host = NULL,
 
 	.state_data = NULL,
-    .state_callbacks = {},
+    .callbacks = {
+	    .end = NULL,
+	    .start = NULL,
+	    .resize = NULL,
+	    .poll_events = NULL,
+	    .update = NULL,
+	    .draw = NULL
+    },
 
 	.init = slsStateNode_init,
 	.dtor = slsStateNode_dtor,
 
 };
 
-slsStateNode *slsStateNode_alloc()
-{
-	slsStateNode *self = NULL;
-	self = calloc(1, sizeof(slsStateNode));
-	if (!self) {
-		log_err("slsStateNode_alloc: memory error");
-		return NULL;
-	}
-	memcpy(self, &slsStateNode_proto, sizeof(slsStateNode));
-    self->state_callbacks = slsStateCallbacks_proto;
 
-	return self;
-}
 slsStateNode *slsStateNode_init(slsStateNode *self)
 {
 	if (!self) {return NULL;}
+	*self = *&slsStateNode_proto;
 
 	return self;
 }
@@ -46,8 +43,8 @@ void slsStateNode_dtor(slsStateNode *self)
 {
 	if (!self) {return;}
 
-    if (self->state_callbacks.dealloc) {
-        self->state_callbacks.dealloc(self->state_data);
+    if (self->callbacks.end) {
+        self->callbacks.end(self);
     }
 
 	free(self);
@@ -55,7 +52,7 @@ void slsStateNode_dtor(slsStateNode *self)
 
 slsStateNode *slsStateNode_new()
 {
-    slsStateNode *self = slsStateNode_alloc();
+    slsStateNode *self =  sls_objalloc(&slsStateNode_proto, sizeof(slsStateNode));
     if (!self) {return NULL;}
     slsMsg(self, init);
     return self;
@@ -80,20 +77,7 @@ static const slsStateStack slsStateStack_proto = {
 	.pop = slsStateStack_pop
 };
 
-slsStateStack *slsStateStack_alloc()
-{
-	slsStateStack *self = NULL;
-	self = calloc(1, sizeof(slsStateStack));
-	if (!self) {
-		log_err("slsStateStack_alloc: memory error");
-		return NULL;
-	}
-	memcpy(self, &slsStateStack_proto, sizeof(slsStateStack));
-
-	return self;
-}
-
-slsStateStack *slsStateStack_init(slsStateStack *self, slsGlWindow *window)
+slsStateStack *slsStateStack_init(slsStateStack *self, slsGameWindow *window)
 {
 	self->window = window;
 	return self;
@@ -124,7 +108,7 @@ void slsStateStack_push	(slsStateStack *self, slsStateNode *node)
 
 	if (top) {top->prev = node;}
 
-	self->count ++;
+	++self->count;
 	self->top = node;
 }
 slsStateNode *slsStateStack_peek (slsStateStack *self)
@@ -140,15 +124,25 @@ slsStateNode *slsStateStack_pop	(slsStateStack *self)
 	self->top = top->next;
 	if (top->next) {top->next->prev = NULL;}
 
-	self->count --;
+	--self->count;
 	return top;
 }
 
-slsStateStack *slsStateStack_new(slsGlWindow *window)
+slsStateStack *slsStateStack_new(slsGameWindow *window)
 {
-    slsStateStack *self = slsStateStack_alloc();
+    slsStateStack *self = sls_objalloc(sls_statestack_class, sizeof(slsStateStack));
     if (!self) {return NULL;}
 
     slsMsg(self, init, window);
     return self;
+}
+
+const slsStateNode sls_statenode_class()
+{
+	return slsStateNode_proto;
+
+}
+const slsStateStack sls_statestack_class()
+{
+	return slsStateStack_proto;
 }

@@ -1,37 +1,49 @@
 #include "../stdhdr.h"
 #include "sls-gamewindow.h"
 #include "sls-glwindow.h"
+#include "sls-clock.h"
 #include <time.h>
 
 static const slsGameWindow sls_gamewindow_proto = {
     .super = NULL,
     .states = NULL,
     .is_open = false,
+
     .init = slsGameWindow_init,
     .initWithSize = slsGameWindow_initWithSize,
     .dtor = slsGameWindow_dtor,
+
     .poll_events = slsGameWindow_poll_events,
     .load_content = slsGameWindow_load_content,
     .update = slsGameWindow_update,
     .run= slsGameWindow_run
 };
 
-static slsGameWindow const *sls_gamewindow_class = &sls_gamewindow_proto;
+const slsGameWindow sls_gamewindow_class()
+{
+    return sls_gamewindow_proto;
+}
+
+
 
 slsGameWindow *slsGameWindow_alloc()
 {
-    return (slsGameWindow *)sls_objalloc(sls_gamewindow_class, sizeof(slsGlWindow));
+    return sls_objalloc(&sls_gamewindow_proto, sizeof(slsGameWindow));
 }
 
 slsGameWindow *_slsGameWindow_create(slsGameWindow *self, char const *caption, int w, int h)
 {
     if (!self) {return NULL;}
 
-    self->super = slsGlWindow_create(caption, (void*) self);
+    // set self to class prototype
+    *self = sls_gamewindow_proto;
+
+    self->super = slsGlWindow_create(caption, NULL);
     check_mem(self->super);
 
     // create scene stack
-    self->states = slsStateStack_new(self->super);
+    self->states = slsStateStack_new(self);
+    check_mem(self->states)
 
     // todo: add window manipulation methods to avoid direct SDL calls
     self->window = self->super->window;
@@ -82,12 +94,16 @@ void slsGameWindow_poll_events (slsGameWindow *self)
 {
     
     SDL_Event event;
-    
+    slsStateNode *top = self->states->top;
 
     while(SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             self->is_open = false;
         }
+        if (top && top->callbacks.poll_events) {
+            slsMsg(top, callbacks.poll_events, &event);
+        }
+
         
     }
 
