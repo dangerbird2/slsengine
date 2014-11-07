@@ -115,33 +115,25 @@ void mesh_bufferTest(meshFix *fix, gconstpointer data)
 
 void run_mesh_tests()
 {
-	
+	struct meshTup {
+		char const *name;
+		void (* const fn)(meshFix*, void const *);
+	};
 
-	g_test_add(
-		"/Mesh/vertTest",
-		meshFix,
-		NULL,
-		mesh_setup,
-		mesh_vertTest,
-		mesh_teardown
-	);
-
-	g_test_add(
-		"/Mesh/indexTest",
-		meshFix,
-		NULL,
-		mesh_setup,
-		mesh_indexTest,
-		mesh_teardown
-	);
-
-	g_test_add(
-		"/Mesh/bufferTest",
-		meshFix,
-		NULL,
-		mesh_setup,
-		mesh_bufferTest,
-		mesh_teardown
-	);
+	struct meshTup tests[] = {
+		{"/Mesh/vertTest", mesh_vertTest},
+		{"/Mesh/indexTest", mesh_indexTest},
+		{"/Mesh/bufferTest", mesh_bufferTest}
+	};
+	const int len = sizeof(tests)/sizeof(struct meshTup);
+	for (int i=0; i<len; ++i) {
+		g_test_add(
+			tests[i].name,
+			meshFix,
+			NULL,
+			mesh_setup,
+			tests[i].fn,
+			mesh_teardown);
+	}
 
 }

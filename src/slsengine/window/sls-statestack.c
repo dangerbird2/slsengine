@@ -11,7 +11,7 @@ static slsStateCallbacks const slsStateCallbacks_proto = {
     .draw = NULL
 };
 
-static const slsStateNode slsStateNode_proto = {
+static const slsStateNode sls_statenode_proto = {
 	.prev = NULL,
 	.next = NULL,
 	.host = NULL,
@@ -24,7 +24,7 @@ static const slsStateNode slsStateNode_proto = {
 	    .poll_events = NULL,
 	    .update = NULL,
 	    .draw = NULL
-    },
+	},
 
 	.init = slsStateNode_init,
 	.dtor = slsStateNode_dtor,
@@ -35,7 +35,7 @@ static const slsStateNode slsStateNode_proto = {
 slsStateNode *slsStateNode_init(slsStateNode *self)
 {
 	if (!self) {return NULL;}
-	*self = *&slsStateNode_proto;
+	*self = sls_statenode_proto;
 
 	return self;
 }
@@ -52,7 +52,7 @@ void slsStateNode_dtor(slsStateNode *self)
 
 slsStateNode *slsStateNode_new()
 {
-    slsStateNode *self =  sls_objalloc(&slsStateNode_proto, sizeof(slsStateNode));
+    slsStateNode *self =  sls_objalloc(&sls_statenode_proto, sizeof(slsStateNode));
     if (!self) {return NULL;}
     slsMsg(self, init);
     return self;
@@ -65,10 +65,11 @@ slsStateNode *slsStateNode_new()
  * 
  */
 
-static const slsStateStack slsStateStack_proto = {
+static const slsStateStack sls_statestack_proto = {
 	.top = NULL,
 	.count = 0,
 	.window = NULL,
+	.owns_scenes = true,
 	.init = slsStateStack_init,
 	.dtor = slsStateStack_dtor,
 	.clear = slsStateStack_clear,
@@ -94,7 +95,11 @@ void slsStateStack_dtor (slsStateStack *self)
 void slsStateStack_clear(slsStateStack *self)
 {
 	while (self->top != NULL) {
-		slsMsg(slsMsg(self, pop), dtor);
+		slsStateNode *node = slsMsg(self, pop);
+		// only destruct scene if stack owns scene memory
+		if (self->owns_scenes) {
+			slsMsg(node, dtor);
+		}
 	}
 }
 
@@ -105,6 +110,10 @@ void slsStateStack_push	(slsStateStack *self, slsStateNode *node)
 	
 	node->next = top;
 	node->prev = NULL;
+	node->host = self;
+	if (node->callbacks.start) {
+		slsMsg(node, callbacks.start);
+	}
 
 	if (top) {top->prev = node;}
 
@@ -123,6 +132,7 @@ slsStateNode *slsStateStack_pop	(slsStateStack *self)
 	
 	self->top = top->next;
 	if (top->next) {top->next->prev = NULL;}
+	top->host = NULL;
 
 	--self->count;
 	return top;
@@ -130,7 +140,7 @@ slsStateNode *slsStateStack_pop	(slsStateStack *self)
 
 slsStateStack *slsStateStack_new(slsGameWindow *window)
 {
-    slsStateStack *self = sls_objalloc(sls_statestack_class, sizeof(slsStateStack));
+    slsStateStack *self = sls_objalloc(&sls_statestack_proto, sizeof(slsStateStack));
     if (!self) {return NULL;}
 
     slsMsg(self, init, window);
@@ -139,10 +149,10 @@ slsStateStack *slsStateStack_new(slsGameWindow *window)
 
 const slsStateNode sls_statenode_class()
 {
-	return slsStateNode_proto;
+	return sls_statenode_proto;
 
 }
 const slsStateStack sls_statestack_class()
 {
-	return slsStateStack_proto;
+	return sls_statestack_proto;
 }

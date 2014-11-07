@@ -20,8 +20,8 @@ static const slsGlWindow slsGlWindow_proto = {
 	.resize = slsGlWindow_resize,
 	.render = slsGlWindow_render,
 
-	.clear = NULL,
-	.swap_buffers = NULL,
+	.clear = slsGlWindow_clear,
+	.swap_buffers = slsGlWindow_swap_buffers,
 
 	.dtor = slsGlWindow_destroy
 };
@@ -119,6 +119,17 @@ void slsGlWindow_render (slsGlWindow *self, double dt)
 
 
 	SDL_GL_SwapWindow(self->super->window);
+}
+
+
+void slsGlWindow_clear (slsGlWindow *self)
+{
+	glClear(GL_COLOR_BUFFER_BIT |
+			GL_DEPTH_BUFFER_BIT);
+}
+void slsGlWindow_swap_buffers (slsGlWindow *self)
+{
+	SDL_GL_SwapWindow(self->window);
 }
 
 void sls_gl_init(slsGlWindow *self)

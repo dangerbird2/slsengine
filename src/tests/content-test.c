@@ -60,6 +60,7 @@ void content_shader_test(contentFix *fix, gconstpointer data)
 
 void run_content_tests()
 {
+#if 0
 	g_test_add(
 		"/Content/content_test",
 		contentFix,
@@ -86,4 +87,5 @@ void run_content_tests()
 		content_shader_test,
 		content_teardown
 	);
+#endif
 }

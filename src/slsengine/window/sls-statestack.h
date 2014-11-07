@@ -4,6 +4,7 @@
 
 
 #include <inttypes.h>
+#include <stdbool.h>
 #include <SDL2/SDL.h>
 
 // foreward declaration of slsGameWindow
@@ -32,7 +33,11 @@ struct _slsStateNode {
 	slsStateStack *host;
 
 	void *state_data;
+	// anonymous union allows calling calllback functions
+	// as struct member
+	
     slsStateCallbacks callbacks;
+
 
 	slsStateNode *(*init)	(slsStateNode *self);
 	void (*dtor)			(slsStateNode *self);
@@ -43,6 +48,11 @@ struct _slsStateNode {
 struct _slsStateStack {
 	slsStateNode *top;
 	int32_t count;
+
+	// indicates whether scene memory is managed by stack
+	// scenes can be managed by the stack, or by external
+	// memory mgmt. defaults to true
+	bool owns_scenes;
 
 	slsGameWindow *window;
 

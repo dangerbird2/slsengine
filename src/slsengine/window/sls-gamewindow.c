@@ -115,12 +115,28 @@ void slsGameWindow_load_content (slsGameWindow *self)
 
 void slsGameWindow_update(slsGameWindow *self, double dt)
 {
-
+    slsStateNode *top = self->states->top;
+    if (top && top->callbacks.update) {
+        slsMsg(top, callbacks.update, dt);
+    }
 }
 
 void slsGameWindow_render(slsGameWindow *self, double dt)
 {
+    check(self->super, "slsGlWindow missing");
 
+    slsMsg(self->super, clear);
+
+    slsStateNode *top = self->states->top;
+    if (top && top->callbacks.draw) {
+        slsMsg(top, callbacks.draw, dt);
+    }
+
+    slsMsg(self->super, swap_buffers);
+
+    return;
+error:
+    return;
 }
 
 void slsGameWindow_dtor(slsGameWindow *self)

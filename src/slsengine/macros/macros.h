@@ -5,7 +5,7 @@
 #include <string.h>
 #include "dbg.h"
 
-#define slsMsg(obj, method, ...) (obj->method(obj, ##__VA_ARGS__))
+#define slsMsg(obj, method, ...) ((obj->method)((obj), ##__VA_ARGS__))
 
 static inline void *sls_objalloc(void const *klass, size_t size)
 {
