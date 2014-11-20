@@ -150,12 +150,25 @@ static inline bool vec3f_eq(vec3f a, vec3f b)
 	);
 }
 
-static inline void vec4f_toArray(float arr[4], vec4f v)
+#if 0
+
+static inline void vec4f_toArray(float arr[4], vec4f v) //__attribute__((deprecated))
 {
 	arr[0] = v.x;
 	arr[1] = v.y;
 	arr[2] = v.z;
 	arr[3] = v.w;
+}
+#endif
+
+static inline float const * vec4f_to_ptr(vec4f const *v)
+{
+	union converter {
+		vec4f const *v;
+		float const *ptr;
+	};
+	union converter conv = {.v=v};
+	return conv.ptr;
 }
 
 #endif

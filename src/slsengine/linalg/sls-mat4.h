@@ -39,12 +39,15 @@ slsMat4f slsMat4f_ortho(
  * @param arr : pointer to float array
  * @param M [description]
  */
-static inline void slsMat4f_toArray(float arr[16], slsMat4f const*M)
+
+ #if 0
+static inline void slsMat4f_toArray(float arr[16], slsMat4f const*M) __attribute__((deprecated))
 {
 	for (int i=0; i<4; i++) {
 		vec4f_toArray(&arr[i * 4], M->mat[i]);
 	}
 }
+#endif
 
 static inline void slsMat4f_print(slsMat4f const *A)
 {
@@ -53,6 +56,16 @@ static inline void slsMat4f_print(slsMat4f const *A)
 		print_vec4_short(A->mat[i]);
 	}
 
+}
+
+static inline float const * slsMat4f_to_ptr(slsMat4f const *M) 
+{
+	union converter_u {
+		vec4f const *v;
+		float const *p;
+	};
+	union converter_u conv = {.v = M->mat};
+	return conv.p;
 }
 
 #endif

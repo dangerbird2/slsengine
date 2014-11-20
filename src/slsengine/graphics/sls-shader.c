@@ -89,7 +89,8 @@ void sls_push_matrix_unif(slsMat4f const *M, SLint uniform)
 {
 
 	if (uniform < 0) {return;}
-	float arr[16] = {0.0};
+	float const *ptr = slsMat4f_to_ptr(M);
+	assert(ptr);
 
-	glUniformMatrix4fv(uniform, 1, true, arr);
+	glUniformMatrix4fv(uniform, 1, true, ptr);
 }

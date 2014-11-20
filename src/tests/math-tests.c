@@ -7,6 +7,15 @@ typedef struct {
     vec2i b;
 } vec2iFix;
 
+union vec2array {
+	vec2i v;
+	int a[2];
+};
+union vec2ptr {
+	vec2i *v;
+	int *ptr;
+};
+
 void run_math_tests();
 
 void vec2i_test_overflow();
@@ -31,13 +40,40 @@ void vec2i_test_add(vec2iFix *fix, gconstpointer data)
     g_assert((c.y == fix->a.y + fix->b.y));
 }
 
+void vecf4_test_array_conv()
+{
+	vec4f a = {0.0, 3.2, 5.3, 0.341};
+	float *ptr = (float*) vec4f_to_ptr(&a);
+	ptr[1] = 110.0; // try changing ptr value
+	for (int i=0; i<4; i++) {
+		g_assert(a[i] == ptr[i]);
+	}
 
+}
+
+void vec2i_test_array_conv_ref(vec2iFix *fix, gconstpointer data)
+{
+	union vec2ptr a;
+	a.v = &(fix->a);
+	int *ptr = a.ptr;
+	g_assert(ptr[0] == fix->a.x && ptr[1] == fix->a.y);
+	ptr[0] = 10;
+	g_assert((*a.v).x == 10);
+
+}
 
 void vec2i_test_overflow()
 {
+	
     // this test ensures vector types have same range as normal types
     vec2i a = {0, 0};
     int b = 0;
+    g_assert(sizeof(a) == sizeof(b) * 2);
+
+    union vec2array v2a;
+    v2a.v = a;
+    g_assert(v2a.a[0] == 0);
+
 
     int incr = 100000;
     while(b >= 0) {
@@ -118,6 +154,18 @@ void vec4f_dot_test()
 
 }
 
+void mat4_test_conversion()
+{
+	slsMat4f m = slsMat4f_identity();
+	float const *ptr = slsMat4f_to_ptr(&m);
+	
+	for (int i = 0; i<16; i++) {
+		int ii = i/4;
+		int j = i%4;
+		g_assert(ptr[i] == m.mat[ii][j]);
+	}
+}
+
 void run_math_tests()
 {
     g_test_add_func("/Math/vec2i/overflow", vec2i_test_overflow);
@@ -127,8 +175,16 @@ void run_math_tests()
     g_test_add("/Math/vec2i/add",
         vec2iFix, NULL, vec2i_setup,
         vec2i_test_add, vec2i_teardown);
+    
+    g_test_add("/Math/vec2i/conversion_byref",
+        vec2iFix, NULL, vec2i_setup,
+        vec2i_test_array_conv_ref, vec2i_teardown);
+
+    g_test_add_func("/Math/vec4f/conversion", vecf4_test_array_conv);
     g_test_add_func("/Math/vec4f/dot", vec4f_dot_test);
+
     g_test_add_func("/Math/mat4f/identity", mat4f_identity);
     g_test_add_func("/Math/mat4f/mul", mat_mul_identity);
     g_test_add_func("/Math/mat4f/mulvec4", mat_vec_mul);
+    g_test_add_func("/Math/mat4f/conversion", mat4_test_conversion);
 }
