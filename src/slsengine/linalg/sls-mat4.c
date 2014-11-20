@@ -86,3 +86,26 @@ vec4f slsMat4f_mul_vec4f(slsMat4f const *M, vec4f v)
 	return r;
 }
 
+slsMat4f slsMat4f_ortho(
+	double left,
+	double right,
+	double bottom,
+	double top,
+	double near,
+	double far)
+{
+	double xs = 2/(right-left);
+	double ys = 2/(top-bottom);
+	double zs = 2/(far-near);
+
+	double xt = -(right+left)/(right-left);
+	double yt = -(top+bottom)/(top-bottom);
+	double zt = -(far+near)/(far-near);
+
+	return (slsMat4f) {
+		.mat = {
+			{xs, 0,  0,  xt},
+			{0,  ys, 0,  yt},
+			{0,  0,  zs, zt},
+			{0,  0,  0,  1}}};
+}

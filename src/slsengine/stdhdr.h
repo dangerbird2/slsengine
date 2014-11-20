@@ -7,8 +7,6 @@
 
 #include <glib-2.0/glib.h>
 
-#include <CoreFoundation/CoreFoundation.h>
-
 /****************************************
  * macro for possible emscripten port
  ****************************************/
@@ -43,7 +41,10 @@
 #include <math.h>
 #include <assert.h>
 
-
+/***************************************
+ * additional lib headers
+ ***************************************/
+#include <Block.h>
 
 #include "types.h"
 #include "macros/dbg.h"

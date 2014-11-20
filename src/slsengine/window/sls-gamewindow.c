@@ -2,7 +2,10 @@
 #include "sls-gamewindow.h"
 #include "sls-glwindow.h"
 #include "sls-clock.h"
+#include "sls-statestack.h"
 #include <time.h>
+
+void _slsGameWindow_handle_wevent(slsGameWindow *self, SDL_WindowEvent const *wevent);
 
 static const slsGameWindow sls_gamewindow_proto = {
     .super = NULL,
@@ -16,6 +19,7 @@ static const slsGameWindow sls_gamewindow_proto = {
     .poll_events = slsGameWindow_poll_events,
     .load_content = slsGameWindow_load_content,
     .update = slsGameWindow_update,
+    .render = slsGameWindow_render,
     .run= slsGameWindow_run
 };
 
@@ -44,11 +48,19 @@ slsGameWindow *_slsGameWindow_create(slsGameWindow *self, char const *caption, i
     // create scene stack
     self->states = slsStateStack_new(self);
     check_mem(self->states)
+    self->states->window = self;
 
     // todo: add window manipulation methods to avoid direct SDL calls
     self->window = self->super->window;
     self->renderer = self->super->renderer;
     SDL_SetWindowSize(self->window, w, h);
+
+    // load content
+    self->mgr = slsContentManager_new("projects/slsengine/content");
+    check_mem(self->mgr);
+    if (self->load_content) {
+        slsMsg(self, load_content);
+    }
 
     return self;
 error:
@@ -76,6 +88,7 @@ void slsGameWindow_run(slsGameWindow *self)
 {
     time_t timeA, timeB;
     timeA = timeB = clock();
+    self->is_open = true;
 
     while(self->is_open) {
         timeA = timeB;
@@ -90,6 +103,23 @@ void slsGameWindow_run(slsGameWindow *self)
     }
 }
 
+void _slsGameWindow_handle_wevent(slsGameWindow *self, SDL_WindowEvent const *wevent)
+{
+
+    if (wevent->event == SDL_WINDOWEVENT_RESIZED) {
+        int w = wevent->data1;
+        int h = wevent->data2;
+        if (self->super && self->super->resize) {
+            slsMsg(self->super, resize, w, h);
+        }
+
+        slsStateNode *top = self->states->top;
+        if (top) {
+            slsNodeMsg(top, resize, w, h);
+        }
+    }
+}
+
 void slsGameWindow_poll_events (slsGameWindow *self)
 {
     
@@ -99,12 +129,13 @@ void slsGameWindow_poll_events (slsGameWindow *self)
     while(SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             self->is_open = false;
-        }
-        if (top && top->callbacks.poll_events) {
-            slsMsg(top, callbacks.poll_events, &event);
+        } else if (event.type == SDL_WINDOWEVENT) {
+            _slsGameWindow_handle_wevent(self, &(event.window));
         }
 
-        
+        if (top) {
+            slsNodeMsg(top, poll_events, &event);
+        }
     }
 
 }
@@ -116,8 +147,8 @@ void slsGameWindow_load_content (slsGameWindow *self)
 void slsGameWindow_update(slsGameWindow *self, double dt)
 {
     slsStateNode *top = self->states->top;
-    if (top && top->callbacks.update) {
-        slsMsg(top, callbacks.update, dt);
+    if (top) {
+        slsNodeMsg(top, update, dt);
     }
 }
 
@@ -128,8 +159,8 @@ void slsGameWindow_render(slsGameWindow *self, double dt)
     slsMsg(self->super, clear);
 
     slsStateNode *top = self->states->top;
-    if (top && top->callbacks.draw) {
-        slsMsg(top, callbacks.draw, dt);
+    if (top) {
+        slsNodeMsg(top, draw, dt);
     }
 
     slsMsg(self->super, swap_buffers);
@@ -144,6 +175,7 @@ void slsGameWindow_dtor(slsGameWindow *self)
     if (!self) {return;}
     if (self->super) {slsMsg(self->super, dtor);}
     if (self->states) {slsMsg(self->states, dtor);}
+    if (self->mgr) {slsMsg(self->mgr, dtor);}
 
     free (self);
 }

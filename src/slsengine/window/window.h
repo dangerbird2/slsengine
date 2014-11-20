@@ -11,5 +11,6 @@
 #include "sls-gamewindow.h"
 #include "sls-clock.h"
 #include "sls-statestack.h"
+#include "sls-mainscene.h"
 
 #endif

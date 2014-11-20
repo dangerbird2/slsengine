@@ -32,7 +32,7 @@ void statestack_test_teardown(stateFix *fix, void const *data)
 void node_test_A()
 {
     slsStateNode *node = NULL;
-    node = slsStateNode_new(NULL);
+    node = slsStateNode_new();
     g_assert(node);
 
     slsMsg(node, dtor);

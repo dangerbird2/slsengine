@@ -13,6 +13,12 @@ typedef struct _slsGameWindow slsGameWindow;
 typedef struct _slsStateNode slsStateNode;
 typedef struct _slsStateStack slsStateStack;
 typedef struct _slsStateCallbacks slsStateCallbacks;
+typedef struct _slsStateBlocks slsStateBlocks;
+
+enum slsStateCBType {
+	SLS_STATE_CALLBACK_FNPTR = 0,
+	SLS_STATE_CALLBACK_BLOCK
+};
 
 struct _slsStateCallbacks {
     void (*end)   			(slsStateNode *state);
@@ -26,6 +32,16 @@ struct _slsStateCallbacks {
     void (*draw) 			(slsStateNode *state, double dt);
 };
 
+struct _slsStateBlocks {
+    void (^end)   			(void);
+    void (^start)			(void);
+
+    void (^resize)			(int w, int h);
+    void (^poll_events)		(SDL_Event *event);
+
+    void (^update) 			(double dt);
+    void (^draw) 			(double dt);
+};
 
 struct _slsStateNode {
 	slsStateNode *prev;
@@ -33,10 +49,19 @@ struct _slsStateNode {
 	slsStateStack *host;
 
 	void *state_data;
-	// anonymous union allows calling calllback functions
-	// as struct member
-	
-    slsStateCallbacks callbacks;
+
+	enum slsStateCBType cb_type;
+
+	/**
+	 * @brief anonymous union containing callback info
+	 * @details allows the use of either clang-style
+	 * block closures or traditional fn pointers
+	 * for scene callbacks
+	 */
+	union {
+    	slsStateCallbacks callbacks;
+    	slsStateBlocks cb_blocks;
+    };
 
 
 	slsStateNode *(*init)	(slsStateNode *self);
@@ -65,6 +90,8 @@ struct _slsStateStack {
 	slsStateNode *(*pop)	(slsStateStack *self);
 };
 
+slsStateBlocks sls_stateblocks_copy(slsStateBlocks const *blocks);
+void sls_stateblocks_release(slsStateBlocks *blocks);
 
 slsStateNode *slsStateNode_init(slsStateNode *self);
 slsStateNode *slsStateNode_new();
@@ -79,8 +106,21 @@ void slsStateStack_push	(slsStateStack *self, slsStateNode *node);
 slsStateNode *slsStateStack_peek (slsStateStack *self);
 slsStateNode *slsStateStack_pop	(slsStateStack *self);
 
-const slsStateNode sls_statenode_class();
-const slsStateStack sls_statestack_class();
+const slsStateNode sls_statenode_class(void);
+const slsStateStack sls_statestack_class(void);
 
+#define slsNodeMsg(obj, cb_name, ...) do { \
+	slsStateNode *_state = obj; /* obj should be slsStateNode */ \
+	if (!_state) {break;} \
+	if (_state->cb_type == SLS_STATE_CALLBACK_FNPTR) { \
+		if (_state->callbacks.cb_name) { \
+			_state->callbacks.cb_name(_state, ##__VA_ARGS__); \
+		} \
+	} else { \
+		if (_state->cb_blocks.cb_name) { \
+			_state->cb_blocks.cb_name(__VA_ARGS__); /* closures do not need first arg placement */\
+		} \
+	} \
+} while(0)
 
 #endif

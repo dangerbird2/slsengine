@@ -11,6 +11,12 @@ varying vec4 fragPosition;
 varying vec4 fragNormal;
 varying vec2 fragUv;
 
+const mat4 M = mat4(
+	vec4(0.5, 0, 0, 0),
+	vec4(0, 1, 0, 0),
+	vec4(0, 0, 1, 0),
+	vec4(0, 0, 0, 1)
+);
 
 void main()
 {
@@ -18,5 +24,5 @@ void main()
 	fragPosition = vec4(vertPosition, 1.0);
 	fragNormal = vec4(vertNormal, 0.0);
 	
-	gl_Position = model * fragPosition;
+	gl_Position = fragPosition;
 }

@@ -12,8 +12,8 @@ set(slsengine_SOURCES
     window/sls-window.c
     window/sls-glwindow.c
     window/sls-gamewindow.c
-    window/sls-renderwindow.c
     window/sls-statestack.c
+    window/sls-mainscene.c
     )
 
 include_directories(${DIRS} )

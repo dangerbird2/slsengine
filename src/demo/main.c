@@ -8,8 +8,11 @@ int main(int argc, char const *argv[])
 	atexit(quit_Sls);
 
 	slsGameWindow* window slsGameWindowAF = slsGameWindow_alloc();
+
     slsMsg(window, initWithSize, "window", 600, 400);
 	if (!window) {return -1;}
+
+	slsMsg(window->states, push, slsMainScene_new());
 
     slsMsg(window, run);
 

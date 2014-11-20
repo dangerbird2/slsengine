@@ -3,11 +3,15 @@
 
 #include "sls-glwindow.h"
 #include "sls-statestack.h"
+#include "../graphics/sls-content.h"
 
 typedef struct _slsGameWindow slsGameWindow;
 struct _slsGameWindow {
     slsGlWindow *super;
     slsStateStack *states;
+
+    slsContentManager *mgr;
+
     bool is_open;
 
     /**
@@ -51,6 +55,7 @@ void slsGameWindow_poll_events	(slsGameWindow *self);
 void slsGameWindow_load_content (slsGameWindow *self);
 
 void slsGameWindow_update (slsGameWindow *self, double dt);
+void slsGameWindow_render(slsGameWindow *self, double dt);
 
 void slsGameWindow_autofree(slsGameWindow **self_ptr);
 

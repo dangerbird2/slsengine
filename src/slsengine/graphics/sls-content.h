@@ -13,6 +13,7 @@ typedef struct _slsContentManager slsContentManager;
 typedef void (*slsFreeFn)(void*);
 
 struct _slsContentManager {
+    GString *assets_dir;
 
     GHashTable *content;
 
@@ -20,13 +21,16 @@ struct _slsContentManager {
     GHashTable *sprites;
     GHashTable *shaders;
     GHashTable *meshes;
-    slsContentManager* (*init)  (slsContentManager *self);
+
+    char *(*get_asset_path)(slsContentManager *self, char const *path);
+
+    slsContentManager* (*init)  (slsContentManager *self, char const *assets_dir);
     void (*dtor)                (slsContentManager *self);
 };
 
-slsContentManager *slsContentManager_alloc();
+slsContentManager *slsContentManager_new(char const *path);
 
-slsContentManager *slsContentManager_init(slsContentManager *self);
+slsContentManager *slsContentManager_init(slsContentManager *self, char const *assets_shortpath);
 
 void slsContentManager_destroy(slsContentManager *self);
 
@@ -57,5 +61,12 @@ slsMesh *slsContentManager_loadExistingMesh(
     slsContentManager *self,
     char const *mesh_name,
     slsMesh *mesh);
+
+GString *sls_get_assets_dir(char const *assets_shortpath);
+
+char const *sls_get_home_dir();
+char *slsContentManager_get_full_path(
+    slsContentManager *self,
+    char const *path);
 
 #endif
