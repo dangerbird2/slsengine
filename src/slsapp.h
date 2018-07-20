@@ -6,13 +6,6 @@
 SLS_BEGIN_CDECLS
 
 
-typedef enum slsResultCode slsResultCode;
-enum slsResultCode {
-    SLS_OK=(int)true,
-    SLS_SUCCESS=(int)true,
-    SLS_ERROR,
-    SLS_N_RESULTS
-};
 
 
 

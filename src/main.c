@@ -21,6 +21,5 @@ main(int argc, char** argv)
   sls_create_app(&app);
   sls_app_run(&app);
   sls_delte_app(&app);
-
   return 0;
 }

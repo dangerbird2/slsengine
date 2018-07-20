@@ -15,11 +15,11 @@ sls_create_app(slsApp* self)
                                   480,
                                   SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
                                     SDL_WINDOW_SHOWN);
-
+#ifndef __EMSCRIPTEN__
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-
+#endif
   self->ctx = SDL_GL_CreateContext(self->window);
   SDL_GL_MakeCurrent(self->window, self->ctx);
   glewExperimental = GL_TRUE;
