@@ -45,9 +45,13 @@ void
 sls_app_run(slsApp* self)
 {
   self->should_close = false;
+  glClearColor(1.0, 0.0, 1.0, 1.0);
   while (!self->should_close) {
     handle_sdlevents(self);
 
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    SDL_GL_SwapWindow(self->window);
 
   }
 }

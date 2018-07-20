@@ -3,7 +3,7 @@
 #include "slsmacros.h"
 
 static void
-on_exit()
+sls_exit_cleanup()
 {
   SDL_Quit();
 }
@@ -14,15 +14,13 @@ main(int argc, char** argv)
     sls_log_err("Init failed: %s", SDL_GetError());
     exit(-1);
   }
-  atexit(on_exit);
+  atexit(sls_exit_cleanup);
 
   slsApp app;
 
   sls_create_app(&app);
   sls_app_run(&app);
   sls_delte_app(&app);
-  slsResult *res = sls_resultf(SLS_OK, "everything's good %s\n", "bob");
-  sls_log_info("%s", res->message);
 
   return 0;
 }
