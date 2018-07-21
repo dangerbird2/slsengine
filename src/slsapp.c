@@ -1,6 +1,24 @@
 
 #include "slsapp.h"
 
+static void sls_app_iter(slsApp *self);
+
+
+#ifdef __EMSCRIPTEN__
+
+
+static slsApp *main_loop_app;
+static void main_loop_fn(){
+  assert(main_loop_app);
+  if (main_loop_app->should_close){
+    emscripten_cancel_main_loop();
+    return;
+  }
+  sls_app_iter(main_loop_app);
+}
+
+#endif
+
 static void
 handle_sdlevents(slsApp* self);
 
@@ -13,8 +31,7 @@ sls_create_app(slsApp* self)
                                   SDL_WINDOWPOS_UNDEFINED,
                                   640,
                                   480,
-                                  SDL_WINDOW_OPENGL |
-                                    SDL_WINDOW_RESIZABLE |
+                                  SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
                                     SDL_WINDOW_SHOWN);
 #ifndef __EMSCRIPTEN__
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -23,6 +40,8 @@ sls_create_app(slsApp* self)
 #endif
   self->ctx = SDL_GL_CreateContext(self->window);
   SDL_GL_MakeCurrent(self->window, self->ctx);
+
+#ifndef __EMSCRIPTEN__
   glewExperimental = GL_TRUE;
 
   GLenum err;
@@ -30,6 +49,8 @@ sls_create_app(slsApp* self)
     sls_log_err("glew initialization failed %s", glewGetErrorString(err));
     exit(-1);
   }
+
+#endif
 
   return self;
 }
@@ -47,14 +68,23 @@ sls_app_run(slsApp* self)
 {
   self->should_close = false;
   glClearColor(1.0, 0.0, 1.0, 1.0);
+  #ifndef __EMSCRIPTEN__
   while (!self->should_close) {
-    handle_sdlevents(self);
-
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    SDL_GL_SwapWindow(self->window);
-
+    sls_app_iter(self);
   }
+  #else
+  main_loop_app = self;
+  emscripten_set_main_loop(main_loop_fn, 0, false);
+  #endif
+}
+
+static void sls_app_iter(slsApp *self){
+  handle_sdlevents(self);
+  glClearColor(0.f, 1.f, 1.f, 1.f);
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  SDL_GL_SwapWindow(self->window);
+
 }
 
 static void

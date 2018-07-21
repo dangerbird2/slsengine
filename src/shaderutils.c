@@ -11,10 +11,15 @@
 int
 sls_get_glversion()
 {
+  #ifndef __EMSCRIPTEN__
   int major, minor;
   glGetIntegerv(GL_MAJOR_VERSION, &major);
   glGetIntegerv(GL_MINOR_VERSION, &minor);
   return major * 100 + minor * 10;
+
+  #else
+  return 300;
+  #endif
 }
 
 /**
@@ -91,11 +96,11 @@ GLuint
 sls_create_shader(const char* source, GLenum type)
 {
   GLchar const* modern_preamble = "#version 330 core\n";
-  GLchar const* gles_preamble = "#version 100\n";
+  GLchar const* gles_preamble = "#version 300 es\n";
 
   GLchar const* preamble;
 
-#ifndef SLS_GLES
+#ifndef __EMSCRIPTEN__
   preamble = modern_preamble;
 #else
   preamble = gles_preamble;
@@ -121,11 +126,9 @@ sls_create_shader(const char* source, GLenum type)
   return res;
 }
 
-
 GLuint
-_sls_link_program(
-  slsResultCode *result_out,
-  GLuint vertex,
+_sls_link_program(slsResultCode* result_out,
+                  GLuint vertex,
                   GLuint frag,
                   GLuint geom,
                   bool has_geometry_shader,
@@ -138,6 +141,7 @@ _sls_link_program(
 
   glAttachShader(program, vertex);
   glAttachShader(program, frag);
+#ifndef __EMSCRIPTEN__ // no geometry shaders in webgl
   if (has_geometry_shader) {
     glAttachShader(program, geom);
 
@@ -146,6 +150,8 @@ _sls_link_program(
     glProgramParameteri(program, GL_GEOMETRY_VERTICES_OUT, gs_vertices);
   }
 
+#endif
+
   glLinkProgram(program);
 
   glGetProgramiv(program, GL_LINK_STATUS, &link_ok);
@@ -153,7 +159,7 @@ _sls_link_program(
     sls_print_log(program, SLS_TYPE_PROGRAM);
     GLenum err;
     int n = 0;
-    while((err = glGetError()) != GL_NO_ERROR){
+    while ((err = glGetError()) != GL_NO_ERROR) {
       n++;
       sls_log_err("#%d: gl error 0x%x", n, err);
     }

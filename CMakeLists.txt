@@ -42,10 +42,23 @@ set_target_properties(${SLSENGINE}
 if(EMSCRIPTEN)
     set_property(
         TARGET ${SLSENGINE}
-        PROPERTY
-        COMPILE_OPTIONS "-s USE_SDL=2")
+        APPEND_STRING
+        PROPERTY COMPILE_OPTIONS
+        -s USE_SDL=2
+        )
+
+    set_property(TARGET ${SLSENGINE}
+      PROPERTY
+      SUFFIX ".html")
     set_property(
         TARGET ${SLSENGINE}
+        APPEND_STRING
         PROPERTY
-        LINK_FLAGS "-s USE_SDL=2")
+        LINK_FLAGS "-s USE_SDL=2 -s USE_WEBGL2=1")
+    set_property(
+        TARGET ${SLSENGINE}
+        APPEND_STRING
+        PROPERTY
+
+        LINK_FLAGS_DEBUG "-s USE_SDL=2 --emrun")
 endif()
