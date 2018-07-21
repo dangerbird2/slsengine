@@ -34,6 +34,7 @@ set(SRC src/main.c
     )
 
 set(TEST_SRC
+    extern/vendor/include/minunit.h
     tests/math.c)
 
 add_executable(${SLSENGINE} ${SRC})
@@ -48,11 +49,14 @@ set_target_properties(${SLSENGINE} tests
                       C_STANDARD 11
                       CXX_STANDARD 14
                       )
-target_include_directories(tests PRIVATE extern/vendor/inlude
+target_include_directories(tests
+                           PUBLIC
+                           extern/vendor/include
                            src
                            )
 target_include_directories(${SLSENGINE}
-                           PRIVATE extern/vendor/include
+                           PUBLIC
+                           extern/vendor/include
                            src)
 if (EMSCRIPTEN)
   set_property(
