@@ -21,6 +21,8 @@ sls_exit_cleanup()
 {
   SDL_Quit();
 }
+
+#ifndef SLS_TEST_RUNNER
 int
 main(int argc, char** argv)
 {
@@ -49,3 +51,15 @@ main(int argc, char** argv)
   sls_exit_cleanup();
   return 0;
 }
+
+
+#else
+
+int main(int argc, char **argv)
+{
+  extern void run_math_tests(void);
+  run_math_tests();
+  return 0;
+}
+#endif
+

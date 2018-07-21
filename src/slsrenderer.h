@@ -4,11 +4,19 @@
 #include "common.h"
 #include "results.h"
 
+#include "slsmath.h"
 
 SLS_BEGIN_CDECLS
+typedef struct slsCamera {
+  slsMat4 projection;
+  slsMat4 transform;
+} slsCamera;
 
 typedef struct slsRenderer {
   int width, height;
+
+  GLuint phong_program;
+  slsCamera main_camera;
 
 } slsRenderer;
 

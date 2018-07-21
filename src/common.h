@@ -9,6 +9,8 @@
 #include <stdint.h>
 #include "slsmacros.h"
 #include "results.h"
+#include <math.h>
+#include <float.h>
 
 #ifdef __EMSCRIPTEN__
 #include <SDL2/SDL_opengles2.h>

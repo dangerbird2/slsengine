@@ -7,21 +7,19 @@ set(SLSENGINE sls-engine)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 
-
-
 set(DEPS)
 
-if(NOT EMSCRIPTEN)
-    find_package(SDL2 REQUIRED)
-    find_package(GLEW REQUIRED)
-    find_package(OpenGL REQUIRED)
+if (NOT EMSCRIPTEN)
+  find_package(SDL2 REQUIRED)
+  find_package(GLEW REQUIRED)
+  find_package(OpenGL REQUIRED)
 
-    list(APPEND DEPS
-        OpenGL::GL
-        SDL2::SDL2 SDL2::SDL2main GLEW::GLEW)
+  list(APPEND DEPS
+       OpenGL::GL
+       SDL2::SDL2 SDL2::SDL2main GLEW::GLEW)
 
-else()
-endif()
+else ()
+endif ()
 
 
 set(SRC src/main.c
@@ -31,35 +29,52 @@ set(SRC src/main.c
     src/slsmacros.h
     src/common.h
     src/results.h
+    src/slsmath.c src/slsmath.h
+    extern/vendor/include/raymath.h
     )
+
+set(TEST_SRC
+    tests/math.c)
 
 add_executable(${SLSENGINE} ${SRC})
+add_executable(tests ${SRC} ${TEST_SRC})
+
 target_link_libraries(${SLSENGINE} ${DEPS})
-set_target_properties(${SLSENGINE}
-    PROPERTIES
-    C_STANDARD 11
-    CXX_STANDARD 14
-    )
-if(EMSCRIPTEN)
-    set_property(
-        TARGET ${SLSENGINE}
-        APPEND_STRING
-        PROPERTY COMPILE_OPTIONS
-        -s USE_SDL=2
-        )
+target_link_libraries(tests ${DEPS})
 
-    set_property(TARGET ${SLSENGINE}
-      PROPERTY
-      SUFFIX ".html")
-    set_property(
-        TARGET ${SLSENGINE}
-        APPEND_STRING
-        PROPERTY
-        LINK_FLAGS "-s USE_SDL=2 -s USE_WEBGL2=1")
-    set_property(
-        TARGET ${SLSENGINE}
-        APPEND_STRING
-        PROPERTY
+target_compile_definitions(tests PUBLIC SLS_TEST_RUNNER)
+set_target_properties(${SLSENGINE} tests
+                      PROPERTIES
+                      C_STANDARD 11
+                      CXX_STANDARD 14
+                      )
+target_include_directories(tests PRIVATE extern/vendor/inlude
+                           src
+                           )
+target_include_directories(${SLSENGINE}
+                           PRIVATE extern/vendor/include
+                           src)
+if (EMSCRIPTEN)
+  set_property(
+    TARGET ${SLSENGINE} tests
+    APPEND_STRING
+    PROPERTY COMPILE_OPTIONS
+    -s USE_SDL=2
+  )
 
-        LINK_FLAGS_DEBUG "-s USE_SDL=2 --emrun")
-endif()
+  set_property(
+    TARGET ${SLSENGINE} tests
+               PROPERTY
+               SUFFIX ".html")
+  set_property(
+    TARGET ${SLSENGINE} tests
+    APPEND_STRING
+    PROPERTY
+    LINK_FLAGS "-s USE_SDL=2 -s USE_WEBGL2=1")
+  set_property(
+    TARGET ${SLSENGINE} tests
+    APPEND_STRING
+    PROPERTY
+
+    LINK_FLAGS_DEBUG "-s USE_SDL=2 --emrun")
+endif ()
