@@ -14,6 +14,7 @@
 
 #include "common.h"
 #include "slsmacros.h"
+#include "results.h"
 
 char*
 sls_file_read(const char* filename);

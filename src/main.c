@@ -2,6 +2,7 @@
 #include "shaderutils.h"
 #include "slsapp.h"
 #include "slsmacros.h"
+#include "results.h"
 
 static char const vs_source[] = "layout (location=0) in vec3 vert_pos;\n"
                                 "void main()\n"
@@ -16,7 +17,7 @@ static char const fs_source[] = "void main()\n"
 static GLuint g_vs, g_fs, g_program;
 
 static void
-on_exit()
+sls_exit_cleanup()
 {
   SDL_Quit();
 }
@@ -27,7 +28,7 @@ main(int argc, char** argv)
     sls_log_err("Init failed: %s", SDL_GetError());
     exit(-1);
   }
-  atexit(on_exit);
+  atexit(sls_exit_cleanup);
 
   slsApp app;
   sls_create_app(&app);
@@ -39,13 +40,12 @@ main(int argc, char** argv)
 
   if (res != SLS_OK) {
     sls_log_err("link program error: %s",
-                res == SLS_PROGRAM_LINK_ERROR ? "program link error"
+                res == SLS_LINK_FAILED ? "program link error"
                                               : "unknown");
     exit(-1);
   }
 
   sls_app_run(&app);
   sls_delete_app(&app);
-
   return 0;
 }

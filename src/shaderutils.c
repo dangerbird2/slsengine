@@ -6,6 +6,7 @@
  */
 
 #include "shaderutils.h"
+#include "results.h"
 
 int
 sls_get_glversion()
@@ -157,7 +158,7 @@ _sls_link_program(
       sls_log_err("#%d: gl error 0x%x", n, err);
     }
     glDeleteProgram(program);
-    sls_set_result(result_out, SLS_PROGRAM_LINK_ERROR);
+    sls_set_result(result_out, SLS_LINK_FAILED);
     return 0;
   }
 
