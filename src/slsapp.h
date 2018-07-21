@@ -6,14 +6,6 @@
 SLS_BEGIN_CDECLS
 
 
-typedef enum slsResultCode slsResultCode;
-enum slsResultCode {
-    SLS_OK=(int)true,
-    SLS_SUCCESS=(int)true,
-    SLS_ERROR,
-    SLS_N_RESULTS
-};
-
 
 
 typedef struct slsApp slsApp;
@@ -26,7 +18,7 @@ struct slsApp {
 slsApp*
 sls_create_app(slsApp* app);
 slsApp*
-sls_delte_app(slsApp* app);
+sls_delete_app(slsApp* app);
 
 void
 sls_app_run(slsApp* app);

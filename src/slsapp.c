@@ -13,7 +13,8 @@ sls_create_app(slsApp* self)
                                   SDL_WINDOWPOS_UNDEFINED,
                                   640,
                                   480,
-                                  SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
+                                  SDL_WINDOW_OPENGL |
+                                    SDL_WINDOW_RESIZABLE |
                                     SDL_WINDOW_SHOWN);
 
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -33,7 +34,7 @@ sls_create_app(slsApp* self)
   return self;
 }
 slsApp*
-sls_delte_app(slsApp* self)
+sls_delete_app(slsApp* self)
 {
   if (self->window) {
     SDL_DestroyWindow(self->window);

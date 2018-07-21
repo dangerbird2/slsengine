@@ -1,4 +1,15 @@
 {
     "cmake.configureOnOpen": true,
-    "C_Cpp.configurationWarnings": "Disabled"
+    "C_Cpp.configurationWarnings": "Disabled",
+    "files.associations": {
+        "*.tag": "htmltag",
+        "*.vue": "vue",
+        "SConstruct": "python",
+        "*.fs": "fsharp",
+        "*.metal": "cpp",
+        "*.html": "html",
+        "shaderutils.h": "c",
+        "limits": "c",
+        "type_traits": "c"
+    }
 }
