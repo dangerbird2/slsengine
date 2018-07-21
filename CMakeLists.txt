@@ -30,6 +30,7 @@ set(SRC src/main.c
     src/shaderutils.c src/shaderutils.h
     src/slsmacros.h
     src/common.h
+    src/results.h
     )
 
 add_executable(${SLSENGINE} ${SRC})

@@ -6,12 +6,13 @@
 SLS_BEGIN_CDECLS
 
 
-
+typedef struct slsRenderer slsRenderer;
 
 typedef struct slsApp slsApp;
 struct slsApp {
   SDL_Window* window;
   SDL_GLContext ctx;
+  slsRenderer *renderer;
   bool should_close;
 };
 

@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "slsmacros.h"
+#include "results.h"
 
 #ifdef __EMSCRIPTEN__
 #include <SDL2/SDL_opengles2.h>

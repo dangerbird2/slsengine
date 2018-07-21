@@ -111,7 +111,7 @@ sls_create_shader(const char* source, GLenum type)
   char const* sources[] = { preamble, source };
   const size_t n_sources = sizeof(sources) / sizeof(char*);
 
-  glShaderSource(res, n_sources, sources, NULL);
+  glShaderSource(res, (GLsizei)n_sources, sources, NULL);
 
   glCompileShader(res);
   GLint compile_ok = GL_FALSE;

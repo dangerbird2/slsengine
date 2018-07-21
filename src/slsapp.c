@@ -1,5 +1,6 @@
 
 #include "slsapp.h"
+#include "slsrenderer.h"
 
 static void sls_app_iter(slsApp *self);
 
@@ -43,22 +44,34 @@ sls_create_app(slsApp* self)
 
 #ifndef __EMSCRIPTEN__
   glewExperimental = GL_TRUE;
+  slsResultCode result = SLS_OK;
 
   GLenum err;
   if ((err = glewInit()) != GLEW_OK) {
     sls_log_err("glew initialization failed %s", glewGetErrorString(err));
     exit(-1);
   }
-
 #endif
 
+  self->renderer = sls_create_renderer(malloc(sizeof(slsRenderer)), self->window, self->ctx, &result);
+  sls_check(result == SLS_OK, "create_renderer failed: %s", sls_result_code_tostring(result));
+
+
   return self;
+
+error:
+
+  return sls_delete_app(self);
 }
 slsApp*
 sls_delete_app(slsApp* self)
 {
   if (self->window) {
     SDL_DestroyWindow(self->window);
+  }
+  if (self->renderer) {
+    sls_delete_renderer(self->renderer);
+    free(self->renderer);
   }
   return self;
 }
@@ -85,7 +98,13 @@ static void sls_app_iter(slsApp *self){
 
   SDL_GL_SwapWindow(self->window);
 
+
+
 }
+
+
+static void
+handle_windowevent(slsApp *self, SDL_WindowEvent const*windowevent);
 
 static void
 handle_sdlevents(slsApp* self)
@@ -97,9 +116,23 @@ handle_sdlevents(slsApp* self)
         self->should_close = true;
         break;
       case SDL_WINDOWEVENT:
+        handle_windowevent(self, &event.window);
         break;
       default:
-        continue;
+        break;
     }
+  }
+}
+
+static void
+handle_windowevent(slsApp *self, SDL_WindowEvent const*windowevent)
+{
+  switch (windowevent->event) {
+  case SDL_WINDOWEVENT_RESIZED:
+    
+    sls_renderer_onresize(self->renderer, windowevent->data1, windowevent->data2);
+    break;
+  default:
+    break;
   }
 }
