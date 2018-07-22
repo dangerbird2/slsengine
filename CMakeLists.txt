@@ -6,7 +6,6 @@ set(SLSENGINE sls-engine)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-
 set(DEPS)
 
 if (NOT EMSCRIPTEN)
@@ -30,7 +29,7 @@ set(SRC src/main.c
     src/common.h
     src/results.h
     src/slsmath.c src/slsmath.h
-    extern/vendor/include/raymath.h
+    extern/vendor/include/linmath.h
     )
 
 set(TEST_SRC
@@ -39,6 +38,7 @@ set(TEST_SRC
 
 add_executable(${SLSENGINE} ${SRC})
 add_executable(tests ${SRC} ${TEST_SRC})
+
 
 target_link_libraries(${SLSENGINE} ${DEPS})
 target_link_libraries(tests ${DEPS})

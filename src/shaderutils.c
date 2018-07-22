@@ -139,6 +139,7 @@ _sls_link_program(slsResultCode* result_out,
   GLuint program = glCreateProgram();
   int link_ok;
 
+
   glAttachShader(program, vertex);
   glAttachShader(program, frag);
 #ifndef __EMSCRIPTEN__ // no geometry shaders in webgl

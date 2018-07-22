@@ -9,6 +9,7 @@
 #define SLS_ENGINE_SLSMATH_H
 
 #include "common.h"
+#include <linmath.h>
 
 
 SLS_BEGIN_CDECLS
@@ -124,6 +125,7 @@ float sls_vec4_dot(slsVec4 const *a, slsVec4 const *b);
 
 static inline slsMat3 *sls_mat3_identity(slsMat3 *out)
 {
+  
   *out = (slsMat3) {.m={{1.0, 0.0, 0.0},
                         {0.0, 1.0, 0.0},
                         {0.0, 0.0, 1.0}}};

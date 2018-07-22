@@ -15,8 +15,12 @@ typedef struct slsCamera {
 typedef struct slsRenderer {
   int width, height;
 
-  GLuint phong_program;
   slsCamera main_camera;
+
+  GLuint sprite_program;
+  GLuint tri_vao;
+  GLuint tri_vbo;
+  GLuint tri_ibo;
 
 } slsRenderer;
 

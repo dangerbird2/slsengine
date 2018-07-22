@@ -7,7 +7,6 @@
  **/
 #include "slsmath.h"
 
-#define RAYMATH_IMPLEMENTATION
 
 
 float sls_vec2_dot(slsVec2 const *a, slsVec2 const *b)

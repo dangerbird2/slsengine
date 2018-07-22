@@ -2,7 +2,6 @@
 #include <common.h>
 #include <slsmath.h>
 
-#define MINUNIT_EPSILON 0.01
 
 #include <minunit.h>
 

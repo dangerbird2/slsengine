@@ -93,13 +93,10 @@ sls_app_run(slsApp* self)
 
 static void sls_app_iter(slsApp *self){
   handle_sdlevents(self);
-  glClearColor(0.f, 1.f, 1.f, 1.f);
+  glClearColor(0.f, 0.f, 1.f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT);
 
   SDL_GL_SwapWindow(self->window);
-
-
-
 }
 
 
