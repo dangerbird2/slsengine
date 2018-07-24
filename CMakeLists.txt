@@ -33,8 +33,14 @@ set(SRC src/main.c
     )
 
 set(TEST_SRC
-    extern/vendor/include/minunit.h
-    tests/math.c)
+  ${SRC}
+  extern/vendor/include/catch.hpp
+  tests/tests-main.cpp
+  tests/math-tests.cpp)
+
+
+list(REMOVE_ITEM TEST_SRC src/main.c)
+message(sources: ${TEST_SRC})
 
 add_executable(${SLSENGINE} ${SRC})
 add_executable(tests ${SRC} ${TEST_SRC})
@@ -81,4 +87,10 @@ if (EMSCRIPTEN)
     PROPERTY
 
     LINK_FLAGS_DEBUG "-s USE_SDL=2 --emrun")
+elseif(WIN32)
+  set_property(TARGET ${SLSENGINE} tests
+    APPEND_STRING
+    PROPERTY COMPILE_DEFINITIONS
+    _CRT_SECURE_NO_WARNINGS
+    )
 endif ()
