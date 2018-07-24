@@ -16,85 +16,119 @@ SLS_BEGIN_CDECLS
 
 #define SLS_EPSILON_FLOAT 0.01
 
-static inline bool sls_nearf(float a, float b)
+static inline bool sls_nearf(float a, float b, float epsilon)
 {
   float abs_a = fabsf(a);
   float abs_b = fabsf(b);
 
   float diff = fabsf(a - b);
   if (a == b) { return true; }
-  else if (a == 0 || b == 0 || diff < FLT_MIN) {
-    return diff < (SLS_EPSILON_FLOAT * FLT_MIN);
-  } else {
-    return diff / fminf(abs_a + abs_b, FLT_MAX) < SLS_EPSILON_FLOAT;
+  if (a == 0 || b == 0 || diff < FLT_MIN)
+  {
+    return diff < (epsilon * FLT_MIN);
   }
+  return diff / fminf(abs_a + abs_b, FLT_MAX) < epsilon;
 }
 
 
-typedef union slsVec2 {
-  struct {
+typedef union slsVec2
+{
+  struct
+  {
     float x, y;
   };
-  struct {
+
+  struct
+  {
     float r, g;
   };
-  struct {
+
+  struct
+  {
     float s, t;
   };
+
   float array[2];
 } slsVec2;
 
 
-typedef union slsVec3 {
-  struct {
+typedef union slsVec3
+{
+  struct
+  {
     float x, y, z;
   };
-  struct {
+
+  struct
+  {
     float r, g, b;
   };
 
-  struct {
+  struct
+  {
     float s, t, p;
   };
+
   float array[3];
 } slsVec3;
 
 
-typedef union slsVec4 {
-  struct {
+typedef union slsVec4
+{
+  struct
+  {
     float x, y, z, w;
   };
-  struct {
+
+  struct
+  {
     float r, g, b, a;
   };
-  struct {
+
+  struct
+  {
     float s, t, p, q;
   };
+
   float array[4];
 } slsVec4;
 
-typedef union slsQuat {
+typedef union slsQuat
+{
   // math-style access
-  struct {
+  struct
+  {
     float a, b, c, d;
   };
+
   // vector-style access
-  struct {
+  struct
+  {
     float x, y, z, w;
   };
+
   float array[4];
 } slsQuat;
 
 static inline slsVec2
-sls_vec2_make(float x, float y) { return (slsVec2) {.array={x, y}}; }
+sls_vec2_make(float x, float y)
+{
+  const slsVec2 v = {x, y};
+  return v;
+}
 
 static inline slsVec3
-sls_vec3_make(float x, float y, float z) { return (slsVec3) {.array={x, y, z}}; }
+sls_vec3_make(float x, float y, float z)
+{
+  slsVec3 v = {x, y, z};
+  return v;
+}
 
 static inline slsVec4
 sls_vec4_make(float x, float y, float z, float w)
 {
-  return (slsVec4) {.array={x, y, z, w}};
+  slsVec4 v = {x, y, z, w};
+  return v;
 }
 
 /**
@@ -102,7 +136,8 @@ sls_vec4_make(float x, float y, float z, float w)
  * @details for binding to openGL uniforms, `transpose` parameter
  * should be GL_FALSE
  */
-typedef struct {
+typedef struct
+{
   float m[3][3];
 } slsMat3;
 
@@ -111,39 +146,22 @@ typedef struct {
  * @details for binding to openGL uniforms, `transpose` parameter
  * should be GL_FALSE
  */
-typedef struct {
+typedef struct
+{
   float m[4][4];
 } slsMat4;
 
 
-float sls_vec2_dot(slsVec2 const *a, slsVec2 const *b);
+float sls_vec2_dot(slsVec2 const* a, slsVec2 const* b);
 
-float sls_vec3_dot(slsVec3 const *a, slsVec3 const *b);
+float sls_vec3_dot(slsVec3 const* a, slsVec3 const* b);
 
-float sls_vec4_dot(slsVec4 const *a, slsVec4 const *b);
-
-
-static inline slsMat3 *sls_mat3_identity(slsMat3 *out)
-{
-  
-  *out = (slsMat3) {.m={{1.0, 0.0, 0.0},
-                        {0.0, 1.0, 0.0},
-                        {0.0, 0.0, 1.0}}};
+float sls_vec4_dot(slsVec4 const* a, slsVec4 const* b);
 
 
-  return out;
-}
+slsMat3* sls_mat3_identity(slsMat3* out);
 
-static inline slsMat4 *sls_mat4_identity(slsMat4 *out)
-{
-  *out = (slsMat4) {.m={{1.0, 0.0, 0.0, 0},
-                        {0.0, 1.0, 0.0, 0},
-                        {0.0, 0.0, 1.0, 0},
-                        {0.0, 0.0, 0.0, 1.0}}};
-
-
-  return out;
-}
+slsMat4* sls_mat4_identity(slsMat4* out);
 
 
 SLS_END_CDECLS

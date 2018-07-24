@@ -35,11 +35,6 @@ main(int argc, char** argv)
 
 #else
 
-int main(int argc, char **argv)
-{
-  extern void run_math_tests(void);
-  run_math_tests();
-  return 0;
-}
+
 #endif
 

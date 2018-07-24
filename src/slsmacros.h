@@ -166,7 +166,7 @@
 #endif
 
 
-#if defined(__cplusplus)
+#if !defined(__cplusplus) && !defined(thread_local)
 
 #ifndef thread_local
 #define thread_local _Thread_local
