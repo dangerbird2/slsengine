@@ -8,6 +8,15 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 set(DEPS)
 
+#check if libm is required
+include(CheckFunctionExists)
+CHECK_FUNCTION_EXISTS(pow LIBM_EXISTS)
+if(NOT LIBM_EXISTS)
+  unset(LIBM_EXISTS)
+  list(APPEND DEPS m)
+
+endif()
+
 if (NOT EMSCRIPTEN)
   find_package(SDL2 REQUIRED)
   find_package(GLEW REQUIRED)
