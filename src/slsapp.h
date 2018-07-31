@@ -12,6 +12,9 @@ typedef struct slsApp slsApp;
 struct slsApp {
   SDL_Window* window;
   SDL_GLContext ctx;
+
+  struct nk_context *nuklear;
+
   slsRenderer *renderer;
   bool should_close;
 };

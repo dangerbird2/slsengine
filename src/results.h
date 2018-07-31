@@ -4,7 +4,7 @@
 
 SLS_BEGIN_CDECLS
 
-typedef enum slsResultCode slsResultCode;
+typedef
 enum slsResultCode
 {
     SLS_OK = (int)true,
@@ -13,7 +13,7 @@ enum slsResultCode
     SLS_COMPILE_FAILED,
     SLS_LINK_FAILED,
     SLS_N_RESULTS
-};
+} slsResultCode;
 
 /**
  *

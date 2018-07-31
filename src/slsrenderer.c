@@ -57,12 +57,14 @@ error:
 
 slsRenderer *sls_delete_renderer(slsRenderer *self)
 {
+
   while(glGetError() != GL_NO_ERROR){}
   if (glIsProgram(self->sprite_program)) {
     glDeleteProgram(self->sprite_program);
   }
 
   if (glIsVertexArray(self->tri_vao)) {
+
     glDeleteVertexArrays(1, &self->tri_vao);
   }
   if (glIsBuffer(self->tri_vbo)) {

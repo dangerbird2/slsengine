@@ -39,13 +39,16 @@ set(SRC src/main.c
     src/results.h
     src/slsmath.c src/slsmath.h
     extern/vendor/include/linmath.h
-    )
+    extern/vendor/include/nk_private/nuklear.h
+    extern/vendor/include/nk_private/nuklear_sdl_gl3.h
+    extern/vendor/include/nk_private/nuklear_sdl_gles2.h
+    src/sls-nuklear.c src/sls-nuklear.h)
 
 set(TEST_SRC
-  ${SRC}
-  extern/vendor/include/catch.hpp
-  tests/tests-main.cpp
-  tests/math-tests.cpp)
+    ${SRC}
+    extern/vendor/include/catch.hpp
+    tests/tests-main.cpp
+    tests/math-tests.cpp )
 
 
 list(REMOVE_ITEM TEST_SRC src/main.c)
@@ -65,12 +68,12 @@ set_target_properties(${SLSENGINE} tests
                       CXX_STANDARD 14
                       )
 target_include_directories(tests
-                           PUBLIC
+                           PRIVATE
                            extern/vendor/include
                            src
                            )
 target_include_directories(${SLSENGINE}
-                           PUBLIC
+                           PRIVATE
                            extern/vendor/include
                            src)
 if (EMSCRIPTEN)
@@ -89,7 +92,7 @@ if (EMSCRIPTEN)
     TARGET ${SLSENGINE} tests
     APPEND_STRING
     PROPERTY
-    LINK_FLAGS "-s USE_SDL=2 -s USE_WEBGL2=1")
+    LINK_FLAGS "-s USE_SDL=2 -s USE_WEBGL2=1 -s FULL_ES3=1 --preload-file assets --use-preload-plugins")
   set_property(
     TARGET ${SLSENGINE} tests
     APPEND_STRING

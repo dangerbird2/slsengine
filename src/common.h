@@ -13,6 +13,7 @@
 #include <float.h>
 
 #ifdef __EMSCRIPTEN__
+#include <GLES3/gl3.h>
 #include <SDL2/SDL_opengles2.h>
 #include <emscripten.h>
 #include <SDL2/SDL.h>
