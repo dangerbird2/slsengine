@@ -3,21 +3,9 @@
 #include "slsrenderer.h"
 #include "sls-nuklear.h"
 
-static void sls_app_iter(slsApp *self);
-
 
 #ifdef __EMSCRIPTEN__
 
-
-static slsApp *main_loop_app;
-static void main_loop_fn(){
-  assert(main_loop_app);
-  if (main_loop_app->should_close){
-    emscripten_cancel_main_loop();
-    return;
-  }
-  sls_app_iter(main_loop_app);
-}
 
 #endif
 
@@ -51,16 +39,10 @@ sls_create_app(slsApp *self)
   self->ctx = SDL_GL_CreateContext(self->window);
   SDL_GL_MakeCurrent(self->window, self->ctx);
 
-
-#ifndef __EMSCRIPTEN__
-  glewExperimental = GL_TRUE;
-
-  GLenum err;
-  if ((err = glewInit()) != GLEW_OK) {
-    sls_log_err("glew initialization failed %s", glewGetErrorString(err));
-    exit(-1);
+  if (!gladLoadGLLoader(SDL_GL_GetProcAddress)) {
+    sls_log_err("could not load GLAD");
+    exit(255);
   }
-#endif
   self->nuklear = nk_sdl_init(self->window);
 
   struct nk_font_atlas *atlas;
@@ -97,39 +79,15 @@ sls_delete_app(slsApp *self)
   return self;
 }
 
-void
-sls_app_run(slsApp *self)
-{
-  self->should_close = false;
-  self->is_showing_gui = true;
-
-  glClearColor(1.0, 0.0, 1.0, 1.0);
-#ifndef __EMSCRIPTEN__
-  while (!self->should_close) {
-    sls_app_iter(self);
-  }
-#else
-  main_loop_app = self;
-  emscripten_set_main_loop(main_loop_fn, 0, false);
-#endif
-}
-
-static void sls_app_iter(slsApp *self)
+void sls_app_iter(slsApp *self)
 {
   handle_sdlevents(self);
 
   if (self->is_showing_gui) {
-    if (nk_begin(self->nuklear, "window", nk_rect(50, 50, 100, 100),
-                 NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE |
-                 NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE)) {
-
-    }
-    nk_end(self->nuklear);
+    sls_app_gui(self);
   }
 
-
-  glClearColor(0.f, 0.f, 1.f, 1.f);
-  glClear(GL_COLOR_BUFFER_BIT);
+  sls_renderer_clear(self->renderer);
   if (self->is_showing_gui) {
     nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
   }
@@ -144,9 +102,10 @@ handle_windowevent(slsApp *self, SDL_WindowEvent const *windowevent);
 static void
 handle_sdlevents(slsApp *self)
 {
-  if (self->is_showing_gui) nk_input_begin(self->nuklear);
   SDL_Event event;
-  bool is_showing_gui = self->is_showing_gui;
+  const bool is_showing_gui = self->is_showing_gui;
+  if (is_showing_gui) nk_input_begin(self->nuklear);
+
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
       case SDL_QUIT:
@@ -160,19 +119,18 @@ handle_sdlevents(slsApp *self)
 
         key = &event.key;
         bool is_shift = 0 != (key->keysym.mod & KMOD_SHIFT);
-        if (key->keysym.sym == SDLK_BACKQUOTE && is_shift){
-          is_showing_gui = !self->is_showing_gui;
+        if (key->keysym.sym == SDLK_BACKQUOTE && is_shift) {
+          self->is_showing_gui = !self->is_showing_gui;
         }
-          break;
+        break;
       }
       default:
         break;
     }
-    if (self->is_showing_gui) nk_sdl_handle_event(&event);
+    if (is_showing_gui) nk_sdl_handle_event(&event);
   }
-  if (self->is_showing_gui) nk_input_end(self->nuklear);
+  if (is_showing_gui) nk_input_end(self->nuklear);
 
-  self->is_showing_gui = is_showing_gui;
 }
 
 static void

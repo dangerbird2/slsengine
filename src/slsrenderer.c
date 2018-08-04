@@ -27,7 +27,7 @@ slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLCo
 
   int width, height;
   SDL_GetWindowSize(window, &width, &height);
-  *self = (slsRenderer) { 0 };
+  *self = (slsRenderer) { .clear_color={1.0, 0.0, 1.0, 1.0}};
 
   sls_renderer_onresize(self, width, height);
   float fov = 60.f * M_PI / 180.f;
@@ -83,5 +83,12 @@ void sls_renderer_onresize(slsRenderer *self, int width, int height)
   float aspect = width / (float)height;
   float fov = 60.0 * M_PI / 180.0;
   mat4x4_perspective(self->main_camera.projection.m, fov, aspect, 0.0f, -100.f);
+
+}
+
+void sls_renderer_clear(slsRenderer *self)
+{
+  glClearColor(self->clear_color.r, self->clear_color.g, self->clear_color.b, self->clear_color.a);
+  glClear(GL_COLOR_BUFFER_BIT);
 
 }

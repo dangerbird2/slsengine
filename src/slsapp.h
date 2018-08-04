@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "slsmacros.h"
+
 SLS_BEGIN_CDECLS
 
 
@@ -10,7 +11,7 @@ typedef struct slsRenderer slsRenderer;
 
 typedef struct slsApp slsApp;
 struct slsApp {
-  SDL_Window* window;
+  SDL_Window *window;
   SDL_GLContext ctx;
 
   struct nk_context *nuklear;
@@ -20,13 +21,17 @@ struct slsApp {
   bool is_showing_gui;
 };
 
-slsApp*
-sls_create_app(slsApp* app);
-slsApp*
-sls_delete_app(slsApp* app);
+slsApp *
+sls_create_app(slsApp *app);
+
+slsApp *
+sls_delete_app(slsApp *app);
 
 void
-sls_app_run(slsApp* app);
+sls_app_run(slsApp *app);
+
+void sls_app_iter(slsApp *self);
+void sls_app_gui(slsApp *self);
 
 SLS_END_CDECLS
 

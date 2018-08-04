@@ -17,6 +17,8 @@ typedef struct slsRenderer {
 
   slsCamera main_camera;
 
+  slsVec4 clear_color;
+
   GLuint sprite_program;
   GLuint tri_vao;
   GLuint tri_vbo;
@@ -26,6 +28,8 @@ typedef struct slsRenderer {
 
 slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLContext ctx, slsResultCode *result_out);
 slsRenderer *sls_delete_renderer(slsRenderer *self);
+
+void sls_renderer_clear(slsRenderer *self);
 
 void sls_renderer_onresize(slsRenderer *self, int width, int height);
 

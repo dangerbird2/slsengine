@@ -6,13 +6,32 @@ set(SLSENGINE sls-engine)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-set(ENABLE_SHARED NO)
-set(ENABLE_STATIC YES)
-set(ENABLE_SHARED_EXECUTABLES NO)
-add_subdirectory(extern/libcork)
+
+set(DEPS)
+
+if (EMSCRIPTEN)
+  set(GLAD extern/glad-es/)
+else ()
+  set(GLAD extern/glad)
+endif ()
 
 
-set(DEPS libcork-static)
+set(SRC src/main.c
+    src/slsapp.c src/slsapp.h
+    src/slsrenderer.c src/slsrenderer.h
+    src/shaderutils.c src/shaderutils.h
+    src/slsmacros.h
+    src/common.h
+    src/results.h
+    src/slsmath.c src/slsmath.h
+    ${GLAD}/src/glad.c
+    ${GLAD}/include/glad/glad.h
+    ${GLAD}/include/KHR/khrplatform.h
+    extern/vendor/include/linmath.h
+    extern/vendor/include/nk_private/nuklear.h
+    extern/vendor/include/nk_private/nuklear_sdl_gl3.h
+    extern/vendor/include/nk_private/nuklear_sdl_gles2.h
+    src/sls-nuklear.c src/sls-nuklear.h)
 
 #check if libm is required
 include(CheckFunctionExists)
@@ -25,30 +44,18 @@ endif ()
 
 if (NOT EMSCRIPTEN)
   find_package(SDL2 REQUIRED)
-  find_package(GLEW REQUIRED)
   find_package(OpenGL REQUIRED)
 
   list(APPEND DEPS
        OpenGL::GL
-       SDL2::SDL2 SDL2::SDL2main GLEW::GLEW)
-
+       SDL2::SDL2 SDL2::SDL2main)
+  list(APPEND SRC
+       src/desktop/desktop-app.c)
 else ()
+  list(APPEND SRC
+       src/emscripten/em-app.c)
 endif ()
 
-
-set(SRC src/main.c
-    src/slsapp.c src/slsapp.h
-    src/slsrenderer.c src/slsrenderer.h
-    src/shaderutils.c src/shaderutils.h
-    src/slsmacros.h
-    src/common.h
-    src/results.h
-    src/slsmath.c src/slsmath.h
-    extern/vendor/include/linmath.h
-    extern/vendor/include/nk_private/nuklear.h
-    extern/vendor/include/nk_private/nuklear_sdl_gl3.h
-    extern/vendor/include/nk_private/nuklear_sdl_gles2.h
-    src/sls-nuklear.c src/sls-nuklear.h)
 
 set(TEST_SRC
     ${SRC}
@@ -75,7 +82,7 @@ set_target_properties(${SLSENGINE} tests
 
 set(INCLUDE_DIRS
     extern/vendor/include
-    extern/libcork/include
+    ${GLAD}/include/
     src)
 target_include_directories(tests
                            PRIVATE
