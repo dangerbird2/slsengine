@@ -6,16 +6,22 @@ set(SLSENGINE sls-engine)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-set(DEPS)
+set(ENABLE_SHARED NO)
+set(ENABLE_STATIC YES)
+set(ENABLE_SHARED_EXECUTABLES NO)
+add_subdirectory(extern/libcork)
+
+
+set(DEPS libcork-static)
 
 #check if libm is required
 include(CheckFunctionExists)
 CHECK_FUNCTION_EXISTS(pow LIBM_EXISTS)
-if(NOT LIBM_EXISTS)
+if (NOT LIBM_EXISTS)
   unset(LIBM_EXISTS)
   list(APPEND DEPS m)
 
-endif()
+endif ()
 
 if (NOT EMSCRIPTEN)
   find_package(SDL2 REQUIRED)
@@ -48,11 +54,10 @@ set(TEST_SRC
     ${SRC}
     extern/vendor/include/catch.hpp
     tests/tests-main.cpp
-    tests/math-tests.cpp )
+    tests/math-tests.cpp)
 
 
 list(REMOVE_ITEM TEST_SRC src/main.c)
-message(sources: ${TEST_SRC})
 
 add_executable(${SLSENGINE} ${SRC})
 add_executable(tests ${SRC} ${TEST_SRC})
@@ -67,15 +72,19 @@ set_target_properties(${SLSENGINE} tests
                       C_STANDARD 11
                       CXX_STANDARD 14
                       )
+
+set(INCLUDE_DIRS
+    extern/vendor/include
+    extern/libcork/include
+    src)
 target_include_directories(tests
                            PRIVATE
-                           extern/vendor/include
-                           src
+                           ${INCLUDE_DIRS}
                            )
 target_include_directories(${SLSENGINE}
                            PRIVATE
-                           extern/vendor/include
-                           src)
+                           ${INCLUDE_DIRS}
+                           )
 if (EMSCRIPTEN)
   set_property(
     TARGET ${SLSENGINE} tests
@@ -86,8 +95,8 @@ if (EMSCRIPTEN)
 
   set_property(
     TARGET ${SLSENGINE} tests
-               PROPERTY
-               SUFFIX ".html")
+    PROPERTY
+    SUFFIX ".html")
   set_property(
     TARGET ${SLSENGINE} tests
     APPEND_STRING
@@ -99,10 +108,10 @@ if (EMSCRIPTEN)
     PROPERTY
 
     LINK_FLAGS_DEBUG "-s USE_SDL=2 --emrun")
-elseif(WIN32)
+elseif (WIN32)
   set_property(TARGET ${SLSENGINE} tests
-    APPEND_STRING
-    PROPERTY COMPILE_DEFINITIONS
-    _CRT_SECURE_NO_WARNINGS
-    )
+               APPEND_STRING
+               PROPERTY COMPILE_DEFINITIONS
+               _CRT_SECURE_NO_WARNINGS
+               )
 endif ()

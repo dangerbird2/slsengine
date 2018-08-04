@@ -24,10 +24,21 @@ static void main_loop_fn(){
 static void
 handle_sdlevents(slsApp *self);
 
+static void setup_gl_attributes(slsApp *self)
+{
+#ifndef __EMSCRIPTEN__
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+#endif
+}
+
 slsApp *
 sls_create_app(slsApp *self)
 {
   *self = (slsApp) {0};
+  slsResultCode result = SLS_OK;
+
   self->window = SDL_CreateWindow("window",
                                   SDL_WINDOWPOS_UNDEFINED,
                                   SDL_WINDOWPOS_UNDEFINED,
@@ -35,15 +46,11 @@ sls_create_app(slsApp *self)
                                   480,
                                   SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
                                   SDL_WINDOW_SHOWN);
-#ifndef __EMSCRIPTEN__
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-#endif
+
+  setup_gl_attributes(self);
   self->ctx = SDL_GL_CreateContext(self->window);
   SDL_GL_MakeCurrent(self->window, self->ctx);
 
-  slsResultCode result = SLS_OK;
 
 #ifndef __EMSCRIPTEN__
   glewExperimental = GL_TRUE;
@@ -94,6 +101,8 @@ void
 sls_app_run(slsApp *self)
 {
   self->should_close = false;
+  self->is_showing_gui = true;
+
   glClearColor(1.0, 0.0, 1.0, 1.0);
 #ifndef __EMSCRIPTEN__
   while (!self->should_close) {
@@ -109,18 +118,21 @@ static void sls_app_iter(slsApp *self)
 {
   handle_sdlevents(self);
 
-  if (nk_begin(self->nuklear, "window", nk_rect(50, 50, 100, 100),
-               NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE |
-               NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE)) {
+  if (self->is_showing_gui) {
+    if (nk_begin(self->nuklear, "window", nk_rect(50, 50, 100, 100),
+                 NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE |
+                 NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE)) {
 
+    }
+    nk_end(self->nuklear);
   }
-  nk_end(self->nuklear);
 
 
   glClearColor(0.f, 0.f, 1.f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT);
-  nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
-
+  if (self->is_showing_gui) {
+    nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
+  }
 
   SDL_GL_SwapWindow(self->window);
 }
@@ -132,8 +144,9 @@ handle_windowevent(slsApp *self, SDL_WindowEvent const *windowevent);
 static void
 handle_sdlevents(slsApp *self)
 {
-  nk_input_begin(self->nuklear);
+  if (self->is_showing_gui) nk_input_begin(self->nuklear);
   SDL_Event event;
+  bool is_showing_gui = self->is_showing_gui;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
       case SDL_QUIT:
@@ -142,13 +155,24 @@ handle_sdlevents(slsApp *self)
       case SDL_WINDOWEVENT:
         handle_windowevent(self, &event.window);
         break;
-      default:
+      case SDL_KEYDOWN: {
+        SDL_KeyboardEvent *key;
 
+        key = &event.key;
+        bool is_shift = 0 != (key->keysym.mod & KMOD_SHIFT);
+        if (key->keysym.sym == SDLK_BACKQUOTE && is_shift){
+          is_showing_gui = !self->is_showing_gui;
+        }
+          break;
+      }
+      default:
         break;
     }
-    nk_sdl_handle_event(&event);
+    if (self->is_showing_gui) nk_sdl_handle_event(&event);
   }
-  nk_input_end(self->nuklear);
+  if (self->is_showing_gui) nk_input_end(self->nuklear);
+
+  self->is_showing_gui = is_showing_gui;
 }
 
 static void

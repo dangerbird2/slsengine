@@ -11,9 +11,9 @@ TEST_CASE("nearf functions")
 {
   volatile auto one_tenth = 0.1f;
   volatile auto two_tenths = 0.2f;
-  auto sum = one_tenth + two_tenths;
-  REQUIRE(sls_nearf(sum, 0.3f, epsilon));
-  REQUIRE(!sls_nearf(sum, 0.4, epsilon));
+  auto sum = 10.0 *(one_tenth + two_tenths);
+  REQUIRE(sls_nearf(sum, 3.f, epsilon));
+  REQUIRE(3.0 != sum);
   REQUIRE(sls_nearf(1, 2, 100));
 }
 

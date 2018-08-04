@@ -17,6 +17,7 @@ struct slsApp {
 
   slsRenderer *renderer;
   bool should_close;
+  bool is_showing_gui;
 };
 
 slsApp*
