@@ -33,7 +33,7 @@ void sls_renderer_clear(slsRenderer *self);
 
 void sls_renderer_onresize(slsRenderer *self, int width, int height);
 
-void sls_renderer_draw_tri(slsRenderer *self);
+void sls_renderer_draw_sprite(slsRenderer *self);
 
 SLS_END_CDECLS
 #endif // !SLS_RENDERER_H
