@@ -15,9 +15,9 @@ void
 sls_app_run(slsApp *self)
 {
   self->should_close = false;
-  self->is_showing_gui = true;
+  self->is_showing_gui = false;
+  self->renderer->clear_color = (slsVec4) {0.1, 0.5, 0.9, 1.0};
 
-  glClearColor(1.0, 0.0, 1.0, 1.0);
   while (!self->should_close) {
     sls_app_iter(self);
   }

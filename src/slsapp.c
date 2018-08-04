@@ -86,8 +86,10 @@ void sls_app_iter(slsApp *self)
   if (self->is_showing_gui) {
     sls_app_gui(self);
   }
-
   sls_renderer_clear(self->renderer);
+
+  glUseProgram(self->renderer->sprite_program);
+  sls_renderer_draw_tri(self->renderer);
   if (self->is_showing_gui) {
     nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
   }

@@ -3,31 +3,33 @@
 #include "shaderutils.h"
 
 static char const vs_source[] = "layout (location=0) in vec3 vert_pos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(vert_pos.xyz, 1.0);\n"
-"}";
+                                "void main()\n"
+                                "{\n"
+                                "   gl_Position = vec4(vert_pos.xyz, 1.0);\n"
+                                "}";
 
 static char const fs_source[] = "out vec4 frag_color;\n"
-"void main()\n"
-"{\n"
-"   frag_color = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
-"}";
+                                "void main()\n"
+                                "{\n"
+                                "   frag_color = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
+                                "}";
 
 static slsVec3 basic_triangle[] = {
-  { -0.5f, -0.5f, 0.0f },
-  { 0.5f, -0.5f, 0.0f },
-  { -0.0f, 0.5f, 0.0f}
+    {-0.5f, -0.5f, 0.0f},
+    {0.5f,  -0.5f, 0.0f},
+    {-0.0f, 0.5f,  0.0f}
 };
 
+static GLuint triangle_indices[] = {0, 1, 2};
+
 slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLContext ctx,
-  slsResultCode *result_out)
+                                 slsResultCode *result_out)
 {
   sls_set_result(result_out, SLS_OK);
 
   int width, height;
   SDL_GetWindowSize(window, &width, &height);
-  *self = (slsRenderer) { .clear_color={1.0, 0.0, 1.0, 1.0}};
+  *self = (slsRenderer) {.clear_color={1.0, 0.0, 1.0, 1.0}};
 
   sls_renderer_onresize(self, width, height);
   float fov = 60.f * M_PI / 180.f;
@@ -49,6 +51,21 @@ slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLCo
 
   self->sprite_program = program;
 
+  // setup buffer data
+  glBindVertexArray(self->tri_vao);
+  glBindBuffer(GL_ARRAY_BUFFER, self->tri_vbo);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->tri_ibo);
+
+  glBufferData(GL_ARRAY_BUFFER, sizeof(basic_triangle), (void *) basic_triangle,
+               GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(triangle_indices),
+               (void *) triangle_indices, GL_STATIC_DRAW);
+
+  glVertexAttribPointer(0, 3,GL_FLOAT, false, sizeof(float) * 3, (void*)0);
+  glEnableVertexAttribArray(0);
+
+  glBindVertexArray(0);
+
   return self;
 
 error:
@@ -58,7 +75,7 @@ error:
 slsRenderer *sls_delete_renderer(slsRenderer *self)
 {
 
-  while(glGetError() != GL_NO_ERROR){}
+  while (glGetError() != GL_NO_ERROR) {}
   if (glIsProgram(self->sprite_program)) {
     glDeleteProgram(self->sprite_program);
   }
@@ -68,7 +85,7 @@ slsRenderer *sls_delete_renderer(slsRenderer *self)
     glDeleteVertexArrays(1, &self->tri_vao);
   }
   if (glIsBuffer(self->tri_vbo)) {
-    GLuint buffers[] = { self->tri_vbo, self->tri_ibo };
+    GLuint buffers[] = {self->tri_vbo, self->tri_ibo};
     glDeleteBuffers(2, buffers);
   }
   //assert(glGetError() == GL_NO_ERROR);
@@ -80,7 +97,7 @@ void sls_renderer_onresize(slsRenderer *self, int width, int height)
   self->width = width;
   self->height = height;
   glViewport(0, 0, width, height);
-  float aspect = width / (float)height;
+  float aspect = width / (float) height;
   float fov = 60.0 * M_PI / 180.0;
   mat4x4_perspective(self->main_camera.projection.m, fov, aspect, 0.0f, -100.f);
 
@@ -88,7 +105,14 @@ void sls_renderer_onresize(slsRenderer *self, int width, int height)
 
 void sls_renderer_clear(slsRenderer *self)
 {
-  glClearColor(self->clear_color.r, self->clear_color.g, self->clear_color.b, self->clear_color.a);
+  glClearColor(self->clear_color.r, self->clear_color.g, self->clear_color.b,
+               self->clear_color.a);
   glClear(GL_COLOR_BUFFER_BIT);
 
+}
+
+void sls_renderer_draw_tri(slsRenderer *self)
+{
+  glBindVertexArray(self->tri_vao);
+  glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 }
