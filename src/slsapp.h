@@ -19,6 +19,11 @@ struct slsApp {
   slsRenderer *renderer;
   bool should_close;
   bool is_showing_gui;
+
+  double last_time;
+  // input to rotate object
+  int object_rotate_input;
+  float object_rotation_radians;
 };
 
 slsApp *
@@ -31,7 +36,16 @@ void
 sls_app_run(slsApp *app);
 
 void sls_app_iter(slsApp *self);
+
 void sls_app_gui(slsApp *self);
+
+void sls_app_update(slsApp *self, double dt);
+
+static inline double sls_get_time()
+{
+  uint32_t ticks = SDL_GetTicks();
+  return ticks / 1000.0;
+}
 
 SLS_END_CDECLS
 

@@ -56,6 +56,8 @@ sls_create_app(slsApp *self)
             sls_result_code_tostring(result));
 
 
+  self->object_rotate_input = 0;
+  self->object_rotation_radians = 0.0;
   return self;
 
 error:
@@ -81,15 +83,22 @@ sls_delete_app(slsApp *self)
 
 void sls_app_iter(slsApp *self)
 {
+  double dt, now;
+  now = sls_get_time();
+  dt = now - self->last_time;
+  self->last_time = now;
   handle_sdlevents(self);
 
   if (self->is_showing_gui) {
     sls_app_gui(self);
   }
+
+  sls_app_update(self, dt);
+
   sls_renderer_clear(self->renderer);
 
   glUseProgram(self->renderer->sprite_program);
-  sls_renderer_draw_sprite(self->renderer);
+  sls_renderer_draw_sprite(self->renderer, self->object_rotation_radians);
   if (self->is_showing_gui) {
     nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
   }
@@ -118,8 +127,10 @@ handle_sdlevents(slsApp *self)
         break;
       case SDL_KEYDOWN: {
         SDL_KeyboardEvent *key;
-
         key = &event.key;
+
+
+
         bool is_shift = 0 != (key->keysym.mod & KMOD_SHIFT);
         if (key->keysym.sym == SDLK_BACKQUOTE && is_shift) {
           self->is_showing_gui = !self->is_showing_gui;
@@ -132,7 +143,6 @@ handle_sdlevents(slsApp *self)
     if (is_showing_gui) nk_sdl_handle_event(&event);
   }
   if (is_showing_gui) nk_input_end(self->nuklear);
-
 }
 
 static void
@@ -145,5 +155,23 @@ handle_windowevent(slsApp *self, SDL_WindowEvent const *windowevent)
       break;
     default:
       break;
+  }
+}
+
+
+void sls_app_update(slsApp *self, double dt)
+{
+  const uint8_t *keyboard_state = SDL_GetKeyboardState(NULL);
+  self->object_rotate_input = 0;
+  if(keyboard_state[SDL_SCANCODE_D]) {
+    self->object_rotate_input += 1;
+  }
+  if (keyboard_state[SDL_SCANCODE_A]){
+    self->object_rotate_input -= 1;
+  }
+
+  if (self->object_rotate_input) {
+    double angular_speed = 10.0;
+    self->object_rotation_radians += (angular_speed * dt * (float)self->object_rotate_input);
   }
 }
