@@ -8,6 +8,7 @@
 
 
 #include "slsapp.h"
+#include <sls-nuklear.h>
 
 
 static slsApp *main_loop_app;

@@ -38,11 +38,12 @@ sls_create_app(slsApp *self)
   setup_gl_attributes(self);
   self->ctx = SDL_GL_CreateContext(self->window);
   SDL_GL_MakeCurrent(self->window, self->ctx);
-
+#ifndef __EMSCRIPTEN__
   if (!gladLoadGLLoader(SDL_GL_GetProcAddress)) {
     sls_log_err("could not load GLAD");
     exit(255);
   }
+#endif
   self->nuklear = nk_sdl_init(self->window);
 
   struct nk_font_atlas *atlas;
