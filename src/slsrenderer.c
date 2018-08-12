@@ -1,38 +1,40 @@
 #include "slsrenderer.h"
 
 #include "shaderutils.h"
+#include "sls-geometry.h"
 
 static char const vs_source[] = "uniform mat4 modelview;\n"
                                 "uniform mat4 projection;\n"
                                 "layout (location=0) in vec3 vert_pos;\n"
+                                "layout (location=1) in vec2 vert_uv;\n"
+                                "out vec2 frag_uv;\n"
                                 "void main()\n"
                                 "{\n"
+                                "   frag_uv = vert_uv;\n"
                                 "   gl_Position = projection * modelview * vec4(vert_pos.xyz, 1.0);\n"
                                 "}";
 
 static char const fs_source[] = "out vec4 frag_color;\n"
+                                "in vec2 frag_uv;\n"
                                 "void main()\n"
                                 "{\n"
                                 "   if (gl_FrontFacing){\n"
-                                "     frag_color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+                                "     frag_color = vec4(1.0f, frag_uv.s, frag_uv.t, 1.0f);\n"
                                 "   } else { \n"
                                 "     frag_color = vec4(0.5, 1.0, 0.0, 1.0);\n"
                                 "   }\n"
                                 "}";
 
-static slsVec3 sprite_geom[] = {
-    {-1.f, -1.f, 0.0f},
-    {1.f,  -1.f, 0.0f},
-    {1.f,  1.f,  0.0f},
-    {-1.f, 1.f,  0.0f},
-};
-
-static GLuint triangle_indices[] = {0, 1, 2, 2, 3, 0};
+static slsGpuMesh sprite_mesh;
+static bool mesh_initialized = false;
 
 slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLContext ctx,
                                  slsResultCode *result_out)
 {
   sls_set_result(result_out, SLS_OK);
+  int *foo = malloc(10);
+  free(foo);
+  printf("%i\n", foo[0]);
 
   int width, height;
   SDL_GetWindowSize(window, &width, &height);
@@ -55,6 +57,10 @@ slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLCo
   self->tri_ibo = buffers[1];
 
   glGenVertexArrays(1, &self->tri_vao);
+  if (!mesh_initialized) {
+    sls_create_sprite_geometry(&sprite_mesh);
+    mesh_initialized = true;
+  }
 
   self->sprite_program = program;
 
@@ -63,13 +69,27 @@ slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLCo
   glBindBuffer(GL_ARRAY_BUFFER, self->tri_vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->tri_ibo);
 
-  glBufferData(GL_ARRAY_BUFFER, sizeof(sprite_geom), (void *) sprite_geom,
+  glBufferData(GL_ARRAY_BUFFER, sizeof(slsGpuVertex) * sprite_mesh.n_verts,
+               (void *) sprite_mesh.verts,
                GL_STATIC_DRAW);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(triangle_indices),
-               (void *) triangle_indices, GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * sprite_mesh.n_indices,
+               (void *) sprite_mesh.indices, GL_STATIC_DRAW);
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(float) * 3, (void *) 0);
+  glVertexAttribPointer(0,
+                        3,
+                        GL_FLOAT,
+                        false,
+                        sizeof(slsGpuVertex),
+                        (void *) offsetof(slsGpuVertex, position));
+
+  glVertexAttribPointer(1,
+                        2,
+                        GL_FLOAT,
+                        false,
+                        sizeof(slsGpuVertex),
+                        (void *) offsetof(slsGpuVertex, uv));
   glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
 
   glBindVertexArray(0);
 
@@ -83,6 +103,10 @@ error:
 slsRenderer *sls_delete_renderer(slsRenderer *self)
 {
   while (glGetError() != GL_NO_ERROR) {
+  }
+  if (mesh_initialized) {
+    mesh_initialized = false;
+    sls_delete_gpumesh(&sprite_mesh);
   }
   if (glIsProgram(self->sprite_program)) {
     glDeleteProgram(self->sprite_program);
@@ -104,9 +128,7 @@ void sls_renderer_onresize(slsRenderer *self, int width, int height)
   self->width = width;
   self->height = height;
   glViewport(0, 0, width, height);
-  float aspect = width / (float) height;
-  float fov = 60.0 * M_PI / 180.0;
-  mat4x4_perspective(self->main_camera.projection.m, fov, aspect, 0.0f, -100.f);
+  mat4x4_ortho(self->main_camera.projection.m, 0, (float)width/8.f, 0, (float)height/8.f, 0.0, 100.0);
 }
 
 void sls_renderer_clear(slsRenderer *self)
@@ -134,4 +156,27 @@ void sls_renderer_draw_sprite(slsRenderer *self, float rotation_theta)
                      (float *) self->main_camera.projection.m);
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+void sls_render_sprite_system(slsRenderer *self, slsEntityWorld *world)
+{
+
+  int32_t modelview_id = glGetUniformLocation(self->sprite_program, "modelview");
+  int32_t projection_id = glGetUniformLocation(self->sprite_program, "projection");
+
+  glUseProgram(self->sprite_program);
+  glUniformMatrix4fv(projection_id, 1, GL_FALSE, (float *) self->main_camera.projection.m);
+  glBindVertexArray(self->tri_vao);
+
+
+  size_t n_entities = 0;
+  for (int i = 0; i < world->length; ++i) {
+    if ((world->masks[i] & SLS_SYSTEM_RENDERSPRITE) != SLS_SYSTEM_RENDERSPRITE) { continue; }
+    n_entities++;
+    glUniformMatrix4fv(modelview_id, 1, GL_FALSE,
+                       (float *) world->transforms[i].m);
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+  }
 }

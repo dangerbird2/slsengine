@@ -1,6 +1,7 @@
 #ifndef SLS_APP_H
 #define SLS_APP_H
 
+#include <ecs/slsworld.h>
 #include "common.h"
 #include "slsmacros.h"
 
@@ -19,6 +20,8 @@ struct slsApp {
   slsRenderer *renderer;
   bool should_close;
   bool is_showing_gui;
+
+  slsEntityWorld world;
 
   double last_time;
   // input to rotate object

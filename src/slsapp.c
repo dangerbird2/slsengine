@@ -4,6 +4,7 @@
 #include "sls-nuklear.h"
 
 
+
 #ifdef __EMSCRIPTEN__
 
 
@@ -55,9 +56,13 @@ sls_create_app(slsApp *self)
   sls_check(result == SLS_OK, "create_renderer failed: %s",
             sls_result_code_tostring(result));
 
+  sls_create_world(&self->world, 256);
 
-  self->object_rotate_input = 0;
-  self->object_rotation_radians = 0.0;
+  slsMat4 sprite_xform;
+  mat4x4_identity(sprite_xform.m);
+  mat4x4_translate(sprite_xform.m, 100.f, 20.f, 0.0);
+
+  long sprite = sls_world_create_sprite(&self->world, &sprite_xform);
   return self;
 
 error:
@@ -70,6 +75,8 @@ sls_delete_app(slsApp *self)
 {
 
   nk_sdl_shutdown();
+  sls_destroy_world(&self->world);
+
   if (self->renderer) {
     sls_delete_renderer(self->renderer);
     free(self->renderer);
@@ -97,8 +104,8 @@ void sls_app_iter(slsApp *self)
 
   sls_renderer_clear(self->renderer);
 
-  glUseProgram(self->renderer->sprite_program);
-  sls_renderer_draw_sprite(self->renderer, self->object_rotation_radians);
+  sls_render_sprite_system(self->renderer, &self->world);
+
   if (self->is_showing_gui) {
     nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
   }

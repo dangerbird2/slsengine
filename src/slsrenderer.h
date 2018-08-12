@@ -38,5 +38,7 @@ void sls_renderer_onresize(slsRenderer *self, int width, int height);
 
 void sls_renderer_draw_sprite(slsRenderer *self, float rotation_theta);
 
+void sls_render_sprite_system(slsRenderer *self, slsEntityWorld *world);
+
 SLS_END_CDECLS
 #endif // !SLS_RENDERER_H
