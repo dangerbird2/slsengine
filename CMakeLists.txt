@@ -34,14 +34,22 @@ set(SRC src/main.c
     extern/vendor/include/nk_private/nuklear_sdl_gles2.h
     src/sls-nuklear.c src/sls-nuklear.h src/ecs/slsworld.c src/ecs/slsworld.h)
 
-#check if libm is required
-include(CheckFunctionExists)
-CHECK_FUNCTION_EXISTS(pow LIBM_EXISTS)
-if (NOT LIBM_EXISTS)
-  unset(LIBM_EXISTS)
-  list(APPEND DEPS m)
+if(LINUX)
+  #check if libm is required
+  include(CheckFunctionExists)
+  CHECK_FUNCTION_EXISTS(pow LIBM_EXISTS)
+  CHECK_FUNCTION_EXISTS(dlclose LIBDL_EXISTS)
 
-endif ()
+  if (NOT LIBM_EXISTS)
+    unset(LIBM_EXISTS)
+    list(APPEND DEPS m)
+  endif ()
+
+  if (NOT LIBDL_EXISTS)
+    unset(LIBDL_EXISTS)
+    list(APPEND DEPS dl)
+  endif()
+endif()
 
 if (NOT EMSCRIPTEN)
   find_package(SDL2 REQUIRED)
@@ -109,7 +117,7 @@ if (EMSCRIPTEN)
     TARGET ${SLSENGINE} tests
     APPEND_STRING
     PROPERTY
-    LINK_FLAGS "-s USE_SDL=2 -s USE_WEBGL2=1 -s FULL_ES3=1 --preload-file assets --use-preload-plugins")
+    LINK_FLAGS "-s USE_SDL=2 -s USE_WEBGL2=1 -s FULL_ES3=1 --preload-file assets/* --use-preload-plugins")
   set_property(
     TARGET ${SLSENGINE} tests
     APPEND_STRING
