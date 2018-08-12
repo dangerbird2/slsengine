@@ -61,9 +61,12 @@ sls_create_app(slsApp *self)
 
   slsMat4 sprite_xform;
   mat4x4_identity(sprite_xform.m);
-  mat4x4_translate(sprite_xform.m, 100.f, 20.f, 0.0);
+  mat4x4_translate(sprite_xform.m, 30.f, 20.f, 0.0);
 
   long sprite = sls_world_create_sprite(&self->world, &sprite_xform);
+  mat4x4_translate(sprite_xform.m, 30.f, 10.f, 0.0);
+  sls_world_create_sprite(&self->world, &sprite_xform);
+
   return self;
 
 error:
