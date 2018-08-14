@@ -32,9 +32,6 @@ slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLCo
                                  slsResultCode *result_out)
 {
   sls_set_result(result_out, SLS_OK);
-  int *foo = malloc(10);
-  free(foo);
-  printf("%i\n", foo[0]);
 
   int width, height;
   SDL_GetWindowSize(window, &width, &height);
