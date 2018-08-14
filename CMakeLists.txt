@@ -6,7 +6,6 @@ set(SLSENGINE sls-engine)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-
 set(DEPS)
 
 if (EMSCRIPTEN)
@@ -14,6 +13,8 @@ if (EMSCRIPTEN)
 else ()
   set(GLAD extern/glad)
 endif ()
+
+set(SLS_DOWNLOAD_DEPENDENCIES False CACHE bool "")
 
 
 set(SRC src/main.c
@@ -53,6 +54,8 @@ endif()
 
 if (NOT EMSCRIPTEN)
   find_package(SDL2 REQUIRED)
+  
+
   find_package(OpenGL REQUIRED)
 
   list(APPEND DEPS
