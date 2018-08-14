@@ -35,12 +35,13 @@ set(SRC src/main.c
     extern/vendor/include/nk_private/nuklear_sdl_gles2.h
     src/sls-nuklear.c src/sls-nuklear.h src/ecs/slsworld.c src/ecs/slsworld.h)
 
-if(LINUX)
   #check if libm is required
-  include(CheckFunctionExists)
-  CHECK_FUNCTION_EXISTS(pow LIBM_EXISTS)
-  CHECK_FUNCTION_EXISTS(dlclose LIBDL_EXISTS)
+include(CheckFunctionExists)
 
+check_function_exists(pow LIBM_EXISTS)
+check_function_exists(dlclose LIBDL_EXISTS)
+
+if(UNIX)
   if (NOT LIBM_EXISTS)
     unset(LIBM_EXISTS)
     list(APPEND DEPS m)
@@ -50,11 +51,12 @@ if(LINUX)
     unset(LIBDL_EXISTS)
     list(APPEND DEPS dl)
   endif()
-endif()
+endif(UNIX)
+
 
 if (NOT EMSCRIPTEN)
   find_package(SDL2 REQUIRED)
-  
+
 
   find_package(OpenGL REQUIRED)
 
