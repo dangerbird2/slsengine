@@ -6,12 +6,41 @@
 
 #include "slsmath.h"
 #include "slsapp.h"
+#include "sls-geometry.h"
 
 SLS_BEGIN_CDECLS
 typedef struct slsCamera {
   slsMat4 projection;
   slsMat4 transform;
 } slsCamera;
+
+typedef struct slsRenderBuffers
+{
+  GLuint vbo;
+  GLuint ibo;
+  GLuint vao;
+} slsRenderBuffers;
+
+static inline slsRenderBuffers *create_buffers(slsRenderBuffers *self)
+{
+  GLuint buffers[2];
+  glGenBuffers(2, buffers);
+  self->vbo = buffers[0];
+  self->ibo = buffers[1];
+
+  glGenVertexArrays(1, &self->vao);
+  return self;
+}
+
+static inline slsRenderBuffers *delete_buffers(slsRenderBuffers *self)
+{
+  GLuint buffers[] = {self->vbo, self->ibo};
+  glDeleteBuffers(2, buffers);
+  glDeleteVertexArrays(1, &self->vao);
+
+  return self;
+}
+
 
 typedef struct slsRenderer {
   int width, height;
@@ -21,9 +50,8 @@ typedef struct slsRenderer {
   slsVec4 clear_color;
 
   GLuint sprite_program;
-  GLuint tri_vao;
-  GLuint tri_vbo;
-  GLuint tri_ibo;
+  slsRenderBuffers sprite_buffers;
+  slsRenderBuffers tilemap_buffers;
 
 } slsRenderer;
 

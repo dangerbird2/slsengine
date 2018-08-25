@@ -25,6 +25,11 @@ set(SRC src/main.c
     src/results.h
     src/slsmath.c src/slsmath.h
     src/sls-geometry.c src/sls-geometry.h
+
+    src/ecs/slsworld.c src/ecs/slsworld.h
+    src/ecs/components.h
+
+
     ${GLAD}/src/glad.c
     ${GLAD}/include/glad/glad.h
     ${GLAD}/include/KHR/khrplatform.h
@@ -32,7 +37,8 @@ set(SRC src/main.c
     extern/vendor/include/nk_private/nuklear.h
     extern/vendor/include/nk_private/nuklear_sdl_gl3.h
     extern/vendor/include/nk_private/nuklear_sdl_gles2.h
-    src/sls-nuklear.c src/sls-nuklear.h src/ecs/slsworld.c src/ecs/slsworld.h)
+    src/sls-nuklear.c src/sls-nuklear.h
+    )
 
 if(LINUX)
   #check if libm is required
@@ -67,10 +73,10 @@ endif ()
 
 
 set(TEST_SRC
-  ${SRC}
-  extern/vendor/include/catch.hpp
-  tests/tests-main.cpp
-  tests/math-tests.cpp)
+    ${SRC}
+    extern/vendor/include/catch.hpp
+    tests/tests-main.cpp
+    tests/math-tests.cpp)
 
 
 list(REMOVE_ITEM TEST_SRC src/main.c)

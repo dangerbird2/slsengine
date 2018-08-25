@@ -4,7 +4,6 @@
 #include "sls-nuklear.h"
 
 
-
 #ifdef __EMSCRIPTEN__
 
 
@@ -66,6 +65,12 @@ sls_create_app(slsApp *self)
   long sprite = sls_world_create_sprite(&self->world, &sprite_xform);
   mat4x4_translate(sprite_xform.m, 30.f, 10.f, 0.0);
   sls_world_create_sprite(&self->world, &sprite_xform);
+  mat4x4_identity(sprite_xform.m);
+  long player_sprite = sls_world_create_sprite(&self->world, &sprite_xform);
+  self->world.masks[player_sprite] |=
+      SLS_COMPONENT_PLAYERCONTROLLED | SLS_COMPONENT_MOVEMENT;
+  self->world.motions[player_sprite].speed = 10.f;
+
 
   return self;
 
@@ -141,7 +146,6 @@ handle_sdlevents(slsApp *self)
         key = &event.key;
 
 
-
         bool is_shift = 0 != (key->keysym.mod & KMOD_SHIFT);
         if (key->keysym.sym == SDLK_BACKQUOTE && is_shift) {
           self->is_showing_gui = !self->is_showing_gui;
@@ -169,20 +173,51 @@ handle_windowevent(slsApp *self, SDL_WindowEvent const *windowevent)
   }
 }
 
+static slsVec2 get_axes()
+{
+  uint8_t const *keys = SDL_GetKeyboardState(NULL);
+  slsVec2 res = {0, 0};
+  if (keys[SDL_SCANCODE_W]) {
+    res.y += 1.f;
+  }
+  if (keys[SDL_SCANCODE_S]) {
+    res.y -= 1.f;
+  }
+  if (keys[SDL_SCANCODE_D]) {
+    res.x += 1.f;
+  }
+  if (keys[SDL_SCANCODE_A]) {
+    res.x -= 1.f;
+  }
+  return res;
+}
+
 
 void sls_app_update(slsApp *self, double dt)
 {
-  const uint8_t *keyboard_state = SDL_GetKeyboardState(NULL);
-  self->object_rotate_input = 0;
-  if(keyboard_state[SDL_SCANCODE_D]) {
-    self->object_rotate_input += 1;
-  }
-  if (keyboard_state[SDL_SCANCODE_A]){
-    self->object_rotate_input -= 1;
-  }
+  slsEntityWorld *world = &self->world;
+  for (int i = 0; i < world->length; ++i) {
+    const slsComponentMask mask = world->masks[i];
+    if ((mask & (SLS_COMPONENT_MOVEMENT | SLS_COMPONENT_PLAYERCONTROLLED)) != 0) {
+      // player movement system
+      slsVec2 axis = get_axes();
+      slsVec2 tmp = axis;
+      float len = vec2_len(axis.array);
+      if(len >= 0.01f) {
+        vec2_norm(axis.array, tmp.array);
+      }
 
-  if (self->object_rotate_input) {
-    double angular_speed = 10.0;
-    self->object_rotation_radians += (angular_speed * dt * (float)self->object_rotate_input);
+      vec2_scale(axis.array, axis.array, world->motions[i].speed);
+      world->motions[i].velocity = axis;
+    }
+    if ((mask & (SLS_COMPONENT_MOVEMENT | SLS_COMPONENT_TRANSFORM) )!= 0){
+      slsVec2 move;
+      vec2_scale(move.array, world->motions[i].velocity.array, (float)dt);
+      slsMat4 tmp, res = {};
+      mat4x4_translate(tmp.m, move.x, move.y, 0.f);
+      mat4x4_mul(res.m, world->transforms[i].m, tmp.m);
+      world->transforms[i] = res;
+
+    }
   }
 }

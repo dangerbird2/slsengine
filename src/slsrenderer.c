@@ -3,27 +3,31 @@
 #include "shaderutils.h"
 #include "sls-geometry.h"
 
-static char const vs_source[] = "uniform mat4 modelview;\n"
-                                "uniform mat4 projection;\n"
-                                "layout (location=0) in vec3 vert_pos;\n"
-                                "layout (location=1) in vec2 vert_uv;\n"
-                                "out vec2 frag_uv;\n"
-                                "void main()\n"
-                                "{\n"
-                                "   frag_uv = vert_uv;\n"
-                                "   gl_Position = projection * modelview * vec4(vert_pos.xyz, 1.0);\n"
-                                "}";
+static inline void
+setup_sprite_buffers(slsRenderBuffers* self);
+static char const vs_source[] =
+  "uniform mat4 modelview;\n"
+  "uniform mat4 projection;\n"
+  "layout (location=0) in vec3 vert_pos;\n"
+  "layout (location=1) in vec2 vert_uv;\n"
+  "out vec2 frag_uv;\n"
+  "void main()\n"
+  "{\n"
+  "   frag_uv = vert_uv;\n"
+  "   gl_Position = projection * modelview * vec4(vert_pos.xyz, 1.0);\n"
+  "}";
 
-static char const fs_source[] = "out vec4 frag_color;\n"
-                                "in vec2 frag_uv;\n"
-                                "void main()\n"
-                                "{\n"
-                                "   if (gl_FrontFacing){\n"
-                                "     frag_color = vec4(1.0f, frag_uv.s, frag_uv.t, 1.0f);\n"
-                                "   } else { \n"
-                                "     frag_color = vec4(0.5, 1.0, 0.0, 1.0);\n"
-                                "   }\n"
-                                "}";
+static char const fs_source[] =
+  "out vec4 frag_color;\n"
+  "in vec2 frag_uv;\n"
+  "void main()\n"
+  "{\n"
+  "   if (gl_FrontFacing){\n"
+  "     frag_color = vec4(1.0f, frag_uv.s, frag_uv.t, 1.0f);\n"
+  "   } else { \n"
+  "     frag_color = vec4(0.5, 1.0, 0.0, 1.0);\n"
+  "   }\n"
+  "}";
 
 static slsGpuMesh sprite_mesh;
 static bool mesh_initialized = false;
@@ -32,9 +36,6 @@ slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLCo
                                  slsResultCode *result_out)
 {
   sls_set_result(result_out, SLS_OK);
-  int *foo = malloc(10);
-  free(foo);
-  printf("%i\n", foo[0]);
 
   int width, height;
   SDL_GetWindowSize(window, &width, &height);
@@ -50,13 +51,10 @@ slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLCo
   program = sls_link_program(result_out, vs, fs);
   sls_check(!result_out || *result_out == SLS_OK, "sprite program link failed");
 
-  // setup vertex buffers
-  GLuint buffers[2];
-  glGenBuffers(2, buffers);
-  self->tri_vbo = buffers[0];
-  self->tri_ibo = buffers[1];
 
-  glGenVertexArrays(1, &self->tri_vao);
+
+  create_buffers(&self->sprite_buffers);
+  create_buffers(&self->tilemap_buffers);
   if (!mesh_initialized) {
     sls_create_sprite_geometry(&sprite_mesh);
     mesh_initialized = true;
@@ -65,33 +63,9 @@ slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLCo
   self->sprite_program = program;
 
   // setup buffer data
-  glBindVertexArray(self->tri_vao);
-  glBindBuffer(GL_ARRAY_BUFFER, self->tri_vbo);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->tri_ibo);
 
-  glBufferData(GL_ARRAY_BUFFER, sizeof(slsGpuVertex) * sprite_mesh.n_verts,
-               (void *) sprite_mesh.verts,
-               GL_STATIC_DRAW);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * sprite_mesh.n_indices,
-               (void *) sprite_mesh.indices, GL_STATIC_DRAW);
+  setup_sprite_buffers(&self->sprite_buffers);
 
-  glVertexAttribPointer(0,
-                        3,
-                        GL_FLOAT,
-                        false,
-                        sizeof(slsGpuVertex),
-                        (void *) offsetof(slsGpuVertex, position));
-
-  glVertexAttribPointer(1,
-                        2,
-                        GL_FLOAT,
-                        false,
-                        sizeof(slsGpuVertex),
-                        (void *) offsetof(slsGpuVertex, uv));
-  glEnableVertexAttribArray(0);
-  glEnableVertexAttribArray(1);
-
-  glBindVertexArray(0);
 
 
   return self;
@@ -112,13 +86,8 @@ slsRenderer *sls_delete_renderer(slsRenderer *self)
     glDeleteProgram(self->sprite_program);
   }
 
-  if (glIsVertexArray(self->tri_vao)) {
-    glDeleteVertexArrays(1, &self->tri_vao);
-  }
-  if (glIsBuffer(self->tri_vbo)) {
-    GLuint buffers[] = {self->tri_vbo, self->tri_ibo};
-    glDeleteBuffers(2, buffers);
-  }
+  delete_buffers(&self->sprite_buffers);
+  delete_buffers(&self->tilemap_buffers);
   //assert(glGetError() == GL_NO_ERROR);
   return self;
 }
@@ -140,7 +109,7 @@ void sls_renderer_clear(slsRenderer *self)
 
 void sls_renderer_draw_sprite(slsRenderer *self, float rotation_theta)
 {
-  glBindVertexArray(self->tri_vao);
+  glBindVertexArray(self->sprite_buffers.vao);
 
   uint32_t modelview_id = glGetUniformLocation(self->sprite_program, "modelview");
   uint32_t projection_id = glGetUniformLocation(self->sprite_program, "projection");
@@ -166,7 +135,7 @@ void sls_render_sprite_system(slsRenderer *self, slsEntityWorld *world)
 
   glUseProgram(self->sprite_program);
   glUniformMatrix4fv(projection_id, 1, GL_FALSE, (float *) self->main_camera.projection.m);
-  glBindVertexArray(self->tri_vao);
+  glBindVertexArray(self->sprite_buffers.vao);
 
 
   size_t n_entities = 0;
@@ -179,4 +148,35 @@ void sls_render_sprite_system(slsRenderer *self, slsEntityWorld *world)
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
   }
+}
+
+
+  static inline void setup_sprite_buffers(slsRenderBuffers *self){
+  glBindVertexArray(self->vao);
+  glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
+
+  glBufferData(GL_ARRAY_BUFFER, sizeof(slsGpuVertex) * sprite_mesh.n_verts,
+               (void *) sprite_mesh.verts,
+               GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * sprite_mesh.n_indices,
+               (void *) sprite_mesh.indices, GL_STATIC_DRAW);
+
+  glVertexAttribPointer(0,
+                        3,
+                        GL_FLOAT,
+                        false,
+                        sizeof(slsGpuVertex),
+                        (void *) offsetof(slsGpuVertex, position));
+
+  glVertexAttribPointer(1,
+                        2,
+                        GL_FLOAT,
+                        false,
+                        sizeof(slsGpuVertex),
+                        (void *) offsetof(slsGpuVertex, uv));
+  glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
+
+  glBindVertexArray(0);
 }

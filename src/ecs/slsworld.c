@@ -13,6 +13,8 @@ slsEntityWorld *sls_create_world(slsEntityWorld *self, size_t length)
   self->length = length;
   self->masks = calloc(length, sizeof(*self->masks));
   self->transforms = calloc(length, sizeof(*self->transforms));
+  self->inputs = calloc(length, sizeof(*self->inputs));
+  self->motions = calloc(length, sizeof(*self->motions));
   return self;
 }
 
