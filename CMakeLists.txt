@@ -6,7 +6,6 @@ set(SLSENGINE sls-engine)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-
 set(DEPS)
 
 if (EMSCRIPTEN)
@@ -14,6 +13,8 @@ if (EMSCRIPTEN)
 else ()
   set(GLAD extern/glad)
 endif ()
+
+set(SLS_DOWNLOAD_DEPENDENCIES False CACHE bool "")
 
 
 set(SRC src/main.c
@@ -40,12 +41,13 @@ set(SRC src/main.c
     src/sls-nuklear.c src/sls-nuklear.h
     )
 
-if(LINUX)
   #check if libm is required
-  include(CheckFunctionExists)
-  CHECK_FUNCTION_EXISTS(pow LIBM_EXISTS)
-  CHECK_FUNCTION_EXISTS(dlclose LIBDL_EXISTS)
+include(CheckFunctionExists)
 
+check_function_exists(pow LIBM_EXISTS)
+check_function_exists(dlclose LIBDL_EXISTS)
+
+if(UNIX)
   if (NOT LIBM_EXISTS)
     unset(LIBM_EXISTS)
     list(APPEND DEPS m)
@@ -55,10 +57,13 @@ if(LINUX)
     unset(LIBDL_EXISTS)
     list(APPEND DEPS dl)
   endif()
-endif()
+endif(UNIX)
+
 
 if (NOT EMSCRIPTEN)
   find_package(SDL2 REQUIRED)
+
+
   find_package(OpenGL REQUIRED)
 
   list(APPEND DEPS

@@ -99,3 +99,5 @@ fabric.properties
 
 
 # End of https://www.gitignore.io/api/clion
+/.vs/slsengine/v15/ipch/AutoPCH
+/.vs
