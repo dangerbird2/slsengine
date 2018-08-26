@@ -3,7 +3,7 @@
 #include "shaderutils.h"
 #include "slsapp.h"
 #include "slsmacros.h"
-
+#include "sls-geometry.h"
 
 
 static void
@@ -16,6 +16,11 @@ sls_exit_cleanup()
 int
 main(int argc, char** argv)
 {
+  slsMesh grid_mesh;
+  sls_create_mesh_grid(&grid_mesh);
+
+  sls_delete_gpumesh(&grid_mesh);
+  return 0;
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER )) {
     sls_log_err("Init failed: %s", SDL_GetError());
     exit(-1);

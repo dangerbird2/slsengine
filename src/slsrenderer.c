@@ -29,7 +29,7 @@ static char const fs_source[] =
   "   }\n"
   "}";
 
-static slsGpuMesh sprite_mesh;
+static slsMesh sprite_mesh;
 static bool mesh_initialized = false;
 
 slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLContext ctx,
@@ -156,7 +156,7 @@ void sls_render_sprite_system(slsRenderer *self, slsEntityWorld *world)
   glBindBuffer(GL_ARRAY_BUFFER, self->vbo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self->ibo);
 
-  glBufferData(GL_ARRAY_BUFFER, sizeof(slsGpuVertex) * sprite_mesh.n_verts,
+  glBufferData(GL_ARRAY_BUFFER, sizeof(slsVertex) * sprite_mesh.n_verts,
                (void *) sprite_mesh.verts,
                GL_STATIC_DRAW);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * sprite_mesh.n_indices,
@@ -166,15 +166,15 @@ void sls_render_sprite_system(slsRenderer *self, slsEntityWorld *world)
                         3,
                         GL_FLOAT,
                         false,
-                        sizeof(slsGpuVertex),
-                        (void *) offsetof(slsGpuVertex, position));
+                        sizeof(slsVertex),
+                        (void *) offsetof(slsVertex, position));
 
   glVertexAttribPointer(1,
                         2,
                         GL_FLOAT,
                         false,
-                        sizeof(slsGpuVertex),
-                        (void *) offsetof(slsGpuVertex, uv));
+                        sizeof(slsVertex),
+                        (void *) offsetof(slsVertex, uv));
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
 
