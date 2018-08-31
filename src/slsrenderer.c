@@ -1,3 +1,4 @@
+#include <common.h>
 #include "slsrenderer.h"
 
 #include "shaderutils.h"
@@ -6,6 +7,9 @@
 static inline void
 setup_sprite_buffers(slsRenderBuffers* self);
 static char const vs_source[] =
+#ifdef SLS_GLES
+"precision mediump float;\n"
+#endif
   "uniform mat4 modelview;\n"
   "uniform mat4 projection;\n"
   "layout (location=0) in vec3 vert_pos;\n"
@@ -18,6 +22,9 @@ static char const vs_source[] =
   "}";
 
 static char const fs_source[] =
+#ifdef SLS_GLES
+"precision mediump float;\n"
+#endif
   "out vec4 frag_color;\n"
   "in vec2 frag_uv;\n"
   "void main()\n"

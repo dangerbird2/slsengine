@@ -35,10 +35,5 @@ sls_app_run(slsApp *self)
 }
 
 void sls_app_gui(slsApp *self) {
-  if (nk_begin(self->nuklear, "window", nk_rect(50, 50, 100, 100),
-               NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE |
-               NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE)) {
 
-  }
-  nk_end(self->nuklear);
 }

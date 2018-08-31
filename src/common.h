@@ -11,14 +11,16 @@
 #include "results.h"
 #include <math.h>
 #include <float.h>
-
-#include <glad/glad.h>
 #ifdef __EMSCRIPTEN__
 
 #include <emscripten.h>
+#include <GLES3/gl3.h>
 #include <SDL2/SDL.h>
 
+#define SLS_GLES
 #else
+
+#include <glad/glad.h>
 
 #include <SDL.h>
 #endif

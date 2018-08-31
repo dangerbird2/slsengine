@@ -85,6 +85,7 @@ _sls_print_log(GLuint object,
     glGetProgramInfoLog(object, log_length, NULL, log);
   }
 
+
   sls_log_err("%s\n", log);
   free(log);
 }
@@ -118,6 +119,7 @@ sls_create_shader(const char* source, GLenum type)
   glGetShaderiv(res, GL_COMPILE_STATUS, &compile_ok);
 
   if (compile_ok == GL_FALSE) {
+    sls_log_info("source: %s%s\n", preamble, source);
     sls_print_log(res, SLS_TYPE_SHADER);
     glDeleteShader(res);
     return 0;
@@ -139,7 +141,11 @@ _sls_link_program(slsResultCode* result_out,
   GLuint program = glCreateProgram();
   int link_ok;
 
-
+  if(!glIsShader(vertex)|| !glIsShader(frag)){
+    sls_set_result(result_out, SLS_ERROR);
+    sls_log_err("not a shader object");
+    return 0;
+  }
   glAttachShader(program, vertex);
   glAttachShader(program, frag);
 #ifndef __EMSCRIPTEN__ // no geometry shaders in webgl
