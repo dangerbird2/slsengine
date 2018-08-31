@@ -1,7 +1,6 @@
 
 #include "slsapp.h"
 #include "slsrenderer.h"
-#include "sls-nuklear.h"
 
 
 #ifdef __EMSCRIPTEN__
@@ -44,12 +43,7 @@ sls_create_app(slsApp *self)
     exit(255);
   }
 #endif
-  self->nuklear = nk_sdl_init(self->window);
 
-  struct nk_font_atlas *atlas;
-  nk_sdl_font_stash_begin(&atlas);
-
-  nk_sdl_font_stash_end();
 
   self->renderer = sls_create_renderer(malloc(sizeof(slsRenderer)), self->window,
                                        self->ctx, &result);
@@ -83,7 +77,6 @@ slsApp *
 sls_delete_app(slsApp *self)
 {
 
-  nk_sdl_shutdown();
   sls_destroy_world(&self->world);
 
   if (self->renderer) {
@@ -105,9 +98,7 @@ void sls_app_iter(slsApp *self)
   self->last_time = now;
   handle_sdlevents(self);
 
-  if (self->is_showing_gui) {
-    sls_app_gui(self);
-  }
+
 
   sls_app_update(self, dt);
 
@@ -115,9 +106,6 @@ void sls_app_iter(slsApp *self)
 
   sls_render_sprite_system(self->renderer, &self->world);
 
-  if (self->is_showing_gui) {
-    nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
-  }
 
   SDL_GL_SwapWindow(self->window);
 }
@@ -131,7 +119,6 @@ handle_sdlevents(slsApp *self)
 {
   SDL_Event event;
   const bool is_showing_gui = self->is_showing_gui;
-  if (is_showing_gui) nk_input_begin(self->nuklear);
 
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
@@ -155,9 +142,7 @@ handle_sdlevents(slsApp *self)
       default:
         break;
     }
-    if (is_showing_gui) nk_sdl_handle_event(&event);
   }
-  if (is_showing_gui) nk_input_end(self->nuklear);
 }
 
 static void

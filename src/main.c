@@ -20,7 +20,6 @@ main(int argc, char** argv)
   sls_create_mesh_grid(&grid_mesh);
 
   sls_delete_gpumesh(&grid_mesh);
-  return 0;
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER )) {
     sls_log_err("Init failed: %s", SDL_GetError());
     exit(-1);

@@ -11,6 +11,9 @@
         "shaderutils.h": "c",
         "limits": "c",
         "type_traits": "c",
-        "common.h": "c"
+        "common.h": "c",
+        "stddef.h": "c",
+        "float.h": "c",
+        "sls-nuklear.h": "c"
     }
 }

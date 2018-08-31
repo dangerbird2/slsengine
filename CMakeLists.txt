@@ -35,10 +35,10 @@ set(SRC src/main.c
     ${GLAD}/include/glad/glad.h
     ${GLAD}/include/KHR/khrplatform.h
     extern/vendor/include/linmath.h
-    extern/vendor/include/nk_private/nuklear.h
-    extern/vendor/include/nk_private/nuklear_sdl_gl3.h
-    extern/vendor/include/nk_private/nuklear_sdl_gles2.h
-    src/sls-nuklear.c src/sls-nuklear.h
+    # extern/vendor/include/nk_private/nuklear.h
+    # extern/vendor/include/nk_private/nuklear_sdl_gl3.h
+    # extern/vendor/include/nk_private/nuklear_sdl_gles2.h
+    # src/sls-nuklear.c src/sls-nuklear.h
     )
 
   #check if libm is required

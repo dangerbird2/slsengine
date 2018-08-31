@@ -10,6 +10,10 @@ SLS_BEGIN_CDECLS
 
 typedef struct slsRenderer slsRenderer;
 
+struct nk_context {
+  char c;
+};
+
 typedef struct slsApp slsApp;
 struct slsApp {
   SDL_Window *window;

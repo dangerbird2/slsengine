@@ -1,11 +1,10 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 8/4/18, Steven
- * 
+ *
  **/
-#include <sls-nuklear.h>
 #include <slsmath.h>
 #include <slsrenderer.h>
 #include "slsapp.h"
@@ -27,7 +26,7 @@ sls_app_run(slsApp *self)
 
 void sls_app_gui(slsApp *self)
 {
-
+#if 0
   slsVec4 *c = &self->renderer->clear_color;
   uint32_t flags = NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
                    NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE;
@@ -53,4 +52,5 @@ void sls_app_gui(slsApp *self)
 
   }
   nk_end(nk);
+  #endif
 }

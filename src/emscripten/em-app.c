@@ -1,14 +1,13 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 8/4/18, Steven
- * 
+ *
  **/
 
 
 #include "slsapp.h"
-#include <sls-nuklear.h>
 
 
 static slsApp *main_loop_app;

@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 7/30/18, Steven
- * 
+ *
  **/
 
 #ifndef __EMSCRIPTEN__
