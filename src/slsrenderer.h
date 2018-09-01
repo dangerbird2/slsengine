@@ -21,7 +21,7 @@ typedef struct slsRenderBuffers
   GLuint vao;
 } slsRenderBuffers;
 
-static inline slsRenderBuffers *create_buffers(slsRenderBuffers *self)
+static inline slsRenderBuffers *sls_create_buffers(slsRenderBuffers *self)
 {
   GLuint buffers[2];
   glGenBuffers(2, buffers);
@@ -32,7 +32,7 @@ static inline slsRenderBuffers *create_buffers(slsRenderBuffers *self)
   return self;
 }
 
-static inline slsRenderBuffers *delete_buffers(slsRenderBuffers *self)
+static inline slsRenderBuffers *sls_delete_buffers(slsRenderBuffers *self)
 {
   GLuint buffers[] = {self->vbo, self->ibo};
   glDeleteBuffers(2, buffers);
@@ -42,6 +42,10 @@ static inline slsRenderBuffers *delete_buffers(slsRenderBuffers *self)
 }
 
 
+
+typedef struct slsGrid slsGrid;
+
+
 typedef struct slsRenderer {
   int width, height;
 
@@ -49,11 +53,15 @@ typedef struct slsRenderer {
 
   slsVec4 clear_color;
 
+  slsGrid *grid;
+
   GLuint sprite_program;
   slsRenderBuffers sprite_buffers;
   slsRenderBuffers tilemap_buffers;
 
 } slsRenderer;
+
+
 
 
 
@@ -67,6 +75,32 @@ void sls_renderer_onresize(slsRenderer *self, int width, int height);
 void sls_renderer_draw_sprite(slsRenderer *self, float rotation_theta);
 
 void sls_render_sprite_system(slsRenderer *self, slsEntityWorld *world);
+
+struct slsGridParams {
+  float row_size;
+  float col_size;
+
+  slsVec3 origin;
+
+  size_t n_cols;
+  size_t n_rows;
+
+};
+
+/**
+ * @brief Renderer for debug grid
+ */
+struct slsGrid {
+  struct slsGridParams params;
+  slsRenderBuffers buffers;
+  GLuint shader_program;
+  slsMat4 transform;
+};
+
+slsGrid *sls_create_grid(slsGrid *self, slsResultCode *result_out,
+                         struct slsGridParams const *params);
+
+slsGrid *sls_delete_grid(slsGrid *self);
 
 SLS_END_CDECLS
 #endif // !SLS_RENDERER_H

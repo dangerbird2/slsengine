@@ -104,7 +104,6 @@ void sls_app_iter(slsApp *self)
 
   sls_renderer_clear(self->renderer);
 
-  EM_ASM({debugger;});
   sls_render_sprite_system(self->renderer, &self->world);
 
 

@@ -12,6 +12,7 @@ SLS_BEGIN_CDECLS
 typedef struct slsVertex {
   slsVec3 position;
   slsVec3 normal;
+  slsVec3 color;
   slsVec2 uv;
 } slsVertex;
 

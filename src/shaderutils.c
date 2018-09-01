@@ -94,7 +94,7 @@ _sls_print_log(GLuint object,
  * Compile the shader from file 'filename', with error handling
  */
 GLuint
-sls_create_shader(const char* source, GLenum type)
+sls_create_shader(slsResultCode *res_out, const char *source, GLenum type)
 {
   GLchar const* modern_preamble = "#version 330 core\n";
   GLchar const* gles_preamble = "#version 300 es\n";
@@ -122,8 +122,11 @@ sls_create_shader(const char* source, GLenum type)
     sls_log_info("source: %s%s\n", preamble, source);
     sls_print_log(res, SLS_TYPE_SHADER);
     glDeleteShader(res);
+    sls_set_result(res_out, SLS_COMPILE_FAILED);
     return 0;
   }
+
+  sls_set_result(res_out, SLS_OK);
 
   return res;
 }

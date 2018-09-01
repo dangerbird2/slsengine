@@ -40,7 +40,7 @@ _sls_print_log(GLuint object,
   } while (0)
 
 GLuint
-sls_create_shader(const char* source, GLenum type) SLS_NONNULL(1);
+sls_create_shader(slsResultCode *res_out, const char *source, GLenum type) SLS_NONNULL(2);
 
 GLuint
 _sls_link_program(slsResultCode* out_result,
