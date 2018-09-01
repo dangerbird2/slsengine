@@ -1,10 +1,10 @@
 
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 8/17/18, Steven
- * 
+ *
  **/
 #ifndef SLS_ENGINE_COMPONENTS_H
 #define SLS_ENGINE_COMPONENTS_H
@@ -16,16 +16,13 @@ SLS_BEGIN_CDECLS
 
 typedef struct slsPlayerInput {
   slsVec2 moveAxis;
-}slsPlayerInput;
+} slsPlayerInput;
 
 typedef struct slsMotion {
   slsVec2 velocity;
   float speed;
 } slsMotion;
 
-
-
-
 SLS_END_CDECLS
 
-#endif //SLS_ENGINE_COMPONENTS_H
+#endif // SLS_ENGINE_COMPONENTS_H

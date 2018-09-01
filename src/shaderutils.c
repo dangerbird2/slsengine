@@ -11,15 +11,15 @@
 int
 sls_get_glversion()
 {
-  #ifndef __EMSCRIPTEN__
+#ifndef __EMSCRIPTEN__
   int major, minor;
   glGetIntegerv(GL_MAJOR_VERSION, &major);
   glGetIntegerv(GL_MINOR_VERSION, &minor);
   return major * 100 + minor * 10;
 
-  #else
+#else
   return 300;
-  #endif
+#endif
 }
 
 /**
@@ -85,7 +85,6 @@ _sls_print_log(GLuint object,
     glGetProgramInfoLog(object, log_length, NULL, log);
   }
 
-
   sls_log_err("%s\n", log);
   free(log);
 }
@@ -94,7 +93,7 @@ _sls_print_log(GLuint object,
  * Compile the shader from file 'filename', with error handling
  */
 GLuint
-sls_create_shader(slsResultCode *res_out, const char *source, GLenum type)
+sls_create_shader(slsResultCode* res_out, const char* source, GLenum type)
 {
   GLchar const* modern_preamble = "#version 330 core\n";
   GLchar const* gles_preamble = "#version 300 es\n";
@@ -144,7 +143,7 @@ _sls_link_program(slsResultCode* result_out,
   GLuint program = glCreateProgram();
   int link_ok;
 
-  if(!glIsShader(vertex)|| !glIsShader(frag)){
+  if (!glIsShader(vertex) || !glIsShader(frag)) {
     sls_set_result(result_out, SLS_ERROR);
     sls_log_err("not a shader object");
     return 0;

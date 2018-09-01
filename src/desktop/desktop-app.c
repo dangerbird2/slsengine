@@ -5,26 +5,25 @@
  * Copyright (c) 8/4/18, Steven
  *
  **/
+#include "slsapp.h"
 #include <slsmath.h>
 #include <slsrenderer.h>
-#include "slsapp.h"
-
 
 void
-sls_app_run(slsApp *self)
+sls_app_run(slsApp* self)
 {
   self->should_close = false;
   self->is_showing_gui = false;
-  self->renderer->clear_color = (slsVec4) {0.1, 0.5, 0.9, 1.0};
+  self->renderer->clear_color = (slsVec4){ 0.1, 0.5, 0.9, 1.0 };
   self->last_time = sls_get_time();
 
   while (!self->should_close) {
     sls_app_iter(self);
   }
-
 }
 
-void sls_app_gui(slsApp *self)
+void
+sls_app_gui(slsApp* self)
 {
 #if 0
   slsVec4 *c = &self->renderer->clear_color;
@@ -52,5 +51,5 @@ void sls_app_gui(slsApp *self)
 
   }
   nk_end(nk);
-  #endif
+#endif
 }

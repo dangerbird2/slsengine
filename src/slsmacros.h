@@ -151,20 +151,17 @@
 #define sls_log_err(fmt, ...)                                                  \
   sls_debug(stderr, SLS_COLOR_RED "ERROR" SLS_COLOR_DEFAULT, fmt, ##__VA_ARGS__)
 
-
 #else
 
-#define sls_log_info(fmt, ...) \
+#define sls_log_info(fmt, ...)                                                 \
   SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, fmt, ##__VA_ARGS__)
 
-
-#define sls_log_warn(fmt, ...) \
+#define sls_log_warn(fmt, ...)                                                 \
   SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, fmt, ##__VA_ARGS__)
 
-#define sls_log_err(fmt, ...) \
+#define sls_log_err(fmt, ...)                                                  \
   SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, fmt, ##__VA_ARGS__)
 #endif
-
 
 #if !defined(__cplusplus) && !defined(thread_local)
 

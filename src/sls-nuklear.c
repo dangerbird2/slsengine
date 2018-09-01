@@ -12,7 +12,6 @@
 #define NK_SDL_GLES2_IMPLEMENTATION
 #endif
 
-
 #define NK_IMPLEMENTATION
 
 #include "sls-nuklear.h"

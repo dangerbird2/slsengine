@@ -1,9 +1,9 @@
 /**
  * @file ${FILE}
- * @brief 
+ * @brief
  * @license ${LICENSE}
  * Copyright (c) 7/30/18, Steven
- * 
+ *
  **/
 #ifndef SLS_ENGINE_SLS_NUKLEAR_H
 #define SLS_ENGINE_SLS_NUKLEAR_H
@@ -17,7 +17,6 @@
 #else
 #include <nk_private/nuklear_sdl_gles2.h>
 
-
 #endif
 
-#endif //SLS_ENGINE_SLS_NUKLEAR_H
+#endif // SLS_ENGINE_SLS_NUKLEAR_H

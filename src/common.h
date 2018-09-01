@@ -1,21 +1,21 @@
 
 #ifndef SLS_COMMON_H
 #define SLS_COMMON_H
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "results.h"
+#include "slsmacros.h"
+#include <float.h>
+#include <math.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include "slsmacros.h"
-#include "results.h"
-#include <math.h>
-#include <float.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #ifdef __EMSCRIPTEN__
 
-#include <emscripten.h>
 #include <GLES3/gl3.h>
 #include <SDL2/SDL.h>
+#include <emscripten.h>
 
 #define SLS_GLES
 #else

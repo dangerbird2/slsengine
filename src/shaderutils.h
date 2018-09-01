@@ -13,8 +13,8 @@
 #define _SLS_SHADERUTILS_H_
 
 #include "common.h"
-#include "slsmacros.h"
 #include "results.h"
+#include "slsmacros.h"
 
 char*
 sls_file_read(const char* filename);
@@ -40,7 +40,8 @@ _sls_print_log(GLuint object,
   } while (0)
 
 GLuint
-sls_create_shader(slsResultCode *res_out, const char *source, GLenum type) SLS_NONNULL(2);
+sls_create_shader(slsResultCode* res_out, const char* source, GLenum type)
+  SLS_NONNULL(2);
 
 GLuint
 _sls_link_program(slsResultCode* out_result,

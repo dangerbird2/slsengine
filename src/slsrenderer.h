@@ -4,9 +4,9 @@
 #include "common.h"
 #include "results.h"
 
-#include "slsmath.h"
-#include "slsapp.h"
 #include "sls-geometry.h"
+#include "slsapp.h"
+#include "slsmath.h"
 
 SLS_BEGIN_CDECLS
 typedef struct slsCamera {
@@ -14,14 +14,14 @@ typedef struct slsCamera {
   slsMat4 transform;
 } slsCamera;
 
-typedef struct slsRenderBuffers
-{
+typedef struct slsRenderBuffers {
   GLuint vbo;
   GLuint ibo;
   GLuint vao;
 } slsRenderBuffers;
 
-static inline slsRenderBuffers *sls_create_buffers(slsRenderBuffers *self)
+static inline slsRenderBuffers*
+sls_create_buffers(slsRenderBuffers* self)
 {
   GLuint buffers[2];
   glGenBuffers(2, buffers);
@@ -32,19 +32,17 @@ static inline slsRenderBuffers *sls_create_buffers(slsRenderBuffers *self)
   return self;
 }
 
-static inline slsRenderBuffers *sls_delete_buffers(slsRenderBuffers *self)
+static inline slsRenderBuffers*
+sls_delete_buffers(slsRenderBuffers* self)
 {
-  GLuint buffers[] = {self->vbo, self->ibo};
+  GLuint buffers[] = { self->vbo, self->ibo };
   glDeleteBuffers(2, buffers);
   glDeleteVertexArrays(1, &self->vao);
 
   return self;
 }
 
-
-
 typedef struct slsGrid slsGrid;
-
 
 typedef struct slsRenderer {
   int width, height;
@@ -53,7 +51,7 @@ typedef struct slsRenderer {
 
   slsVec4 clear_color;
 
-  slsGrid *grid;
+  slsGrid* grid;
 
   GLuint sprite_program;
   slsRenderBuffers sprite_buffers;
@@ -61,20 +59,25 @@ typedef struct slsRenderer {
 
 } slsRenderer;
 
+slsRenderer*
+sls_create_renderer(slsRenderer* self,
+                    SDL_Window* window,
+                    SDL_GLContext ctx,
+                    slsResultCode* result_out);
+slsRenderer*
+sls_delete_renderer(slsRenderer* self);
 
+void
+sls_renderer_clear(slsRenderer* self);
 
+void
+sls_renderer_onresize(slsRenderer* self, int width, int height);
 
+void
+sls_renderer_draw_sprite(slsRenderer* self, float rotation_theta);
 
-slsRenderer *sls_create_renderer(slsRenderer *self, SDL_Window *window, SDL_GLContext ctx, slsResultCode *result_out);
-slsRenderer *sls_delete_renderer(slsRenderer *self);
-
-void sls_renderer_clear(slsRenderer *self);
-
-void sls_renderer_onresize(slsRenderer *self, int width, int height);
-
-void sls_renderer_draw_sprite(slsRenderer *self, float rotation_theta);
-
-void sls_render_sprite_system(slsRenderer *self, slsEntityWorld *world);
+void
+sls_render_sprite_system(slsRenderer* self, slsEntityWorld* world);
 
 struct slsGridParams {
   float row_size;
@@ -84,7 +87,6 @@ struct slsGridParams {
 
   size_t n_cols;
   size_t n_rows;
-
 };
 
 /**
@@ -97,10 +99,13 @@ struct slsGrid {
   slsMat4 transform;
 };
 
-slsGrid *sls_create_grid(slsGrid *self, slsResultCode *result_out,
-                         struct slsGridParams const *params);
+slsGrid*
+sls_create_grid(slsGrid* self,
+                slsResultCode* result_out,
+                struct slsGridParams const* params);
 
-slsGrid *sls_delete_grid(slsGrid *self);
+slsGrid*
+sls_delete_grid(slsGrid* self);
 
 SLS_END_CDECLS
 #endif // !SLS_RENDERER_H

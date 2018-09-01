@@ -17,18 +17,20 @@ typedef struct slsVertex {
 } slsVertex;
 
 typedef struct slsMesh {
-  slsVertex *verts;
+  slsVertex* verts;
   size_t n_verts;
-  uint32_t *indices;
+  uint32_t* indices;
   size_t n_indices;
 } slsMesh;
 
-slsMesh *sls_create_sprite_geometry(slsMesh *self);
+slsMesh*
+sls_create_sprite_geometry(slsMesh* self);
 
-slsMesh *sls_create_mesh_grid(slsMesh *self);
+slsMesh*
+sls_create_mesh_grid(slsMesh* self);
 
-slsMesh *sls_delete_gpumesh(slsMesh *self);
-
+slsMesh*
+sls_delete_gpumesh(slsMesh* self);
 
 SLS_END_CDECLS
 #endif // !SLS_GEOMETRY_H

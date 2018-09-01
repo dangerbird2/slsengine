@@ -1,12 +1,11 @@
 #ifndef SLS_APP_H
 #define SLS_APP_H
 
-#include <ecs/slsworld.h>
 #include "common.h"
 #include "slsmacros.h"
+#include <ecs/slsworld.h>
 
 SLS_BEGIN_CDECLS
-
 
 typedef struct slsRenderer slsRenderer;
 
@@ -16,12 +15,12 @@ struct nk_context {
 
 typedef struct slsApp slsApp;
 struct slsApp {
-  SDL_Window *window;
+  SDL_Window* window;
   SDL_GLContext ctx;
 
-  struct nk_context *nuklear;
+  struct nk_context* nuklear;
 
-  slsRenderer *renderer;
+  slsRenderer* renderer;
   bool should_close;
   bool is_showing_gui;
 
@@ -33,22 +32,26 @@ struct slsApp {
   float object_rotation_radians;
 };
 
-slsApp *
-sls_create_app(slsApp *app);
+slsApp*
+sls_create_app(slsApp* app);
 
-slsApp *
-sls_delete_app(slsApp *app);
+slsApp*
+sls_delete_app(slsApp* app);
 
 void
-sls_app_run(slsApp *app);
+sls_app_run(slsApp* app);
 
-void sls_app_iter(slsApp *self);
+void
+sls_app_iter(slsApp* self);
 
-void sls_app_gui(slsApp *self);
+void
+sls_app_gui(slsApp* self);
 
-void sls_app_update(slsApp *self, double dt);
+void
+sls_app_update(slsApp* self, double dt);
 
-static inline double sls_get_time()
+static inline double
+sls_get_time()
 {
   uint32_t ticks = SDL_GetTicks();
   return ticks / 1000.0;
