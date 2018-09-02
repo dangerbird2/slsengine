@@ -185,10 +185,26 @@ _sls_link_program(slsResultCode* result_out,
 char*
 sls_file_dumps(char const* rootdir, char const* path)
 {
+  char *full_path = NULL;
+  bool full_path_alloced = false;
+  if (rootdir) {
+    full_path_alloced = true;
+    size_t full_path_len = strlen(rootdir) + strlen(path);
+    full_path = calloc(full_path_len + 1, sizeof(char));
+    char const *path_start = path;
+    if (path_start[0] == '.' && path_start[1] == '/') {
+      path_start += 2;
+    }
+    size_t offset = SDL_strlcpy(full_path, rootdir, full_path_len);
+    strncat(full_path + offset - 2, path_start, full_path_len - offset);
+  } else {
+    full_path = (char*) path;
+  }
+
   char* buffer = NULL;
   FILE* file = NULL;
   file = fopen(path, "rb");
-  sls_check(file, "file not found");
+  sls_check(file, "file not found: \"%s\"", path);
   long start = ftell(file);
   sls_check(0 == fseek(file, 0, SEEK_END), "could not seek end of file");
   long end = ftell(file);
@@ -198,11 +214,16 @@ sls_file_dumps(char const* rootdir, char const* path)
   rewind(file);
   fread(buffer, sizeof(char), alloc_size - 1, file);
   buffer[alloc_size - 1] = '\0';
-
+  if (full_path_alloced) {
+    free(full_path);
+  }
   fclose(file);
 
   return buffer;
 error:
+  if (full_path_alloced) {
+    free(full_path);
+  }
   if (file) {
     fclose(file);
   }
@@ -212,19 +233,26 @@ error:
   return NULL;
 }
 
+#include <Windows.h>
 GLuint
 sls_shader_from_source(slsResultCode* res_out,
                        char const* path,
                        GLenum shader_type)
 {
+  slsResultCode tmp = SLS_OK;
+  if (!res_out) {
+    res_out = &tmp;
+  }
   GLuint shader = 0;
   sls_set_result(res_out, SLS_ERROR);
-
+  char buffer[255];
+  GetCurrentDirectoryA(255, buffer);
+  sls_log_info("pwd: %s", buffer);
   char* source = NULL;
-  source = sls_file_dumps(NULL, path);
+  source = sls_file_dumps(buffer, path);
   sls_check(source, "could not read file %s", path);
   shader = sls_create_shader(res_out, source, shader_type);
-  sls_check(!res_out || *res_out != SLS_OK, "could not compile shader");
+  sls_check( *res_out == SLS_OK, "could not compile shader");
 
   free(source);
   sls_set_result(res_out, SLS_OK);
