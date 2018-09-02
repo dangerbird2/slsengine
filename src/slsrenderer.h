@@ -36,8 +36,12 @@ static inline slsRenderBuffers*
 sls_delete_buffers(slsRenderBuffers* self)
 {
   GLuint buffers[] = { self->vbo, self->ibo };
-  glDeleteBuffers(2, buffers);
-  glDeleteVertexArrays(1, &self->vao);
+  if (glIsBuffer(self->vao) && glIsBuffer(self->ibo)) {
+    glDeleteBuffers(2, buffers);
+  }
+  if (glIsVertexArray(self->vao)) {
+    glDeleteVertexArrays(1, &self->vao);
+  }
 
   return self;
 }

@@ -196,7 +196,7 @@ sls_app_update(slsApp* self, double dt)
     if ((mask & (SLS_COMPONENT_MOVEMENT | SLS_COMPONENT_TRANSFORM)) != 0) {
       slsVec2 move;
       vec2_scale(move.array, world->motions[i].velocity.array, (float)dt);
-      slsMat4 tmp, res = {};
+      slsMat4 tmp, res = {0};
       mat4x4_translate(tmp.m, move.x, move.y, 0.f);
       mat4x4_mul(res.m, world->transforms[i].m, tmp.m);
       world->transforms[i] = res;

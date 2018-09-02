@@ -205,7 +205,9 @@ sls_render_grid(slsRenderer* self)
   glUniformMatrix4fv(modelview_id, 1, GL_FALSE, modelview.m[0]);
   glUniformMatrix4fv(projection_id, 1, GL_FALSE, camera->projection.m[0]);
   glBindVertexArray(grid->buffers.vao);
-  glDrawElements(GL_LINES, grid->n_elements, GL_UNSIGNED_INT, NULL);
+
+  
+  glDrawElements(GL_POINTS, 2, GL_UNSIGNED_INT, NULL);
 }
 
 void
@@ -301,6 +303,7 @@ sls_create_grid(slsGrid* self,
     result_out, "./assets/grid.frag.glsl", GL_FRAGMENT_SHADER);
   sls_check(*result_out == SLS_OK, "frag shadercompilation failed");
 
+
   GLuint program = sls_link_program(result_out, vs, fs);
   glDeleteShader(vs);
   glDeleteShader(fs);
@@ -320,6 +323,7 @@ sls_create_grid(slsGrid* self,
   create_grid_geom(params, indices, verts);
 
   glBindVertexArray(self->buffers.vao);
+  setup_buffers_layout(&self->buffers);
   glBufferData(
     GL_ARRAY_BUFFER, sizeof(slsVertex) * n_vertices, verts, GL_STATIC_DRAW);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER,
