@@ -85,11 +85,11 @@ sls_create_renderer(slsRenderer* self,
 
   // setup buffer data
   slsResultCode grid_res;
-  struct slsGridParams grid_params = {.n_cols = 10,
-                                      .n_rows = 10,
-                                      .col_size = 1.0,
-                                      .row_size = 1.0,
-                                      .origin = { 0.f, 0.f } };
+  struct slsGridParams grid_params = {.n_cols = 50,
+                                      .n_rows = 50,
+                                      .col_size = 5.0,
+                                      .row_size = 5.0,
+                                      .origin = { 0.f, 0.f , 0.f} };
   self->grid =
     sls_create_grid(malloc(sizeof(slsGrid)), &grid_res, &grid_params);
   if (grid_res != SLS_OK) {
@@ -207,7 +207,7 @@ sls_render_grid(slsRenderer* self)
   glBindVertexArray(grid->buffers.vao);
 
   
-  glDrawElements(GL_POINTS, 2, GL_UNSIGNED_INT, NULL);
+  glDrawElements(GL_LINES, grid->n_elements , GL_UNSIGNED_INT, NULL);
 }
 
 void
@@ -355,7 +355,7 @@ create_grid_geom(struct slsGridParams const* params,
   for (int i = 0; i < params->n_cols; ++i) {
     float x = (params->col_size * i) - col_size_half;
     indices[index] = (uint32_t)index;
-    verts[index] = (slsVertex){.position = { x, row_size_half, 0.f },
+    verts[index] = (slsVertex){.position = { x, -row_size_half - params->row_size, 0.f },
                                .color = { 0.4, 0.4, 0.4 } };
 
     index++;
@@ -368,7 +368,7 @@ create_grid_geom(struct slsGridParams const* params,
   for (int j = 0; j < params->n_rows; ++j) {
     float y = (params->row_size * j) - row_size_half;
     indices[index] = (uint32_t)index;
-    verts[index] = (slsVertex){.position = { -col_size_half, y, 0.f },
+    verts[index] = (slsVertex){.position = { -col_size_half-params->col_size, y, 0.f },
                                .color = { 0.2, 0.2, 0.2 } };
 
     index++;
