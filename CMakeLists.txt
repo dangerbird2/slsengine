@@ -18,17 +18,16 @@ set(SLS_DOWNLOAD_DEPENDENCIES False CACHE bool "")
 
 
 set(SRC src/main.c
-    src/slsapp.c src/slsapp.h
-    src/slsrenderer.c src/slsrenderer.h
-    src/shaderutils.c src/shaderutils.h
-    src/slsmacros.h
     src/common.h
-    src/results.h
-    src/slsmath.c src/slsmath.h
-    src/sls-geometry.c src/sls-geometry.h
-
-    src/ecs/slsworld.c src/ecs/slsworld.h
     src/ecs/components.h
+    src/ecs/slsworld.c src/ecs/slsworld.h
+    src/results.h
+    src/shaderutils.c src/shaderutils.h
+    src/sls-geometry.c src/sls-geometry.h
+    src/slsapp.c src/slsapp.h
+    src/slsmacros.h
+    src/slsmath.c src/slsmath.h
+    src/slsrenderer.c src/slsrenderer.h
 
 
     ${GLAD}/src/glad.c

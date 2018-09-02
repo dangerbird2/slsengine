@@ -73,4 +73,18 @@ sls_link_program(slsResultCode* out_result, GLuint vertex, GLuint frag)
   return _sls_link_program(out_result, vertex, frag, 0, false, 0, 0, 0);
 }
 
+/**
+ * @brief Reads file from @param path to
+ * string.
+ * @param rootdir_opt relative root directory.
+ * @param path relative path to file
+ **/
+char*
+sls_file_dumps(char const* rootdir_opt, char const* path);
+
+GLuint
+sls_shader_from_source(slsResultCode* res_out,
+                       char const* path,
+                       GLenum shader_type);
+
 #endif

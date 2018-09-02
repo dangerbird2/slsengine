@@ -101,6 +101,7 @@ sls_app_iter(slsApp* self)
 
   sls_renderer_clear(self->renderer);
 
+  sls_render_grid(self->renderer);
   sls_render_sprite_system(self->renderer, &self->world);
 
   SDL_GL_SwapWindow(self->window);

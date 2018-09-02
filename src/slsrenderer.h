@@ -77,6 +77,9 @@ void
 sls_renderer_draw_sprite(slsRenderer* self, float rotation_theta);
 
 void
+sls_render_grid(slsRenderer* self);
+
+void
 sls_render_sprite_system(slsRenderer* self, slsEntityWorld* world);
 
 struct slsGridParams {
@@ -95,6 +98,7 @@ struct slsGridParams {
 struct slsGrid {
   struct slsGridParams params;
   slsRenderBuffers buffers;
+  size_t n_elements;
   GLuint shader_program;
   slsMat4 transform;
 };

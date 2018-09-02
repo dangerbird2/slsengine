@@ -1,8 +1,9 @@
 
 #ifndef SLS_COMMON_H
 #define SLS_COMMON_H
-#include "results.h"
 #include "slsmacros.h"
+#include "results.h"
+
 #include <float.h>
 #include <math.h>
 #include <stdbool.h>

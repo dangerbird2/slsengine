@@ -106,6 +106,8 @@ sls_create_shader(slsResultCode* res_out, const char* source, GLenum type)
   preamble = gles_preamble;
 #endif
 
+  sls_set_result(res_out, SLS_OK);
+
   GLuint res = glCreateShader(type);
 
   char const* sources[] = { preamble, source };
@@ -125,7 +127,6 @@ sls_create_shader(slsResultCode* res_out, const char* source, GLenum type)
     return 0;
   }
 
-  sls_set_result(res_out, SLS_OK);
 
   return res;
 }
@@ -179,4 +180,58 @@ _sls_link_program(slsResultCode* result_out,
 
   sls_set_result(result_out, SLS_OK);
   return program;
+}
+
+char*
+sls_file_dumps(char const* rootdir, char const* path)
+{
+  char* buffer = NULL;
+  FILE* file = NULL;
+  file = fopen(path, "rb");
+  sls_check(file, "file not found");
+  long start = ftell(file);
+  sls_check(0 == fseek(file, 0, SEEK_END), "could not seek end of file");
+  long end = ftell(file);
+  size_t alloc_size = (size_t)end - start;
+  buffer = malloc(alloc_size);
+  buffer[alloc_size - 1] = '\0';
+  rewind(file);
+  fread(buffer, sizeof(char), alloc_size - 1, file);
+  buffer[alloc_size - 1] = '\0';
+
+  fclose(file);
+
+  return buffer;
+error:
+  if (file) {
+    fclose(file);
+  }
+  if (buffer) {
+    free(buffer);
+  }
+  return NULL;
+}
+
+GLuint
+sls_shader_from_source(slsResultCode* res_out,
+                       char const* path,
+                       GLenum shader_type)
+{
+  GLuint shader = 0;
+  sls_set_result(res_out, SLS_ERROR);
+
+  char* source = NULL;
+  source = sls_file_dumps(NULL, path);
+  sls_check(source, "could not read file %s", path);
+  shader = sls_create_shader(res_out, source, shader_type);
+  sls_check(!res_out || *res_out != SLS_OK, "could not compile shader");
+
+  free(source);
+  sls_set_result(res_out, SLS_OK);
+  return shader;
+error:
+  if (source) {
+    free(source);
+  }
+  return 0;
 }

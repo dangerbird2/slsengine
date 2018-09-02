@@ -190,6 +190,25 @@ sls_renderer_draw_sprite(slsRenderer* self, float rotation_theta)
 }
 
 void
+sls_render_grid(slsRenderer* self)
+{
+  slsGrid* grid = self->grid;
+  slsCamera* camera = &self->main_camera;
+  GLuint modelview_id = glGetUniformLocation(grid->shader_program, "modelview")
+  ;
+  GLuint projection_id = glGetUniformLocation(grid->shader_program, "projection");
+
+  slsMat4 modelview;
+
+  mat4x4_mul(modelview.m, camera->transform.m, grid->transform.m);
+  glUseProgram(grid->shader_program);
+  glUniformMatrix4fv(modelview_id, 1, GL_FALSE, modelview.m[0]);
+  glUniformMatrix4fv(projection_id, 1, GL_FALSE, camera->projection.m[0]);
+  glBindVertexArray(grid->buffers.vao);
+  glDrawElements(GL_LINES, grid->n_elements, GL_UNSIGNED_INT, NULL);
+}
+
+void
 sls_render_sprite_system(slsRenderer* self, slsEntityWorld* world)
 {
 
@@ -254,36 +273,6 @@ setup_buffers_layout(slsRenderBuffers* self)
   glEnableVertexAttribArray(3);
 }
 
-static char const grid_vs_source[] =
-#ifdef SLS_GLES
-  "precision mediump float;\n"
-#endif
-  "uniform mat4 modelview;\n"
-  "uniform mat4 projection;\n"
-  "layout (location=0) in vec3 vert_pos;\n"
-  "layout (location=1) in vec4 vert_color;\n"
-  "layout (location=4) in vec2 vert_uv;\n"
-  "out vec2 frag_uv;\n"
-  "out vec4 frag_color;\n"
-  "void main()\n"
-  "{\n"
-  "   frag_uv = vert_uv;\n"
-  "   frag_color = vert_color;\n"
-  "   gl_Position = projection * modelview * vec4(vert_pos.xyz, 1.0);\n"
-  "}";
-
-static char const grid_fs_source[] =
-#ifdef SLS_GLES
-  "precision mediump float;\n"
-#endif
-  "in vec2 frag_uv;\n"
-  "in vec4 frag_color;\n"
-  "out vec4 out_color;\n"
-  "void main()\n"
-  "{\n"
-  "     out_color = frag_color;\n"
-  "}";
-
 static const struct slsGridParams default_params = {.origin = { 0.f, 0.f, 0.f },
                                                     .row_size = 1.f,
                                                     .col_size = 1.f,
@@ -303,12 +292,18 @@ sls_create_grid(slsGrid* self,
   if (!result_out) {
     result_out = &tmp;
   }
-  GLuint vs = sls_create_shader(result_out, grid_vs_source, GL_VERTEX_SHADER);
-  sls_check(*result_out == SLS_OK, "compilation failed");
-  GLuint fs = sls_create_shader(result_out, grid_fs_source, GL_FRAGMENT_SHADER);
-  sls_check(*result_out == SLS_OK, "compilation failed");
+
+  GLuint vs = sls_shader_from_source(
+    result_out, "./assets/grid.vert.glsl", GL_VERTEX_SHADER);
+  sls_check(*result_out == SLS_OK, "vert shader compilation failed");
+
+  GLuint fs = sls_shader_from_source(
+    result_out, "./assets/grid.frag.glsl", GL_FRAGMENT_SHADER);
+  sls_check(*result_out == SLS_OK, "frag shadercompilation failed");
 
   GLuint program = sls_link_program(result_out, vs, fs);
+  glDeleteShader(vs);
+  glDeleteShader(fs);
   sls_check(*result_out == SLS_OK, "program linking failed");
 
   *self = (slsGrid){.params = *params, .shader_program = program };
@@ -319,6 +314,8 @@ sls_create_grid(slsGrid* self,
   size_t n_vertices = n_indices;
   uint32_t* indices = calloc(n_indices, sizeof(*indices));
   slsVertex* verts = calloc(n_vertices, sizeof(*verts));
+
+  self->n_elements = n_indices;
 
   create_grid_geom(params, indices, verts);
 
@@ -331,6 +328,8 @@ sls_create_grid(slsGrid* self,
                GL_STATIC_DRAW);
   glBindVertexArray(0);
 
+  mat4x4_identity(self->transform.m);
+  mat4x4_translate(self->transform.m, params->origin.x, params->origin.y, params->origin.z);
   free(indices);
   free(verts);
   sls_set_result(result_out, SLS_OK);

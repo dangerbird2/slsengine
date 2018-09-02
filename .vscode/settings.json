@@ -15,6 +15,11 @@
         "stddef.h": "c",
         "float.h": "c",
         "sls-nuklear.h": "c",
-        "slsapp.h": "c"
+        "slsapp.h": "c",
+        "slsmacros.h": "c",
+        "results.h": "c",
+        "glad.h": "c",
+        "__locale": "c",
+        "random": "c"
     }
 }
